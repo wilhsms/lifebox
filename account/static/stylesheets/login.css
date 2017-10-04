@@ -355,3 +355,17 @@ a:hover {
         margin-top: 10px;
     }
 }
+
+i.logo {
+    -webkit-transition: color 0.5s;
+    -webkit-animation: colorchange 1s infinite;
+}
+@keyframes colorchange{
+  0%   {color: grey;}
+  100% {color: #ff5050;}
+}
+
+@-webkit-keyframes colorchange{
+    0%   {color: grey;}
+    100% {color: #ff5050;}
+}
