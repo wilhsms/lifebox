@@ -101,5 +101,5 @@ ENV/
 .mypy_cache/
 
 
-# SqLite DataBase
+# SqLite DataBase#
 db.sqlite3

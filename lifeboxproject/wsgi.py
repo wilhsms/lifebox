@@ -1,5 +1,5 @@
 """
-WSGI config for django_social_login_tutorial project.
+WSGI config for lifeboxproject project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -12,7 +12,7 @@ import os
 from django.core.wsgi import get_wsgi_application
 # from whitenoise.django import DjangoWhiteNoise
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_social_login_tutorial.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lifeboxproject.settings")
 # Heroku
 application = get_wsgi_application()
 # application = DjangoWhiteNoise(application)

@@ -1,1 +1,1 @@
-web gunicorn django_social_login_tutorial.wsgi
+web gunicorn lifeboxproject.wsgi

@@ -1,4 +1,4 @@
-"""django_social_login_tutorial URL Configuration
+"""lifeboxproject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -18,6 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'', include('account.urls')),
     url(r'^account/', include('account.urls')),
     url(r'social-auth/', include('social_django.urls', namespace='social'))
 ]
