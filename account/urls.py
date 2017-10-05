@@ -15,6 +15,9 @@ urlpatterns = [
     url(r'^$', views.dashboard, name='dashboard'),
     url(r'^register/$', views.register, name='register'),
 
+    # Esta linha foi adicionada por Marcio Ribeiro, para chamar pag. de monitoramento em 05-out
+    url(r'^monitor/$', views.monitor, name='monitor'),
+
     # login logout
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),

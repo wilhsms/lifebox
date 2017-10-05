@@ -30,3 +30,9 @@ def register(request):
     return render(request,
                   'account/register.html',
                   {'user_form': user_form})
+
+#Funcao adicionada por Marcio Ribeiro em 05-out para chamar pagina de monitoramento
+def monitor(request):
+    return render(request,
+                  'account/monitor.html',
+                  {'section': 'dashboard'})

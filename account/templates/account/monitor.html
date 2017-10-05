@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load account_tags %}
+{% block title %}LifeBox{% endblock %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>Tela de monitoramento...</h1>
+
+        <p>Olá...</p>
+        <em>Nesta página haverá um mapa que possibilitará a visualização de todos os orgão em transporte no país.
+        O monitoramento será em tempo real, podendo visualizar velocidade, temperatura e possíveis incidentes no trajeto.</em>
+        <br>
+
+        <!--<em>Neste Sprint, entregaremos o sistema de cadastro de usuários e ambinete de login.</em>
+        <p>Ainda estamos implantando este sistema.<br>
+        <b>Pedimos desculpas pelo transtorno</b></p>-->
+
+        <br/><br/><br/>
+
+        Até o momento <b> {% total_people%} </b> pessoas tentaram acessar este painel de controle.
+    </div>
+
+
+    <!-- {% social_people %} -->
+
+
+
+{% endblock %}

@@ -81,13 +81,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'pythonanwhere': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lifebox$default',
-        'USER': 'lifebox',
-        'PASSWORD': 'vermelho@123',
-        'HOST': 'lifebox.mysql.pythonanywhere-services.com',
     }
 }
 
@@ -189,4 +182,3 @@ SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
 
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
