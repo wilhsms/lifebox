@@ -17,6 +17,9 @@ urlpatterns = [
 
     # Esta linha foi adicionada por Marcio Ribeiro, para chamar pag. de monitoramento em 05-out
     url(r'^monitor/$', views.monitor, name='monitor'),
+    url(r'^report/$', views.report, name='report'),
+    url(r'^management/$', views.management, name='management'),
+    url(r'^lifebox/$', views.lifebox, name='lifebox'),
 
     # login logout
     url(r'^login/$', login, name='login'),
