@@ -357,8 +357,8 @@ a:hover {
 }
 
 i.logo {
-    -webkit-transition: color 0.5s;
-    -webkit-animation: colorchange 1s infinite;
+    -webkit-transition: color 2s;
+    -webkit-animation: colorchange 4s infinite;
 }
 @keyframes colorchange{
   0%   {color: grey;}
