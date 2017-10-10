@@ -1,27 +1,48 @@
 {% extends "base.html" %}
 {% load account_tags %}
-{% block title %}LifeBox{% endblock %}
+{% block title %}LifeBox - Pesquisa Equipamento{% endblock %}
 
 {% block content %}
   <div class="jumbotron">
-    <input type="text" name="txtBusca" placeholder="digite o valor desejado">
+      <h2><i class="glyphicon glyphicon-th-list"></i> Equipamentos</h2><br>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="btn-group">
+                <a href="{% url 'cadequipamento' %}" class="btn btn-default my-2 my-sm-0">Novo</a>
+                <!--
+                <input type="button" class="btn btn-default my-2 my-sm-0" value="Alterar">
+                <input type="button" class="btn btn-default my-2 my-sm-0" value="Alterar">
+                -->
+            </div>
+        </div>
+    </div>
 
-    <input type="search" class="btn btn-outline-success my-2 my-sm-0" value="procurar">
+    <hr>
 
-    <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Novo">
-    <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Alterar">
-    <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Alterar">
+    <div class="row">
+        <div class="col-md-3 offset-md-9">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Digite o valor desejado"/>
+                <span class="input-group-addon">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <br>
 
     <table class="table table-striped">
       <thead>
         <tr>
-
-          <th>#</th>
+          <th>Id</th>
           <th>Equipamento</th>
-          <th>Imei do Equipamento</th>
+          <th>IMEI do Equipamento</th>
           <th>Telefone</th>
           <th>Operadora</th>
-          <th>Imei do SIM Card</th>
+          <th>IMEI do SIM Card</th>
         </tr>
       </thead>
 
@@ -31,7 +52,8 @@
           {% for equipamento in equipamentos %}
 
           <td>{{equipamento.id}}</td>
-          <td><a href="{{equipamento.nome}}.html">{{equipamento.nome}}</a></td>
+          <!--<td><a href="{{equipamento.nome}}.html">{{equipamento.nome}}</a></td>-->
+          <td><a href="{% url 'equipamento' %}{{equipamento.id}}">{{equipamento.nome}}</a></td>
           <td>{{equipamento.imeiEquipamento}}</td>
           <td>{{equipamento.telefone}}</td>
           <td>{{equipamento.operadora}}</td>

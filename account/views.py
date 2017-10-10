@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import UserRegistrationForm
 from cadastro.models import Equipamento
+from cadastro.forms import EquipamentoForm
 
 
 @login_required
@@ -40,6 +41,18 @@ def equipamento(request):
     return render(request,
                   'account/equipamento.html',
                   {'equipamentos': equipamentos})
+
+@login_required
+def equipamento_criar(request):
+    if request.method == 'POST':
+        form = EquipamentoForm(request.POST)
+        if form.is_valid():
+            equipamento = form.save()
+            return redirect('equipamento')
+    else:
+        form = EquipamentoForm()
+    return render(request, 'account/cadequipamento.html')
+
 
 
 def register(request):

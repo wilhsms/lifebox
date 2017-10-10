@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 class Equipamento(models.Model):
-    nome = models.CharField(max_length=04)
+    nome = models.CharField(max_length=4)
     imeiEquipamento = models.CharField(max_length=15)
     telefone = models.CharField(max_length=15)
     operadora = models.CharField(max_length=16)

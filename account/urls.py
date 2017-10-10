@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^report/$', views.report, name='report'),
     url(r'^management/$', views.management, name='management'),
     url(r'^equipamento/$', views.equipamento, name='equipamento'),
+    url(r'^equipamento/novo$', views.equipamento_criar, name='cadequipamento'),
 
     # login logout
     url(r'^login/$', login, name='login'),
