@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from .forms import UserRegistrationForm
+from cadastro.models import Equipamento
 
 
 @login_required
@@ -34,10 +35,11 @@ def management(request):
 
 #Gerenciar Cadastros
 @login_required
-def lifebox(request):
+def equipamento(request):
+    equipamentos = Equipamento.objects.all()
     return render(request,
-                  'account/lifebox.html',
-                  {'section': 'dashboard'})
+                  'account/equipamento.html',
+                  {'equipamentos': equipamentos})
 
 
 def register(request):

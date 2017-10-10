@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^monitor/$', views.monitor, name='monitor'),
     url(r'^report/$', views.report, name='report'),
     url(r'^management/$', views.management, name='management'),
-    url(r'^lifebox/$', views.lifebox, name='lifebox'),
+    url(r'^equipamento/$', views.equipamento, name='equipamento'),
 
     # login logout
     url(r'^login/$', login, name='login'),

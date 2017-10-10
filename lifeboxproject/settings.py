@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'account',
     'bootstrap3',
     'django.contrib.admin',
+    'cadastro'
 ]
 
 MIDDLEWARE = [

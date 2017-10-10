@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load account_tags %}
+{% block title %}LifeBox{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <input type="text" name="txtBusca" placeholder="digite o valor desejado">
+
+    <input type="search" class="btn btn-outline-success my-2 my-sm-0" value="procurar">
+
+    <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Novo">
+    <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Alterar">
+    <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Alterar">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+
+          <th>#</th>
+          <th>Equipamento</th>
+          <th>Imei do Equipamento</th>
+          <th>Telefone</th>
+          <th>Operadora</th>
+          <th>Imei do SIM Card</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          {% for equipamento in equipamentos %}
+
+          <td>{{equipamento.id}}</td>
+          <td><a href="{{equipamento.nome}}.html">{{equipamento.nome}}</a></td>
+          <td>{{equipamento.imeiEquipamento}}</td>
+          <td>{{equipamento.telefone}}</td>
+          <td>{{equipamento.operadora}}</td>
+          <td>{{equipamento.imeiSimCard}}</td>
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
