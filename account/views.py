@@ -39,14 +39,13 @@ def management(request):
 def listar_equipamentos(request):
     equipamentos = Equipamento.objects.all()
     return render(request,
-                  'account/equipamento.html',
+                  'account/listar_equipamento.html',
                   {'equipamentos': equipamentos})
 
 @login_required
 def novo_equipamento(request):
-
     return render(request,
-                    'account/cadequipamento.html',
+                    'account/novo_equipamento.html',
                     {'form': form})
 
 @login_required
