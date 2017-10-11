@@ -19,8 +19,11 @@ urlpatterns = [
     url(r'^monitor/$', views.monitor, name='monitor'),
     url(r'^report/$', views.report, name='report'),
     url(r'^management/$', views.management, name='management'),
-    url(r'^equipamento/$', views.equipamento, name='equipamento'),
-    url(r'^equipamento/novo$', views.equipamento_criar, name='cadequipamento'),
+
+    # Modolo de equipamentos e cadastros de equipamentos - Marcio Ribeiro
+    url(r'^equipamento/$', views.listar_equipamentos, name='equipamento'),
+    url(r'^equipamento/novo/$', views.novo_equipamento, name='novo_lb'),
+    url(r'^equipamento/(?P<equipamento_id>[0-9]+)/$', views.editar_equipamento, name='editar_equipamento'),
 
     # login logout
     url(r'^login/$', login, name='login'),

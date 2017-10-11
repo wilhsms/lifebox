@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 
 from .forms import UserRegistrationForm
 from cadastro.models import Equipamento
@@ -36,23 +36,27 @@ def management(request):
 
 #Gerenciar Cadastros
 @login_required
-def equipamento(request):
+def listar_equipamentos(request):
     equipamentos = Equipamento.objects.all()
     return render(request,
                   'account/equipamento.html',
                   {'equipamentos': equipamentos})
 
 @login_required
-def equipamento_criar(request):
-    if request.method == 'POST':
-        form = EquipamentoForm(request.POST)
-        if form.is_valid():
-            equipamento = form.save()
-            return redirect('equipamento')
-    else:
-        form = EquipamentoForm()
-    return render(request, 'account/cadequipamento.html')
+def novo_equipamento(request):
 
+    return render(request,
+                    'account/cadequipamento.html',
+                    {'form': form})
+
+@login_required
+def editar_equipamento(request,equipamento_id):
+
+    equipamento = get_object_or_404(Equipamento, pk=equipamento_id)
+    form = EquipamentoForm(request.POST or None, instance=equipamento)
+    return render(request,
+                    'account/editar_equipamento.html',
+                    {'form': form})
 
 
 def register(request):
