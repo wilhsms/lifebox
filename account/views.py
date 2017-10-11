@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 
 from .forms import UserRegistrationForm
 from cadastro.models import Equipamento
