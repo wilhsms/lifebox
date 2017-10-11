@@ -1,6 +1,6 @@
-{% extends "base.html" %} 
-{% load account_tags %} 
-{% block title %}LifeBox - Pesquisa Equipamento {% endblock %} 
+{% extends "base.html" %}
+{% load account_tags %}
+{% block title %}LifeBox - Pesquisa Equipamento {% endblock %}
 {% block content %}
 
 <div class="jumbotron">
@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <hr>
+
     <div class="row">
         <div class="col-md-3 offset-md-9">
             <div class="input-group">
@@ -28,6 +28,7 @@
         </div>
     </div>
     <br>
+  <hr>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -37,6 +38,8 @@
                 <th>Telefone</th>
                 <th>Operadora</th>
                 <th>IMEI do SIM Card</th>
+                <th>Caixa</th>
+                <th>Cor</th>
             </tr>
         </thead>
 
@@ -53,6 +56,8 @@
                 <td>{{equipamento.telefone}}</td>
                 <td>{{equipamento.operadora}}</td>
                 <td>{{equipamento.imeiSimCard}}</td>
+                <td>{{equipamento.caixa}}</td>
+                <td>{{equipamento.cor}}</td>
             </tr>
 
             {% endfor %}
