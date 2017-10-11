@@ -12,49 +12,6 @@ def dashboard(request):
                   'account/dashboard.html',
                   {'section': 'dashboard'})
 
-#Funcoes adicionadas por Marcio Ribeiro em 05-out para chamar as paginas de:
-#Monitorar Orgao
-@login_required
-def monitor(request):
-    return render(request,
-                  'account/monitor.html',
-                  {'section': 'dashboard'})
-
-#Emitir Relatorios
-@login_required
-def report(request):
-    return render(request,
-                  'account/report.html',
-                  {'section': 'dashboard'})
-
-#Gerenciar Cadastros
-@login_required
-def management(request):
-    return render(request,
-                  'account/management.html',
-                  {'section': 'dashboard'})
-
-#Gerenciar Cadastros
-@login_required
-def equipamento(request):
-    equipamentos = Equipamento.objects.all()
-    return render(request,
-                  'account/equipamento.html',
-                  {'equipamentos': equipamentos})
-
-@login_required
-def equipamento_criar(request):
-    if request.method == 'POST':
-        form = EquipamentoForm(request.POST)
-        if form.is_valid():
-            equipamento = form.save()
-            return redirect('equipamento')
-    else:
-        form = EquipamentoForm()
-    return render(request, 'account/cadequipamento.html')
-
-
-
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)

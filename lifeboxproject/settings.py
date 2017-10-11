@@ -16,6 +16,7 @@ from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MASTER_BASE_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -30,8 +31,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [
-    # 'django.contrib.admin',
+INSTALLED_APPS = [    
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'social_django',
     'social_core',
     'account',
-    'bootstrap3',
     'django.contrib.admin',
-    'cadastro'
+    'bootstrap3',
+    'cadastro',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'lifeboxproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(MASTER_BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
