@@ -30,7 +30,7 @@ class Equipamento(models.Model):
 
 class Caixa(models.Model):
     idCaixa= models.CharField('Identificação da Caixa', max_length=250)
-    corCaixa= models.CharField('Cor da Tarja', max_length=250)
+    corCaixa= models.CharField('Cor da Tarja', max_length=7, null=True)
     informacaoAdicional= models.TextField('Informações Adicionais')
 
     def publish(self):

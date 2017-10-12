@@ -14,3 +14,6 @@ class CaixaForm(forms.ModelForm):
    class Meta:
        model = Caixa
        fields = ('idCaixa', 'corCaixa', 'informacaoAdicional')
+       widgets = {
+                   'corCaixa': TextInput(attrs={'type': 'color'}),
+                   }
