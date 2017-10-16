@@ -52,12 +52,15 @@ class Hospital(models.Model):
 
     def publish(self):
         self.save()
-    
+
     def __str__(self):
         return self.nome
 
     def __unicode__(self):
         return u'{f}'.format(f=self.nome)
+
+    class Meta:
+        verbose_name_plural = 'Hospitais'
 
 class Viagem(models.Model):
     localPartida = models.ForeignKey('Hospital', related_name='local_partida')
@@ -67,6 +70,9 @@ class Viagem(models.Model):
 
     def publish(self):
         self.save()
-    
+
     def __str__(self):
         return str(self.id)
+
+    class Meta:
+        verbose_name_plural = 'Viagens'
