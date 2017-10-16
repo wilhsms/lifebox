@@ -1,11 +1,6 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import Equipamento
-from .models import Caixa
-#from .models import Hospital
-#from .models import Viagem
+from .models import Equipamento, Caixa, Hospital, Viagem
 
-admin.site.register(Equipamento)
-admin.site.register(Caixa)
-#admin.site.register(Hospital)
-#admin.site.register(Viagem)
+admin.site.register({Equipamento, Caixa, Hospital, Viagem})

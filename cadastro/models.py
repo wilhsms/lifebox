@@ -26,7 +26,7 @@ class Equipamento(models.Model):
         self.save()
 
     def __str__(self):
-        return self.imeiSimCard
+        return self.nome
 
 class Caixa(models.Model):
     idCaixa= models.CharField('Identificação da Caixa', max_length=250)
@@ -38,3 +38,35 @@ class Caixa(models.Model):
 
     def __str__(self):
         return self.idCaixa
+
+class Hospital(models.Model):
+    nome = models.CharField(max_length=250)
+    telefone = models.CharField(max_length=16)
+    nomeResponsavel = models.CharField('Responsável', max_length=250)
+    emailResponsavel = models.CharField('E-mail', max_length=250)
+    cep = models.CharField(max_length=9)
+    logradouro = models.CharField(max_length=100)
+    bairro = models.CharField(max_length=100)
+    cidade = models.CharField(max_length=100)
+    uf = models.CharField(max_length=2)
+
+    def publish(self):
+        self.save()
+    
+    def __str__(self):
+        return self.nome
+
+    def __unicode__(self):
+        return u'{f}'.format(f=self.nome)
+
+class Viagem(models.Model):
+    localPartida = models.ForeignKey('Hospital', related_name='local_partida')
+    localChegada = models.ForeignKey('Hospital', related_name='local_chegada')
+    caixa = models.ForeignKey('Caixa')
+    equipamento = models.ForeignKey('Equipamento')
+
+    def publish(self):
+        self.save()
+    
+    def __str__(self):
+        return str(self.id)

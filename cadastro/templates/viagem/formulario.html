@@ -1,15 +1,18 @@
+<!--Extensao-->
 {% extends "base.html" %}
-<!---->
-{% load account_tags %}
-<!---->
-{% load bootstrap3 %}
-<!---->
-{% block title %}LifeBox - Nova Caixa{% endblock%}
-<!---->
+
+<!--Carrega Libs-->
+{% load staticfiles %} {% load account_tags %} {% load bootstrap3 %}
+
+<!--Titulo da Pagina-->
+{% block title %}LifeBox - Nova Viagem{% endblock%}
+
+<!--Conteudo-->
 {% block content %}
+
 <div class="jumbotron">
   <h2>
-    <i class="glyphicon glyphicon-share"></i> Adicionar Nova Caixa
+    <i class="glyphicon glyphicon-share"></i> Adicionar Nova Viagem
   </h2>
   <br>
   <form method="post">
@@ -17,7 +20,7 @@
       <div class="col-sm-12">
         <div class="btn-group">
           <button type="submit" class="btn btn-default my-2 my-sm-0">Salvar</button>
-          <a href="{% url 'caixa_pesquisar' %}" class="btn btn-default my-2 my-sm-0">Voltar</a>
+          <a href="{% url 'hospital_pesquisar' %}" class="btn btn-default my-2 my-sm-0">Voltar</a>
         </div>
       </div>
     </div>

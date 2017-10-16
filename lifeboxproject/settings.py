@@ -181,5 +181,6 @@ SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'
 }
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+CUSTOM_ITENS_POR_PAGINAS_TABELAS = 10
