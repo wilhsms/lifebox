@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+<!---->
+{% load staticfiles %} {% load account_tags %}
+<!---->
+{% block title %}LifeBox - Pesquisa Hospital{% endblock %}
+
+<!--Scripts-->
+{% block custom_js %}
+<script src="{% static 'js/common/common.js' %}"></script> {% endblock%}
+
+<!---->
+{% block content %}
+
+<div class="jumbotron">
+	<h2>
+		<i class="glyphicon glyphicon-th-list"></i> Hospitais</h2>
+	<br>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="btn-group">
+				<a href="{% url 'hospital_criar' %}" class="btn btn-default my-2 my-sm-0">Novo</a>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-3 offset-md-9">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Digite o valor desejado" id="search" onkeypress="getSearch(event)" />
+				<span class="input-group-addon">
+					<a href="#" onclick="getSearch()">
+						<i class="glyphicon glyphicon-search"></i>
+					</a>
+				</span>
+			</div>
+		</div>
+	</div>
+	<br>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Telefone</th>
+				<th>Responsável</th>
+				<th>E-mail</th>
+				<th>CEP</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for hospital in hospitais %}
+			<tr>
+				<td>{{hospital.id}}</td>
+				<td>
+					<a href="{% url 'hospital_pesquisar' %}{{hospital.id}}">{{hospital.nome}}</a>
+				</td>
+				<td>{{hospital.telefone}}</td>
+				<td>{{hospital.nomeResponsavel}}</td>
+				<td>{{hospital.emailResponsavel}}</td>
+				<td>{{hospital.cep}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<nav>
+		<ul class="pagination justify-content-center" style="display: flex !important;">
+			{% if hospitais.has_previous %}
+			<li class="page-item">
+				<a href="?page={{ hospitais.previous_page_number }}">Anterior</a>
+			</li>
+			{% endif %}
+			<li class="page-item disabled">
+				<span>Página {{ hospitais.number }} of {{ hospitais.paginator.num_pages }}</span>
+			</li>
+			{% if hospitais.has_next %}
+			<li class="page-item">
+				<a href="?page={{ hospitais.next_page_number }}">Próxima</a>
+			</li>
+			{% endif %}
+		</ul>
+	</nav>
+</div>
+
+{% endblock %}

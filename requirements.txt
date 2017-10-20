@@ -1,5 +1,5 @@
 Django
-social-auth-app-django
+# social-auth-app-django
 django-bootstrap3
 gunicorn
 psycopg2

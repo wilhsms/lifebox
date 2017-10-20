@@ -5,7 +5,6 @@ from .forms import UserRegistrationForm
 from cadastro.models import Equipamento
 from cadastro.forms import EquipamentoForm
 
-
 @login_required
 def dashboard(request):
     return render(request,

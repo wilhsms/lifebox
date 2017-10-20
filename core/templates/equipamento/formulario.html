@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+<!---->
+{% load account_tags %}
+<!---->
+{% load bootstrap3 %}
+<!---->
+{% block title %}LifeBox - Novo Equipamento{% endblock %}
+<!---->
+{% block content %}
+<div class="jumbotron">
+  <form action="#" method="post">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="btn-group">
+          <button type="submit" class="btn btn-default my-2 my-sm-0">Salvar</button>
+          <a href="{% url 'equipamento_pesquisar' %}" class="btn btn-default my-2 my-sm-0">Voltar</a>
+        </div>
+      </div>
+    </div>
+    <hr> {% csrf_token %}
+
+    <fieldset>
+      <legend>Dados do Equipamento</legend>
+      {% bootstrap_form form %}
+
+      <!--
+      <table cellspacing="10">
+
+        <tr>
+          <td>
+            <label for="equipamento">Nome do Equipamento:</label>
+          </td>
+          <td align="left">
+            <select name="nome">
+              <option value='--'>Selecione</option>
+              <option value="LB01">LB01</option>
+              <option value="LB02">LB02</option>
+              <option value="LB03">LB03</option>
+              <option value="LB04">LB04</option>
+              <option value="LB05">LB05</option>
+              <option value="LB06">LB06</option>
+              <option value="LB07">LB07</option>
+              <option value="LB08">LB08</option>
+              <option value="LB09">LB09</option>
+              <option value="LB10">LB10</option>
+            </select>
+            <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Cancelar" onclick="alert('Clicando neste botão, você sairá desta página sem salvar as alterações')">
+            <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Novo" onclick="alert('Clicando neste botão, você poderá adicionar um novo hardware no sistema')">
+            <input type="button" class="btn btn-outline-success my-2 my-sm-0" value="Alterar" onclick="alert('Clicando neste botão, você salvará as alterações realizadas no hardware selecionado.')">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="imeiEquipamento">IMEI: </label>
+          </td>
+          <td align="left">
+            <input type="text" name="imeiEquipamento" placeholder="355488020540766">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="telefone">Telefone: </label>
+          </td>
+          <td align="left">
+            <input type="tel" name="telefone" placeholder="(27)9 9999-4512">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="operadora">Operadora: </label>
+          </td>
+          <td align="left">
+            <select name="operadora">
+              <option value="Selecione">Selecione</option>
+              <option value="Vivo">Vivo</option>
+              <option value="Oi">Oi</option>
+              <option value="Tim">Tim 03</option>
+              <option value="Claro">Claro</option>
+              <option value="Nextel">Nextel</option>
+            </select>
+            <input class="btn btn-outline-success my-2 my-sm-0" value="Adicionar Operadora" onclick="alert('Aqui você poderá adicionar novas operadoras na lista')">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="imeiSimCard">IMEI Sim Card: </label>
+          </td>
+          <td align="left">
+            <input type="text" name="imeiSimCard" placeholder="484588020540766">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label for="operadora">Vincular a caixa: </label>
+          </td>
+          <td align="left">
+            <select name="caixa">
+              <option value="Selecione">Selecione</option>
+              <option value="CX01">Caixa 01</option>
+              <option value="CX02">Caixa 02</option>
+              <option value="CX03">Caixa 03</option>
+              <option value="CX04">Caixa 04</option>
+              <option value="CX05">Caixa 05</option>
+              <option value="CX06">Caixa 06</option>
+              <option value="CX07">Caixa 07</option>
+              <option value="CX08">Caixa 08</option>
+              <option value="CX09">Caixa 09</option>
+              <option value="CX10">Caixa 10</option>
+            </select>
+            <input class="btn btn-outline-success my-2 my-sm-0" value="Adicionar Caixa" onclick="alert('Aqui será possível fazer o vinculo entre o Arduino e a caixa de transporte de orgãos')">
+
+            <tr>
+              <td>
+                <label for="imeiSimCard">Cor da Caixa:</label>
+              </td>
+              <td align="left">
+                <input type="color" class="btn btn-outline-success my-2 my-sm-0" value="Adicionar Caixa">
+              </td>
+            </tr>
+
+      </table>
+    -->
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}
