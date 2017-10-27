@@ -17,6 +17,7 @@ class EquipamentoForm(forms.ModelForm):
             'imeiSimCard': TextInput(attrs={'class': 'imeiSimCard'}),
             }
 
+
 ###################################################################################################
 # Formulário Caixa:
 class CaixaForm(forms.ModelForm):
@@ -44,8 +45,9 @@ class HospitalForm(forms.ModelForm):
            'uf': TextInput(attrs={'autocomplete': 'on'}),
            }
 
+
 ###################################################################################################
-# Formulário Hospital:
+# Formulário Viagem:
 class ViagemForm(forms.ModelForm):
    class Meta:
        model = Viagem

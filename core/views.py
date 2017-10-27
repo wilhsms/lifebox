@@ -139,6 +139,23 @@ def viagem_editar(request, pk):
         form = ViagemForm(instance=item)
     return render(request, 'viagem/formulario.html', {'form': form})
 
+
+################################################################################
+# Alteração de status
+def status_alterar(request, pk, cod):
+    viagem_list = Viagem.objects.filter(id__exact=pk)
+    status_list = Status.objects.filter(codStatus__exact=cod)
+    print(viagem_list)
+    if request.method == "POST":
+        form = ViagemForm(request.POST, instance=item)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.save()
+            return redirect('viagem_pesquisar')
+    else:
+        form = ViagemForm(instance=item)
+    return render(request, 'viagem/formulario.html', {'form': form})
+
 ###################################################################################################
 # carrega página sobre a história e conceito do lifebox
 @login_required
@@ -150,4 +167,3 @@ def sobre(request):
 @login_required
 def equipe(request):
     return render(request, 'sobre/equipe.html')
-

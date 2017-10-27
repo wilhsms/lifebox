@@ -29,6 +29,7 @@
         <th>Local de Chegada</th>
         <th>Caixa</th>
         <th>Equipamento</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
@@ -43,9 +44,12 @@
         <td>{{viagem.localChegada}}</td>
         <td>{{viagem.caixa}}</td>
         <td>{{viagem.equipamento}}</td>
+        <td>{{viagem.status.dscStatus}}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
+
 {% endblock %}
+

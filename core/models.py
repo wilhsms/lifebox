@@ -68,6 +68,22 @@ class Hospital(models.Model):
     class Meta:
         verbose_name_plural = 'Hospitais'
 
+# Banco Status:
+class Status(models.Model):
+    codStatus = models.CharField(max_length=10)
+    dscStatus = models.CharField(max_length=10)
+
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+        verbose_name_plural = 'Status'
+        verbose_name = 'Status'
+
+
 ###################################################################################################
 # Banco Viagem:
 class Viagem(models.Model):
@@ -75,6 +91,7 @@ class Viagem(models.Model):
     localChegada = models.ForeignKey('Hospital', related_name='local_chegada')
     caixa = models.ForeignKey('Caixa')
     equipamento = models.ForeignKey('Equipamento')
+    status = models.ForeignKey('Status', related_name='status', default='1')
 
     def publish(self):
         self.save()
@@ -84,3 +101,4 @@ class Viagem(models.Model):
 
     class Meta:
         verbose_name_plural = 'Viagens'
+        verbose_name = 'Viagem'
