@@ -11,31 +11,9 @@ from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm
 ###################################################################################################
 # Cadastro de Equipamentos:
 @login_required
-def equipamento_pesquisar(request):
-    # Filtra os equipamentos:
-    try:
-        search = request.GET.get('search')
-        equipamentos_list = Equipamento.objects.filter(nome__contains=search)
-    except ValueError:
-        equipamentos_list = Equipamento.objects.all()
-
-    # Cria um paginador e seleciona a página que será exibida:
-    paginator = Paginator(equipamentos_list, settings.CUSTOM_ITENS_POR_PAGINAS_TABELAS)
-    try:
-        page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
-
-    # Retorna os itens da página correta:
-    try:
-        equipamentos = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        equipamentos = paginator.page(paginator.num_pages)
-
-    return render(request,
-                  'equipamento/pesquisa.html',
-                  {'equipamentos': equipamentos})
-
+def equipamento_pesquisar(request): # Filtra os equipamentos:
+    equipamentos = Equipamento.objects.all()
+    return render(request, 'equipamento/pesquisa.html', {'equipamentosx': equipamentos})
 
 @login_required
 def equipamento_criar(request):
@@ -67,30 +45,8 @@ def equipamento_editar(request, pk):
 # Cadastro de Caixas:
 @login_required
 def caixa_pesquisar(request):
-    # Filtra as caixas:
-    try:
-        search = request.GET.get('search')
-        caixas_list = Caixa.objects.filter(informacaoAdicional__contains=search)
-    except ValueError:
-        caixas_list = Caixa.objects.all()
-
-    # Cria um paginador e seleciona a página que será exibida:
-    paginator = Paginator(caixas_list, settings.CUSTOM_ITENS_POR_PAGINAS_TABELAS)
-    try:
-        page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
-
-    # Retorna os itens da página correta:
-    try:
-        caixas = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        caixas = paginator.page(paginator.num_pages)
-
-    return render(request,
-                  'caixa/pesquisa.html',
-                  {'caixas': caixas})
-
+    caixas = Caixa.objects.all()
+    return render(request, 'caixa/pesquisa.html', {'caixas': caixas})
 
 @login_required
 def caixa_criar(request):
@@ -122,30 +78,8 @@ def caixa_editar(request, pk):
 # Cadastro de Hospitais:
 @login_required
 def hospital_pesquisar(request):
-    # Filtra os hospitais:
-    try:
-        search = request.GET.get('search')
-        hospitais_list = Hospital.objects.filter(nome__contains=search)
-    except ValueError:
-        hospitais_list = Hospital.objects.all()
-
-    # Cria um paginador e seleciona a página que será exibida:
-    paginator = Paginator(hospitais_list, settings.CUSTOM_ITENS_POR_PAGINAS_TABELAS)
-    try:
-        page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
-
-    # Retorna os itens da página correta:
-    try:
-        hospitais = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        hospitais = paginator.page(paginator.num_pages)
-
-    return render(request,
-                  'hospital/pesquisa.html',
-                  {'hospitais': hospitais})
-
+        hospitais = Hospital.objects.all()
+        return render(request, 'hospital/pesquisa.html', {'hospitais': hospitais})
 
 @login_required
 def hospital_criar(request):
@@ -204,3 +138,16 @@ def viagem_editar(request, pk):
     else:
         form = ViagemForm(instance=item)
     return render(request, 'viagem/formulario.html', {'form': form})
+
+###################################################################################################
+# carrega página sobre a história e conceito do lifebox
+@login_required
+def sobre(request):
+    return render(request, 'sobre/sobre.html')
+
+###################################################################################################
+# carrega página sobre a Equipe
+@login_required
+def equipe(request):
+    return render(request, 'sobre/equipe.html')
+

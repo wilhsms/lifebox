@@ -1,28 +1,28 @@
 {% extends "base.html" %}
-<!---->
-{% load account_tags %}
-<!---->
+
+{% load staticfiles %}
 {% load bootstrap3 %}
-<!---->
 {% block title %}LifeBox - Nova Caixa{% endblock%}
-<!---->
 {% block content %}
 <div class="jumbotron">
-  <h2>
-    <i class="glyphicon glyphicon-share"></i> Adicionar Nova Caixa
-  </h2>
-  <br>
-  <form method="post">
+  <h2><i class="glyphicon glyphicon-folder-close"></i> Adicionar Nova Caixa</h2>
+  <form action="#" method="post">
     <div class="row">
       <div class="col-sm-12">
         <div class="btn-group">
-          <button type="submit" class="btn btn-default my-2 my-sm-0">Salvar</button>
-          <a href="{% url 'caixa_pesquisar' %}" class="btn btn-default my-2 my-sm-0">Voltar</a>
+          <button type="submit" class="btn btn-default my-2 my-sm-0"> Salvar <span class="glyphicon glyphicon-ok"></span></button>
+          <a href="{% url 'caixa_pesquisar' %}" class="btn btn-default my-2 my-sm-0"> Voltar <span class="glyphicon glyphicon-remove"></span></a>
         </div>
       </div>
     </div>
-    <hr> {% csrf_token %} {% bootstrap_form form %}
+    <hr>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <div class="btn-group">
+      <button type="submit" class="btn btn-default my-2 my-sm-0"> Salvar <span class="glyphicon glyphicon-ok"></span></button>
+      <a href="{% url 'caixa_pesquisar' %}" class="btn btn-default my-2 my-sm-0"> Voltar <span class="glyphicon glyphicon-remove"></span></a>
+    </div>
   </form>
 </div>
-
 {% endblock %}
+

@@ -1,96 +1,65 @@
 {% extends "base.html" %}
-<!---->
-{% load staticfiles %} {% load account_tags %}
-<!---->
-{% block title %}LifeBox - Pesquisa Equipamento {% endblock %}
-
-<!--Scripts-->
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block title %}LifeBox - Lista de Equipamentos {% endblock %}
 {% block custom_js %}
-<script src="{% static 'js/common/common.js' %}"></script> {% endblock%}
+<!--Este bloco é destinado a biblioteca datatables-->
+<link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}" >
+<script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
+<script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/datatables/config.js' %}"></script>
+{% endblock%}
 
-<!---->
 {% block content %}
-
-<div class="jumbotron">
-    <h2>
-        <i class="glyphicon glyphicon-th-list"></i> Equipamentos</h2>
-    <br>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="btn-group">
-                <a href="{% url 'equipamento_criar' %}" class="btn btn-default my-2 my-sm-0">Novo</a>
-            </div>
-        </div>
+<div class="jumbotron" >
+  <h2><i class="glyphicon glyphicon-hdd"></i> Equipamentos</h2>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="btn-group">
+        <a href="{% url 'equipamento_criar' %}" class="btn btn-default my-2 my-sm-0"> Novo <span class=" glyphicon glyphicon-plus"></sapn></a>
+      </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-3 offset-md-9">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Digite o valor desejado" id="search" onkeypress="getSearch(event)" />
-                <span class="input-group-addon">
-                    <a href="#" onclick="getSearch()">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </a>
-                </span>
+  </div>
+  <hr>
+  <table id="busca" class="display nowrap" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Equipamento</th>
+        <th>IMEI do Equipamento</th>
+        <th>Telefone</th>
+        <th>Operadora</th>
+        <th>IMEI do SIM Card</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for equipamento in equipamentosx %}
+        <tr>
+          <td>
+						<a href="{% url 'equipamento_pesquisar' %}{{equipamento.id}}">
+							<span class="glyphicon glyphicon-edit"></span>{{equipamento.id}}
+						</a>
+					</td>
+          <td>{{equipamento.nome}}</td>
+          <td>{{equipamento.imeiEquipamento}}</td>
+          <td>{{equipamento.telefone}}</td>
+          <td>{{equipamento.operadora}}</td>
+          <td>{{equipamento.imeiSimCard}}</td>
+          <!--
+            {% if equipamento.caixa == None %}
+              <td></td>
+            {% else%}
+              <td>{{equipamento.caixa}}</td>
+            {% endif %}
+          <td>
+            <div style="color: {{equipamento.cor}}">
+              <i class="ion-ios-gear"></i>
             </div>
-        </div>
-    </div>
-    <br>
-    <hr>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Equipamento</th>
-                <th>IMEI do Equipamento</th>
-                <th>Telefone</th>
-                <th>Operadora</th>
-                <th>IMEI do SIM Card</th>
-                <th>Caixa</th>
-                <th>Cor</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for equipamento in equipamentos %}
-            <tr>
-                <td>{{equipamento.id}}</td>
-                <td>
-                    <a href="{% url 'equipamento_pesquisar' %}{{equipamento.id}}">{{equipamento.nome}}</a>
-                </td>
-                <td>{{equipamento.imeiEquipamento}}</td>
-                <td>{{equipamento.telefone}}</td>
-                <td>{{equipamento.operadora}}</td>
-                <td>{{equipamento.imeiSimCard}}</td>
-                {% if equipamento.caixa == None %}
-                <td></td>
-                {% else%}
-                <td>{{equipamento.caixa}}</td>
-                {% endif %}
-                <td>
-                    <div style="color: {{equipamento.cor}}">
-                        <i class="ion-ios-gear"></i>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-    </table>
-    <nav>
-        <ul class="pagination justify-content-center" style="display: flex !important;">
-            {% if equipamentos.has_previous %}
-            <li class="page-item">
-                <a href="?page={{ equipamentos.previous_page_number }}">Anterior</a>
-            </li>
-            {% endif %}
-            <li class="page-item disabled">
-                <span>Página {{ equipamentos.number }} of {{ equipamentos.paginator.num_pages }}</span>
-            </li>
-            {% if equipamentos.has_next %}
-            <li class="page-item">
-                <a href="?page={{ equipamentos.next_page_number }}">Próxima</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
+          </td>
+        -->
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

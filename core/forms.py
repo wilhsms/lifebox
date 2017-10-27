@@ -3,38 +3,50 @@ from django import forms
 from django.forms.widgets import TextInput
 from .models import Equipamento, Caixa, Hospital, Viagem
 
+
+###################################################################################################
+# Formulário Equipamento:
 class EquipamentoForm(forms.ModelForm):
     class Meta:
         model = Equipamento
-        fields = ('nome', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard', 'cor', 'caixa')
+        fields = ('nome', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard')
         widgets = {
-                   'cor': TextInput(attrs={'type': 'color'}),
-                   }
+            'id': TextInput(attrs={'readonly': 'True'}),
+            'imeiEquipamento': TextInput(attrs={'class': 'imeiTracker'}),
+            'telefone': TextInput(attrs={'class': 'phone'}),
+            'imeiSimCard': TextInput(attrs={'class': 'imeiSimCard'}),
+            }
 
-class CaixaForm(forms.ModelForm):    
+###################################################################################################
+# Formulário Caixa:
+class CaixaForm(forms.ModelForm):
    class Meta:
        model = Caixa
-       fields = ('idCaixa', 'corCaixa', 'informacaoAdicional')
+       fields = ('idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional')
        widgets = {
+                'id': TextInput(attrs={'readonly': 'True'}),
                    'corCaixa': TextInput(attrs={'type': 'color'}),
                    }
 
-class HospitalForm(forms.ModelForm):    
+###################################################################################################
+# Formulário Hospital:
+class HospitalForm(forms.ModelForm):
    class Meta:
        model = Hospital
-       fields = ('id', 'nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf')
+       fields = ('nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf')
        widgets = {
            'id': TextInput(attrs={'readonly': 'True'}),
            'telefone': TextInput(attrs={'class': 'phone'}),
-           'cep': TextInput(attrs={'autocomplete': 'off'}),
-           'logradouro': TextInput(attrs={'autocomplete': 'off'}),
-           'bairro': TextInput(attrs={'autocomplete': 'off'}),
-           'cidade': TextInput(attrs={'autocomplete': 'off'}),
-           'uf': TextInput(attrs={'autocomplete': 'off'}),
-
+           'cep': TextInput(attrs={'class': 'cep'}),
+           'logradouro': TextInput(attrs={'autocomplete': 'on'}),
+           'bairro': TextInput(attrs={'autocomplete': 'on'}),
+           'cidade': TextInput(attrs={'autocomplete': 'on'}),
+           'uf': TextInput(attrs={'autocomplete': 'on'}),
            }
 
-class ViagemForm(forms.ModelForm):    
+###################################################################################################
+# Formulário Hospital:
+class ViagemForm(forms.ModelForm):
    class Meta:
        model = Viagem
        fields = ('localPartida', 'localChegada', 'caixa', 'equipamento')

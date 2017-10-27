@@ -3,11 +3,13 @@ from django.shortcuts import render, redirect,get_object_or_404
 
 from .forms import UserRegistrationForm
 
+
 @login_required
 def dashboard(request):
     return render(request,
                   'account/dashboard.html',
                   {'section': 'dashboard'})
+
 
 def register(request):
     if request.method == 'POST':

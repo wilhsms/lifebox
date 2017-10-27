@@ -1,13 +1,11 @@
 {% load staticfiles %}
-<!---->
 {% load bootstrap3 %}
-<!---->
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
-
     <!-- Css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -20,15 +18,11 @@
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     {% bootstrap_javascript %}
-    <script>
-        $(function(){
-            // Habilita o popover
-            $("[data-toggle=popover]").popover();
-        });
+    <script>// Habilita o popover
+        $(function(){$("[data-toggle=popover]").popover();});
     </script>
 
     {% block custom_js%} {% endblock %}
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
 </head>
@@ -53,13 +47,30 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Cadastros </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{% url "equipamento_pesquisar" %}"> Equipamentos </a>
-                        <a class="dropdown-item" href="{% url "caixa_pesquisar" %}"> Caixas </a>
-                        <a class="dropdown-item" href="{% url "hospital_pesquisar" %}"> Hospitais </a>
-                        <a class="dropdown-item" href="{% url "viagem_pesquisar" %}"> Viagens </a>
+                        <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item " href="{% url "equipamento_pesquisar" %}">
+                          <i class="logo glyphicon glyphicon-hdd"></i> Equipamentos </a>
+
+                          <a class="dropdown-item " href="{% url "caixa_pesquisar" %}">
+                            <i class="logo glyphicon glyphicon-folder-close"></i> Caixas </a>
+
+                          <a class="dropdown-item " href="{% url "hospital_pesquisar" %}">
+                            <i class="logo glyphicon glyphicon-home"></i> Hospitais </a>
+
+                          <a class="dropdown-item " href="{% url "viagem_pesquisar" %}">
+                            <i class="logo glyphicon glyphicon-plane"></i> Viagens </a>
                         </div>
                     </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Sobre </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url "sobre" %}"><i class="logo ion-cube"></i> O LifeBox </a>
+                        <a class="dropdown-item" href="{% url "equipe" %}"><i class="logo glyphicon glyphicon-thumbs-up"></i> A Equipe </a>
+
+                        </div>
+                    </li>
+
                 </ul>
               </nav>
               {% endif %}
@@ -71,16 +82,16 @@
 
           <!--MENU DIREITO-->
           <ul class="nav navbar-nav navbar-right">
+
               {% if request.user.is_authenticated %}
-                  <li>
-                      <a href="#"
-                          data-toggle="popover"
-                          data-trigger="focus"
-                          data-placement="bottom"
-                          data-html="true"
-                          data-content="<div style='width: 100px;'><a href='{% url "logout" %}' style='text-decoration: none;'><span class='glyphicon glyphicon-log-out'></span>Sair</a></div>">
-                          <span class="glyphicon glyphicon-user"></span> {{ request.user.first_name }}
-                      </a>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="glyphicon glyphicon-user"></span> {{ request.user.first_name }} </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item " href='../../admin'><i class="logo glyphicon glyphicon-cog"></i> Módulo Admin </a>
+                        <a class="dropdown-item " href='{% url "logout" %}'><i class="logo glyphicon glyphicon-log-out"></i> Sair </a>
+
+                      </div>
                   </li>
               {% else %}
                   <li><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>

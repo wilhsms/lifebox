@@ -1,37 +1,27 @@
 {% extends "base.html" %}
-<!---->
-{% load account_tags %}
-<!---->
-{% block title %}LifeBox - Pesquisa Viagens{% endblock %}
-<!---->
-{% block content%}
+{% load staticfiles %} {% load account_tags %} <!--O que isso faz?-->
+{% block title %}LifeBox - Viagens Realizadas{% endblock %}
+{% block custom_js %}
+<!--Este bloco é destinado a biblioteca datatables-->
+<link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}" >
+<script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
+<script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/datatables/config.js' %}"></script>
+{% endblock%}
 
+{% block content %}
 <div class="jumbotron">
-  <h2>
-    <i class="glyphicon glyphicon-th-list"></i> Viagens</h2>
-  <br>
+  <h2><i class="glyphicon glyphicon-plane"></i> Viagens</h2>
   <div class="row">
     <div class="col-sm-12">
       <div class="btn-group">
-        <a href="{% url 'viagem_criar' %}" class="btn btn-default my-2 my-sm-0">Novo</a>
+        <a href="{% url 'viagem_criar' %}" class="btn btn-default my-2 my-sm-0"> Novo <span class=" glyphicon glyphicon-plus"></sapn></a>
       </div>
     </div>
   </div>
   <hr>
-  <!-- <div class="row">
-    <div class="col-md-3 offset-md-9">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Digite o valor desejado" />
-        <span class="input-group-addon">
-          <a href="#">
-            <i class="glyphicon glyphicon-search"></i>
-          </a>
-        </span>
-      </div>
-    </div>
-  </div> -->
-  <br>
-  <table class="table table-striped">
+  <table id="busca" class="display nowrap" cellspacing="0" width="100%">
+
     <thead>
       <tr>
         <th>Id</th>
@@ -45,7 +35,9 @@
       {% for viagem in viagens %}
       <tr>
         <td>
-          <a href="{% url 'viagem_pesquisar' %}{{viagem.id}}">{{viagem.id}}</a>
+          <a href="{% url 'viagem_pesquisar' %}{{viagem.id}}">
+            <span class="glyphicon glyphicon-edit"> </span>{{viagem.id}}
+          </a>
         </td>
         <td>{{viagem.localPartida}}</td>
         <td>{{viagem.localChegada}}</td>
@@ -56,5 +48,4 @@
     </tbody>
   </table>
 </div>
-
 {% endblock %}

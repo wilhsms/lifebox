@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^viagem/$', views.viagem_pesquisar, name='viagem_pesquisar'),
     url(r'^viagem/add$', views.viagem_criar, name='viagem_criar'),
     url(r'^viagem/(?P<pk>\d+)/$', views.viagem_editar, name='viagem_editar'),
+    url(r'^sobre/$', views.sobre, name='sobre'),
+    url(r'^equipe/$', views.equipe, name='equipe'),
 ]

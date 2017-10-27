@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 
+###################################################################################################
+# Banco Equipamento:
 OPERADORA_CHOICES = (
     ('Vivo', 'Vivo'),
     ('Oi', 'Oi'),
@@ -12,15 +14,12 @@ OPERADORA_CHOICES = (
 )
 
 class Equipamento(models.Model):
-    nome = models.CharField(max_length=4)
-    imeiEquipamento = models.CharField('IMEI', max_length=15)
-    telefone = models.CharField(max_length=15)
-    operadora = models.CharField(max_length=16, choices=OPERADORA_CHOICES)
-    imeiSimCard = models.CharField('IMEI SIM Card', max_length=22)
-    cor = models.CharField(max_length=7, null=True)
-    caixa = models.ForeignKey(
-        'Caixa', blank=True, null=True,
-    )
+    nome = models.CharField('Equipamento', max_length=5)
+    imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22)
+    telefone = models.CharField('Telefone', max_length=22)
+    operadora = models.CharField('Operadora', max_length=8, choices=OPERADORA_CHOICES)
+    imeiSimCard = models.CharField('IMEI SIM Card', max_length=26)
+
 
     def publish(self):
         self.save()
@@ -28,10 +27,14 @@ class Equipamento(models.Model):
     def __str__(self):
         return self.nome
 
+###################################################################################################
+# Banco Caixa:
 class Caixa(models.Model):
-    idCaixa= models.CharField('Identificação da Caixa', max_length=250)
+    idCaixa= models.CharField('Identificação da Caixa', max_length=5)
+    autorizacao= models.CharField('Autorização da Caixa', max_length=50)
     corCaixa= models.CharField('Cor da Tarja', max_length=7, null=True)
-    informacaoAdicional= models.TextField('Informações Adicionais')
+    informacaoAdicional= models.TextField('Informações Adicionais', max_length=100)
+
 
     def publish(self):
         self.save()
@@ -39,16 +42,19 @@ class Caixa(models.Model):
     def __str__(self):
         return self.idCaixa
 
+###################################################################################################
+# Banco Hospital:
 class Hospital(models.Model):
-    nome = models.CharField(max_length=250)
-    telefone = models.CharField(max_length=16)
-    nomeResponsavel = models.CharField('Responsável', max_length=250)
-    emailResponsavel = models.CharField('E-mail', max_length=250)
-    cep = models.CharField(max_length=9)
-    logradouro = models.CharField(max_length=100)
-    bairro = models.CharField(max_length=100)
-    cidade = models.CharField(max_length=100)
-    uf = models.CharField(max_length=2)
+    nome = models.CharField('Nome do Hospital', max_length=50)
+    telefone = models.CharField('Telefone', max_length=19)
+    nomeResponsavel = models.CharField('Responsável', max_length=30)
+    emailResponsavel = models.CharField('E-mail', max_length=50)
+    cep = models.CharField('CEP',max_length=10)
+    logradouro = models.CharField('Endereço',max_length=50)
+    bairro = models.CharField('Bairro',max_length=30)
+    cidade = models.CharField('Cidade',max_length=30)
+    uf = models.CharField('UF',max_length=2)
+
 
     def publish(self):
         self.save()
@@ -62,6 +68,8 @@ class Hospital(models.Model):
     class Meta:
         verbose_name_plural = 'Hospitais'
 
+###################################################################################################
+# Banco Viagem:
 class Viagem(models.Model):
     localPartida = models.ForeignKey('Hospital', related_name='local_partida')
     localChegada = models.ForeignKey('Hospital', related_name='local_chegada')

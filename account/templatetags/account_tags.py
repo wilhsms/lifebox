@@ -1,6 +1,6 @@
 from django import template
 from django.contrib.auth.models import User
-#from social_django.models import UserSocialAuth
+
 
 register = template.Library()
 

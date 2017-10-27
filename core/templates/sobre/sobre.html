@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% block title %}LifeBox - Sobre{% endblock%}
+{% block content %}
+<div class="jumbotron">
+  <form action="#" method="post">
+    <div class="row">
+      <div class="col-sm-12">
+
+      </div>
+    </div>
+    <hr> {% csrf_token %}
+
+    <fieldset>
+      <legend>Tela com a história do LifeBox</legend>
+      https://www.youtube.com/watch?v=3KSFQ9mHUR0
+      <br/>
+      https://www.youtube.com/watch?v=nybKoo0mgBM
+
+
+      https://www.youtube.com/watch?v=VgfIoRjKBoo
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}

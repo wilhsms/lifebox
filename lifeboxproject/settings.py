@@ -31,14 +31,12 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [    
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-#    'social_django',
-#    'social_core',
     'account',
     'django.contrib.admin',
     'bootstrap3',
@@ -145,43 +143,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 AUTHENTICATION_BACKENDS = (
-#    'social_core.backends.facebook.FacebookOAuth2',
-#    'social_core.backends.github.GithubOAuth2',
-#    'social_core.backends.google.GoogleOAuth2',
-#    'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
 )
-
-#SOCIAL_AUTH_URL_NAMESPACE = 'social'
-
-#SOCIAL_AUTH_FACEBOOK_KEY = 'XXXXXX'
-#SOCIAL_AUTH_FACEBOOK_SECRET = 'XXXXXX'
-#SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-#SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-#    'fields': 'id, name, email'
-#}
-
-#SOCIAL_AUTH_GITHUB_KEY = 'XXXXXX'
-#SOCIAL_AUTH_GITHUB_SECRET = 'XXXXXX'
-#SOCIAL_AUTH_GITHUB_SCOPE = ['email']
-#SOCIAL_AUTH_GITHUB_PROFILE_EXTRA_PARAMS = {
-#    'fields': 'id, name, email'
-#}
-
-#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'XXXXXX'
-#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'XXXXXX'
-#SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
-#SOCIAL_AUTH_GOOGLE_PROFILE_EXTRA_PARAMS = {
-#    'fields': 'id, name, email'
-#}
-
-#SOCIAL_AUTH_TWITTER_KEY = 'XXXXXX'
-#SOCIAL_AUTH_TWITTER_SECRET = 'XXXXXX'
-#SOCIAL_AUTH_TWITTER_OAUTH2_SCOPE = ['email']
-#SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
-#    'fields': 'id, name, email'
-#}
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

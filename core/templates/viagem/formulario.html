@@ -1,31 +1,28 @@
-<!--Extensao-->
 {% extends "base.html" %}
-
-<!--Carrega Libs-->
-{% load staticfiles %} {% load account_tags %} {% load bootstrap3 %}
-
-<!--Titulo da Pagina-->
+{% load staticfiles %}
+{% load bootstrap3 %}
 {% block title %}LifeBox - Nova Viagem{% endblock%}
-
-<!--Conteudo-->
 {% block content %}
-
 <div class="jumbotron">
-  <h2>
-    <i class="glyphicon glyphicon-share"></i> Adicionar Nova Viagem
-  </h2>
-  <br>
+  <h2><i class="glyphicon glyphicon-plane"></i> Adicionar Nova Viagem</h2>
+
   <form method="post">
     <div class="row">
       <div class="col-sm-12">
         <div class="btn-group">
-          <button type="submit" class="btn btn-default my-2 my-sm-0">Salvar</button>
-          <a href="{% url 'hospital_pesquisar' %}" class="btn btn-default my-2 my-sm-0">Voltar</a>
+          <button type="submit" class="btn btn-default my-2 my-sm-0"> Salvar <span class="glyphicon glyphicon-ok"></span></button>
+          <a href="{% url 'viagem_pesquisar' %}" class="btn btn-default my-2 my-sm-0"> Voltar <span class="glyphicon glyphicon-remove"></span></a>
+
         </div>
       </div>
     </div>
     <hr> {% csrf_token %} {% bootstrap_form form %}
+    <div class="btn-group">
+      <button type="submit" class="btn btn-default my-2 my-sm-0"> Salvar <span class="glyphicon glyphicon-ok"></span></button>
+      <a href="{% url 'viagem_pesquisar' %}" class="btn btn-default my-2 my-sm-0"> Voltar <span class="glyphicon glyphicon-remove"></span></a>
+    </div>
   </form>
 </div>
 
 {% endblock %}
+
