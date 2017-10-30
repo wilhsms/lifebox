@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %} {% load account_tags %} <!--O que isso faz?-->
+{% block title %}LifeBox - Viagens Realizadas{% endblock %}
+{% block custom_js %}
+<!--Este bloco é destinado a biblioteca datatables-->
+<link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}" >
+<script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
+<script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/datatables/config.js' %}"></script>
+{% endblock%}
+
+{% block content %}
+<div class="jumbotron">
+  <h2><i class="glyphicon glyphicon-plane"></i> Viagens</h2>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="btn-group">
+        <a href="{% url 'viagem_criar' %}" class="btn btn-success my-2 my-sm-0"><span class="fa fa-plus"></span> Novo </a>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <table id="busca" class="display nowrap" cellspacing="0" width="100%">
+
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Local de Partida</th>
+        <th>Local de Chegada</th>
+        <th>Caixa</th>
+        <th>Equipamento</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for viagem in viagens %}
+      <tr>
+        <td>
+          <a href="{% url 'viagem_pesquisar' %}{{viagem.id}}">
+            <span class="glyphicon glyphicon-edit"> </span>{{viagem.id}}
+          </a>
+        </td>
+        <td>{{viagem.localPartida}}</td>
+        <td>{{viagem.localChegada}}</td>
+        <td>{{viagem.caixa}}</td>
+        <td>{{viagem.equipamento}}</td>
+        <td>{{viagem.status.dscStatus}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
+

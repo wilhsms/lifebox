@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% block title %}LifeBox - Lista de Equipamentos {% endblock %}
+{% block custom_js %}
+<!--Este bloco é destinado a biblioteca datatables-->
+<link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}" >
+<script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
+<script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/datatables/config.js' %}"></script>
+{% endblock%}
+
+{% block content %}
+<div class="jumbotron" >
+  <h2><i class="glyphicon glyphicon-hdd"></i> Equipamentos</h2>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="btn-group">
+        <a href="{% url 'equipamento_criar' %}" class="btn btn-success my-2 my-sm-0"><span class=" fa fa-plus"></span> Novo </a>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <table id="busca" class="display nowrap" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Equipamento</th>
+        <th>IMEI do Equipamento</th>
+        <th>Telefone</th>
+        <th>Operadora</th>
+        <th>IMEI do SIM Card</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for equipamento in equipamentosx %}
+        <tr>
+          <td>
+						<a href="{% url 'equipamento_pesquisar' %}{{equipamento.id}}">
+							<span class="glyphicon glyphicon-edit"></span>{{equipamento.id}}
+						</a>
+					</td>
+          <td>{{equipamento.nome}}</td>
+          <td>{{equipamento.imeiEquipamento}}</td>
+          <td>{{equipamento.telefone}}</td>
+          <td>{{equipamento.operadora}}</td>
+          <td>{{equipamento.imeiSimCard}}</td>
+          <!--
+            {% if equipamento.caixa == None %}
+              <td></td>
+            {% else%}
+              <td>{{equipamento.caixa}}</td>
+            {% endif %}
+          <td>
+            <div style="color: {{equipamento.cor}}">
+              <i class="ion-ios-gear"></i>
+            </div>
+          </td>
+        -->
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

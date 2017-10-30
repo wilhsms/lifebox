@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% block title %}LifeBox - Pesquisa Hospitais {% endblock %}
+{% block custom_js %}
+<!--Este bloco é destinado a biblioteca datatables-->
+<link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}" >
+<script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
+<script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static '/js/datatables/config.js' %}"></script>
+{% endblock%}
+
+{% block content %}
+<div class="jumbotron">
+	<h2><i class="glyphicon glyphicon-home"></i> Hospitais</h2>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="btn-group">
+				<a href="{% url 'hospital_criar' %}" class="btn btn-success my-2 my-sm-0"><span class="fa fa-plus"></span> Novo </a>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<table id="busca" class="display nowrap" cellspacing="0" width="100%">
+
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Telefone</th>
+				<th>Responsável</th>
+				<th>E-mail</th>
+				<th>CEP</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for hospital in hospitais %}
+				<tr>
+					<td>
+						<a href="{% url 'hospital_pesquisar' %}{{hospital.id}}">
+							<span class="glyphicon glyphicon-edit"></span>{{hospital.id}}
+						</a>
+					</td>
+					<td>{{hospital.nome}}</td>
+					<td>{{hospital.telefone}}</td>
+					<td>{{hospital.nomeResponsavel}}</td>
+					<td>{{hospital.emailResponsavel}}</td>
+					<td>{{hospital.cep}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
