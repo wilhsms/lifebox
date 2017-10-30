@@ -16,6 +16,7 @@ from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MASTER_BASE_DIR = os.path.dirname(__file__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -26,22 +27,24 @@ SECRET_KEY = 'k)jrn(gc-j3!le@nj3v*fs4&((7jvql1@gvs*u*7gac5_*qhe)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'http://lifebox-wilhsms.c9users.io/']
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
-    'social_core',
     'account',
-    'bootstrap3',
     'django.contrib.admin',
+    'bootstrap4',
+    'core',
+    'monitoramento',
+    'relatorios',
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +62,7 @@ ROOT_URLCONF = 'lifeboxproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(MASTER_BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,13 +84,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'pythonanwhere': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lifebox$default',
-        'USER': 'lifebox',
-        'PASSWORD': 'vermelho@123',
-        'HOST': 'lifebox.mysql.pythonanywhere-services.com',
     }
 }
 
@@ -131,6 +127,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
+    os.path.join(MASTER_BASE_DIR, 'static'),
 )
 
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
@@ -149,44 +146,22 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.facebook.FacebookOAuth2',
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
 )
 
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SOCIAL_AUTH_FACEBOOK_KEY = 'XXXXXX'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'XXXXXX'
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email'
-}
-
-SOCIAL_AUTH_GITHUB_KEY = 'XXXXXX'
-SOCIAL_AUTH_GITHUB_SECRET = 'XXXXXX'
-SOCIAL_AUTH_GITHUB_SCOPE = ['email']
-SOCIAL_AUTH_GITHUB_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email'
-}
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'XXXXXX'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'XXXXXX'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
-SOCIAL_AUTH_GOOGLE_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email'
-}
-
-SOCIAL_AUTH_TWITTER_KEY = 'XXXXXX'
-SOCIAL_AUTH_TWITTER_SECRET = 'XXXXXX'
-SOCIAL_AUTH_TWITTER_OAUTH2_SCOPE = ['email']
-SOCIAL_AUTH_TWITTER_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email'
+BOOTSTRAP4 = {
+    'jquery_url': '//code.jquery.com/jquery-3.2.1.min.js',
+    'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/',
+    'include_jquery': True,
 }
 
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+# REST_FRAMEWORK CONFIG
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}

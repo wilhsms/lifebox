@@ -1,0 +1,22 @@
+dist: trusty
+sudo: false
+language: python
+python:
+- '3.3'
+
+jdk:
+- oraclejdk8
+
+addons:
+  sonarqube:
+    organization: "LifeBox"
+    token:
+      secure: "$SONAR_TOKEN"
+
+branches:
+  only:
+  - master
+  - sprint03
+  
+script:
+- sonar-scanner

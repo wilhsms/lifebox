@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+<!---->
+{% load account_tags %}
+<!---->
+{% load staticfiles %}
+<!---->
+{% load bootstrap4 %}
+<!---->
+{% block title %}LifeBox - Mapas {% endblock %}
+
+<!--Scripts-->
+{% block custom_js %}
+<script src="{% static 'js/common/leaflet-src.js' %}"></script>
+<script src="{% static 'js/maps/leaflet-realtime.min.js' %}"></script>
+<script src="{% static 'js/maps/index.js' %}"></script> 
+{% endblock%}
+
+<!--Css-->
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/common/leaflet.css' %}">
+<link rel="stylesheet" href="{% static 'css/maps/maps.css' %}"> {% endblock%}
+
+<!--Conteudo-->
+{% block content %}
+<br><br>
+<div id="map" style="height:500px !important; position:relative"></div>
+
+{% endblock %}

@@ -1,1 +1,0 @@
-web gunicorn lifeboxproject.wsgi

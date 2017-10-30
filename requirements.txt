@@ -1,7 +1,6 @@
 Django
-social-auth-app-django
 django-bootstrap3
 gunicorn
 psycopg2
 whitenoise
-mysqlclient==1.3.12
+djangorestframework
