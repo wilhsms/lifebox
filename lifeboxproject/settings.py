@@ -27,7 +27,7 @@ SECRET_KEY = 'k)jrn(gc-j3!le@nj3v*fs4&((7jvql1@gvs*u*7gac5_*qhe)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'http://lifebox-wilhsms.c9users.io/']
 
 # Application definition
 
@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'django.contrib.admin',
-    'bootstrap3',
+    'bootstrap4',
     'core',
     'monitoramento',
     'relatorios',
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -125,6 +127,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
+    os.path.join(MASTER_BASE_DIR, 'static'),
 )
 
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
@@ -149,4 +152,16 @@ AUTHENTICATION_BACKENDS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-CUSTOM_ITENS_POR_PAGINAS_TABELAS = 10
+BOOTSTRAP4 = {
+    'jquery_url': '//code.jquery.com/jquery-3.2.1.min.js',
+    'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/',
+    'include_jquery': True,
+}
+
+
+# REST_FRAMEWORK CONFIG
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}

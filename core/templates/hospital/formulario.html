@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load bootstrap3 %}
+{% load bootstrap4 %}
 {% block title %}LifeBox - Novo Hospital{% endblock%}
 {% block custom_js %}
   <script src="{% static 'js/mask/mascaras.js' %}"></script>
@@ -15,15 +15,55 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="btn-group">
-          <button type="submit" class="btn btn-default my-2 my-sm-0"> Salvar <span class="glyphicon glyphicon-ok"></span></button>
-          <a href="{% url 'hospital_pesquisar' %}" class="btn btn-default my-2 my-sm-0"> Voltar <span class="glyphicon glyphicon-remove"></span></a>
+          <button type="submit" class="btn btn-success my-2 my-sm-0"><span class="fa fa-check"></span> Salvar</button>
+          <a href="{% url 'hospital_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar</a>
         </div>
       </div>
     </div>
-    <hr> {% csrf_token %} {% bootstrap_form form %}
+    <hr> 
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="col-sm-6">
+        {% bootstrap_field form.nome%}
+      </div>
+      <div class="col-sm-6">
+        {% bootstrap_field form.telefone%}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        {% bootstrap_field form.nomeResponsavel%}
+      </div>
+      <div class="col-sm-6">
+        {% bootstrap_field form.emailResponsavel%}
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-3">
+        {% bootstrap_field form.cep%}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        {% bootstrap_field form.logradouro%}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5">
+        {% bootstrap_field form.bairro%}
+      </div>
+      <div class="col-sm-5">
+        {% bootstrap_field form.cidade%}
+      </div>
+      <div class="col-sm-2">
+        {% bootstrap_field form.uf%}
+      </div>
+    </div>
     <div class="btn-group">
-      <button type="submit" class="btn btn-default my-2 my-sm-0"> Salvar <span class="glyphicon glyphicon-ok"></span></button>
-      <a href="{% url 'hospital_pesquisar' %}" class="btn btn-default my-2 my-sm-0"> Voltar <span class="glyphicon glyphicon-remove"></span></a>
+      <button type="submit" class="btn btn-success my-2 my-sm-0"><span class="fa fa-check"></span> Salvar</button>
+      <a href="{% url 'hospital_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar</a>
     </div>
   </form>
 </div>

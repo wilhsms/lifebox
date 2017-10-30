@@ -70,15 +70,18 @@ class Hospital(models.Model):
 
 # Banco Status:
 class Status(models.Model):
-    codStatus = models.CharField(max_length=10)
-    dscStatus = models.CharField(max_length=10)
+    codStatus = models.CharField(max_length=2)
+    dscStatus = models.CharField(max_length=50)
 
     def publish(self):
         self.save()
 
     def __str__(self):
         return str(self.id)
-
+        
+    def __unicode__(self):
+        return u'{f}'.format(f=self.dscStatus)
+    
     class Meta:
         verbose_name_plural = 'Status'
         verbose_name = 'Status'
@@ -91,7 +94,7 @@ class Viagem(models.Model):
     localChegada = models.ForeignKey('Hospital', related_name='local_chegada')
     caixa = models.ForeignKey('Caixa')
     equipamento = models.ForeignKey('Equipamento')
-    status = models.ForeignKey('Status', related_name='status', default='1')
+    status = models.ForeignKey('Status', related_name='status', default=1)
 
     def publish(self):
         self.save()
@@ -102,3 +105,18 @@ class Viagem(models.Model):
     class Meta:
         verbose_name_plural = 'Viagens'
         verbose_name = 'Viagem'
+
+class Detalhe(models.Model):
+    numLongitudeDeta = models.CharField('Longitude', max_length=10)
+    numLatitudeDeta = models.CharField('Latitude', max_length=10)
+    numTemperaturaDeta = models.CharField('Temperatura', max_length=10)
+    indVirouDeta = models.BooleanField('Virou?', )
+    indTombouDeta = models.BooleanField('Tombou?', )
+    viagem = models.ForeignKey('Viagem')
+
+    def __str__(self):
+        return str(self.id)
+
+    class Meta:
+      verbose_name = u"Detalhe"
+      verbose_name_plural = u"Detalhes"

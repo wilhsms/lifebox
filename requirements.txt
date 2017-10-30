@@ -3,3 +3,4 @@ django-bootstrap3
 gunicorn
 psycopg2
 whitenoise
+djangorestframework

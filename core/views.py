@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
+from django.http import JsonResponse
 
-from core.models import Equipamento, Caixa, Hospital, Viagem
+from core.models import Equipamento, Caixa, Hospital, Viagem, Status
 from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm
 
 ###################################################################################################
@@ -143,9 +144,16 @@ def viagem_editar(request, pk):
 ################################################################################
 # Alteração de status
 def status_alterar(request, pk, cod):
-    viagem_list = Viagem.objects.filter(id__exact=pk)
-    status_list = Status.objects.filter(codStatus__exact=cod)
-    print(viagem_list)
+    item = get_object_or_404(Viagem, pk=pk)
+    itemStatus = Status.objects.get(codStatus = cod)
+    
+    print(itemStatus.dscStatus)
+    
+    item.status = itemStatus
+    item.save()
+    
+    return JsonResponse({'result': 'ok', 'object':itemStatus.dscStatus})
+    '''
     if request.method == "POST":
         form = ViagemForm(request.POST, instance=item)
         if form.is_valid():
@@ -154,7 +162,8 @@ def status_alterar(request, pk, cod):
             return redirect('viagem_pesquisar')
     else:
         form = ViagemForm(instance=item)
-    return render(request, 'viagem/formulario.html', {'form': form})
+    return render(request, 'viagem/formulario.html', {'form': form})'''
+    
 
 ###################################################################################################
 # carrega página sobre a história e conceito do lifebox

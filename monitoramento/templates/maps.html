@@ -2,27 +2,27 @@
 <!---->
 {% load account_tags %}
 <!---->
-{% load bootstrap3 %}
+{% load staticfiles %}
+<!---->
+{% load bootstrap4 %}
 <!---->
 {% block title %}LifeBox - Mapas {% endblock %}
-<!---->
+
+<!--Scripts-->
+{% block custom_js %}
+<script src="{% static 'js/common/leaflet-src.js' %}"></script>
+<script src="{% static 'js/maps/leaflet-realtime.min.js' %}"></script>
+<script src="{% static 'js/maps/index.js' %}"></script> 
+{% endblock%}
+
+<!--Css-->
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'css/common/leaflet.css' %}">
+<link rel="stylesheet" href="{% static 'css/maps/maps.css' %}"> {% endblock%}
+
+<!--Conteudo-->
 {% block content %}
-<div class="jumbotron">
-  <form action="#" method="post">
-    <div class="row">
-      <div class="col-sm-12">
-
-      </div>
-    </div>
-    <hr> {% csrf_token %}
-
-    <fieldset>
-      <legend>Tela de monitoramento 1</legend>
-
-
-
-    </fieldset>
-  </form>
-</div>
+<br><br>
+<div id="map" style="height:500px !important; position:relative"></div>
 
 {% endblock %}

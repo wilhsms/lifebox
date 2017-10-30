@@ -6,10 +6,7 @@ from .forms import UserRegistrationForm
 
 @login_required
 def dashboard(request):
-    return render(request,
-                  'account/dashboard.html',
-                  {'section': 'dashboard'})
-
+    return redirect('exibir_mapa')
 
 def register(request):
     if request.method == 'POST':

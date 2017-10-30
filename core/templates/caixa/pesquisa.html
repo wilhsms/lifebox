@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
-{% load bootstrap3 %}
+{% load bootstrap4 %}
 {% block title %}LifeBox - Listagem de Caixas {% endblock %}
 {% block custom_js %}
 <!--Este bloco é destinado a biblioteca datatables-->
@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="btn-group">
-        <a href="{% url 'caixa_criar' %}" class="btn btn-default my-2 my-sm-0"> Novo <span class=" glyphicon glyphicon-plus"></sapn></a>
+        <a href="{% url 'caixa_criar' %}" class="btn btn-success my-2 my-sm-0"><span class="fa fa-plus"></span> Novo</a>
       </div>
     </div>
   </div>
