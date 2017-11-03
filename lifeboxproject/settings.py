@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'monitoramento',
     'relatorios',
     'rest_framework',
-    'api'
+    'api',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'lifeboxproject.urls'
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_SKIP_ADMIN_LOG = False
+IMPORT_EXPORT_TMP_STORAGE_CLASS = "import_export.tmp_storages.MediaStorage"
 
 TEMPLATES = [
     {

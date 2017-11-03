@@ -23,11 +23,17 @@
     <hr>
     {% csrf_token %}
     <div class="row">
-      <div class="col-sm-3">
-        {% bootstrap_field form.nome%}
+      <div class="col-sm-2">
+        {% bootstrap_field form.idEquipamento%}
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         {% bootstrap_field form.imeiEquipamento%}
+      </div>
+      <div class="col-sm-3">
+        {% bootstrap_field form.createdEm%}
+      </div>
+      <div class="col-sm-3">
+        {% bootstrap_field form.createdPor%}
       </div>
     </div>
     <div class="row">

@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.forms.widgets import TextInput
+from django.forms.widgets import TextInput, Textarea, DateTimeInput
 from .models import Equipamento, Caixa, Hospital, Viagem
-
+from django.contrib.auth.models import User # carrega user para inserção no campo createdPor
 
 ###################################################################################################
 # Formulário Equipamento:
 class EquipamentoForm(forms.ModelForm):
     class Meta:
         model = Equipamento
-        fields = ('nome', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard')
+        fields = ('idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard', 'createdEm', 'createdPor')
         widgets = {
             'id': TextInput(attrs={'readonly': 'True'}),
+            'idEquipamento': TextInput(attrs={'class':'eq_mask'}),
             'imeiEquipamento': TextInput(attrs={'class': 'imeiTracker'}),
             'telefone': TextInput(attrs={'class': 'phone'}),
             'imeiSimCard': TextInput(attrs={'class': 'imeiSimCard'}),
+            'createdEm' : DateTimeInput(attrs={'readonly': 'True'}),
             }
 
 
@@ -23,10 +25,14 @@ class EquipamentoForm(forms.ModelForm):
 class CaixaForm(forms.ModelForm):
    class Meta:
        model = Caixa
-       fields = ('idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional')
+       fields = ('idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional', 'createdEm', 'createdPor')
        widgets = {
                 'id': TextInput(attrs={'readonly': 'True'}),
-                   'corCaixa': TextInput(attrs={'type': 'color'}),
+                'idCaixa': TextInput(attrs={'class':'cx_mask'}),
+                'corCaixa': TextInput(attrs={'type': 'color'}),
+                'informacaoAdicional': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,200,'spcontando');contarCaracteres(this.value,200,'sprestante')"}),
+                'createdEm' : DateTimeInput(attrs={'readonly': 'True'}),
+                #'createdPor' : TextInput(attrs={'readonly': 'True'}),
                    }
 
 ###################################################################################################
@@ -34,7 +40,7 @@ class CaixaForm(forms.ModelForm):
 class HospitalForm(forms.ModelForm):
    class Meta:
        model = Hospital
-       fields = ('nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf')
+       fields = ('nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf', 'createdEm', 'createdPor')
        widgets = {
            'id': TextInput(attrs={'readonly': 'True'}),
            'telefone': TextInput(attrs={'class': 'phone'}),
@@ -43,6 +49,7 @@ class HospitalForm(forms.ModelForm):
            'bairro': TextInput(attrs={'autocomplete': 'on'}),
            'cidade': TextInput(attrs={'autocomplete': 'on'}),
            'uf': TextInput(attrs={'autocomplete': 'on'}),
+           'createdEm' : DateTimeInput(attrs={'readonly': 'True'}),
            }
 
 
@@ -51,4 +58,10 @@ class HospitalForm(forms.ModelForm):
 class ViagemForm(forms.ModelForm):
    class Meta:
        model = Viagem
-       fields = ('localPartida', 'localChegada', 'caixa', 'equipamento')
+       fields = ('localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs', 'createdEm', 'createdPor')
+       widgets = {
+           'id': TextInput(attrs={'readonly': 'True'}),
+           'contato': TextInput(attrs={'class': 'phone'}),
+           'obs': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,500,'spcontando');contarCaracteres(this.value,500,'sprestante')"}),
+           'createdEm' : DateTimeInput(attrs={'readonly': 'True'}),
+           }

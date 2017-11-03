@@ -20,23 +20,30 @@
         </div>
       </div>
     </div>
-    <hr> 
+    <hr>
     {% csrf_token %}
 
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-5">
         {% bootstrap_field form.nome%}
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         {% bootstrap_field form.telefone%}
       </div>
+      <div class="col-sm-4">
+        {% bootstrap_field form.createdEm %}
+      </div>
     </div>
+
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         {% bootstrap_field form.nomeResponsavel%}
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-5">
         {% bootstrap_field form.emailResponsavel%}
+      </div>
+      <div class="col-sm-3">
+        {% bootstrap_field form.createdPor %}
       </div>
     </div>
     <hr>

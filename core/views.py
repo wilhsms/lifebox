@@ -4,10 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse #HttpResponse é para testes com export e import
 
 from core.models import Equipamento, Caixa, Hospital, Viagem, Status
 from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm
+
+from tablib import Dataset # Importante para a função de importar/exportar arquivos
 
 ###################################################################################################
 # Cadastro de Equipamentos:
@@ -146,12 +148,12 @@ def viagem_editar(request, pk):
 def status_alterar(request, pk, cod):
     item = get_object_or_404(Viagem, pk=pk)
     itemStatus = Status.objects.get(codStatus = cod)
-    
+
     print(itemStatus.dscStatus)
-    
+
     item.status = itemStatus
     item.save()
-    
+
     return JsonResponse({'result': 'ok', 'object':itemStatus.dscStatus})
     '''
     if request.method == "POST":
@@ -163,7 +165,7 @@ def status_alterar(request, pk, cod):
     else:
         form = ViagemForm(instance=item)
     return render(request, 'viagem/formulario.html', {'form': form})'''
-    
+
 
 ###################################################################################################
 # carrega página sobre a história e conceito do lifebox
