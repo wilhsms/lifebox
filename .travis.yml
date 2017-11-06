@@ -19,4 +19,4 @@ branches:
   - sprint03
   
 script:
-- sonar-scanner
+  - sonar-scanner
