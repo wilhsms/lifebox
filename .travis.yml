@@ -1,5 +1,5 @@
 dist: trusty
-sudo: false
+sudo: true
 language: python
 python:
 - '3.3'
@@ -9,9 +9,9 @@ jdk:
 
 addons:
   sonarqube:
-    organization: "LifeBox"
+    organization: "wilhsms-github"
     token:
-      secure: "$SONAR_TOKEN"
+      secure: "1d681fa74cf358d7bfcc02a14f4f9bc94e4b797f"
 
 branches:
   only:
