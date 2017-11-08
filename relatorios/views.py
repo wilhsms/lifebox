@@ -12,34 +12,26 @@ from core.models import *
 # modolo de monitoramento
 @login_required
 def relatorios(request):
-    #Selecr * from Caixas
+    resultado = None
     if request.method == "POST":
-
         caixa_filtro=request.POST.get("caixa")
         equipamento_filtro=request.POST.get("equipamento")
         hospital_saida_filtro=request.POST.get("hospital_saida")
         hospital_chegada_filtro=request.POST.get("hospital_chegada")
-
-        # query = Caixa.objects.filter(Caixa__idCaixa="CX000")
-
-        #para retornar todo o banco caso algum campo vazio.
-        #resultado = ""
-        #if caixa_filtro == "" and equipamento_filtro == ""  and ...:
-            #resultado = Viagem.Objects.all()
-
-        #realizando o filtro utilizando o ou para valores nulos serem aceitos
-        resultado = Viagem.objects.filter(Q(caixa__id=caixa_filtro) |
-                                         Q(equipamento__id=equipamento_filtro) |
-                                         Q(localPartida__id=hospital_saida_filtro) |
-                                         Q(localChegada__id=hospital_chegada_filtro))
-
-
-        #equipamento=equipamento_filtro,
-        #localChegada=hospital_chegada_filtro,
-        #localPartida=hospital_saida_filtro)
+        
+        resultado = Viagem.objects.all()
+        if caixa_filtro:
+            resultado = resultado.filter(caixa__id=caixa_filtro)
+        if equipamento_filtro:
+            resultado = resultado.filter(equipamento__id=equipamento_filtro)
+        if hospital_saida_filtro:
+            resultado = resultado.filter(localPartida__id=hospital_saida_filtro)
+        if hospital_chegada_filtro:
+            resultado = resultado.filter(localChegada__id=hospital_chegada_filtro)
+            
         print(resultado)
 
     caixas = Caixa.objects.all()
     equipamentos = Equipamento.objects.all()
     hospitais = Hospital.objects.all()
-    return render(request, 'report.html', {'caixas' : caixas , 'equipamentos':equipamentos, 'hospitais':hospitais})
+    return render(request, 'report.html', {'caixas' : caixas , 'equipamentos' : equipamentos, 'hospitais' : hospitais, 'viagens': resultado})
