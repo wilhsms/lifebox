@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 <!---->
 {% load account_tags %}
+{% load staticfiles %}
 <!---->
 {% load bootstrap4 %}
 <!---->
@@ -8,21 +9,78 @@
 <!---->
 {% block content %}
 <div class="jumbotron">
-  <form action="#" method="post">
     <div class="row">
       <div class="col-sm-12">
 
       </div>
     </div>
-    <hr> {% csrf_token %}
+    <hr>
 
     <fieldset>
       <legend>Tela de Relatorios</legend>
+      <div class="container">
+                <form method="post" class="form-group" action="{% url 'exibir_relatorios' %}">
+                  {% csrf_token %}
+                  <div class="row">
+                    <label for="caixa" class="form-text">Caixa:</label>
+                  </div>
+                  <div class="row">
+                    <select class="custom-select col-md-12"  name="caixa">
+                      <option class="form-control">Selecione a caixa</option>
+                      {%for caixa in caixas%}
+                      <option class="form-control" value="{{caixa.id}}">{{caixa.idCaixa}}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+                  <br>
+                    <div class="row">
+                      <label for="equipamento" class="form-text">Equipamento:</label>
+                    </div>
+                    <div class="row">
+                      <select class="custom-select col-md-12" name="equipamento">
+                        <option class="form-control" value="">Selecione o equipamento</option>
+                        {%for equipamento in equipamentos%}
+                        <option class="form-control" value="{{equipamento.id}}">{{equipamento.nome}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <label for="hospital_saida" class="form-text">Saída:</label>
+                    </div>
+
+                    <div class="row">
+                      <select class="custom-select col-md-12" name="hospital_saida">
+                        <option class="form-control" value="">Selecione o hospital saída</option>
+                        {%for hospital_saida in hospitais%}
+                        <option class="form-control" value="{{hospital_saida.id}}">{{hospital_saida.nome}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <label for="hospital_chegada" class="form-text">Chegada:</label>
+                    </div>
+
+                    <div class="row">
+                      <select class="custom-select col-md-12" name="hospital_chegada">
+                        <option class="form-control" value="">Selecione o hospital chegada</option>
+                        {%for hospital_chegada in hospitais%}
+                        <option class="form-control" value="{{hospital_chegada.id}}">{{hospital_chegada.nome}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <br>
+                      <br>
+                        <div class="row">
+                          <input type="submit" id="gerar_relatorio" class="form-control col-md-12" value="Gerar relatório">
+                        </div>
+              </form>
 
 
+            </div>
 
-    </fieldset>
-  </form>
+          </fieldset>
 </div>
 
 {% endblock %}
