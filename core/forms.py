@@ -20,6 +20,19 @@ class EquipamentoForm(forms.ModelForm):
             }
 
 
+class DataInput(forms.Form):
+    file = forms.FileField()
+
+
+def save(self):
+    records = csv.reader(self.cleaned_data["file"])
+    for line in records:
+        parts = Caixa()
+        parts.supplier_id = line[0]
+        parts.name = line[1]
+        parts.description = line[2]
+        parts.save()
+
 ###################################################################################################
 # Formulário Caixa:
 class CaixaForm(forms.ModelForm):

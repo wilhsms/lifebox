@@ -12,7 +12,6 @@ admin.site.register({Status, Detalhe, Importa})
 ################################################################################
 #Habilita importar e exportar no ADMIM - Modulo Equipamento
 class EquipamentoResource(resources.ModelResource):
-
     class Meta:
         model = Equipamento
         fields = ('id','idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard','createdEm','createdPor')
@@ -24,6 +23,7 @@ class EquipamentoAdmin(ImportExportMixin, admin.ModelAdmin):
             return EquipamentoResource
         else:
             return self.resource_class
+
 
 admin.site.register(Equipamento, EquipamentoAdmin)
 
