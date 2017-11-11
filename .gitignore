@@ -101,6 +101,8 @@ ENV/
 # mypy
 .mypy_cache/
 
-
 # SqLite DataBase#
 db.sqlite3
+
+#VSCode
+.vscode/
