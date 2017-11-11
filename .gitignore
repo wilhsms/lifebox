@@ -103,6 +103,11 @@ ENV/
 
 # SqLite DataBase#
 db.sqlite3
+bkp_db.sqlite3
 
 #VSCode
 .vscode/
+
+#files
+media/
+testeexp/
