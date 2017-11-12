@@ -1,4 +1,4 @@
-$(document).ready(function() { $('#busca').DataTable({
+var options = {
   "scrollY": 210, //ativa rolagem vertical - valor define o altura da tabela em px
   "scrollX": true, // ativa barra de rolagem horizontal, quando necessário
   "scrollCollapse": true, // não sei, ainda
@@ -36,4 +36,8 @@ $(document).ready(function() { $('#busca').DataTable({
         "sSortDescending": ": Ordenar colunas de forma descendente"
               }
             }
- } ); } );
+ }
+
+$(document).ready(function() { 
+  $('#busca').DataTable(options); 
+});

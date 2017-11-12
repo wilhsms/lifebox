@@ -26,6 +26,8 @@ class Equipamento(models.Model):
 
     def publish(self):
         self.save()
+        self.nome = "EQ" + str(self.id).zfill(3)
+        self.save()
 
     def __str__(self):
         return self.idEquipamento
@@ -41,6 +43,8 @@ class Caixa(models.Model):
     createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
+        self.save()
+        self.idCaixa = "CX" + str(self.id).zfill(3)
         self.save()
 
     def __str__(self):
@@ -121,12 +125,13 @@ class Viagem(models.Model):
 ###################################################################################################
 # Banco Detalhe:
 class Detalhe(models.Model):
-    numLongitudeDeta = models.CharField('Longitude', max_length=10)
-    numLatitudeDeta = models.CharField('Latitude', max_length=10)
-    numTemperaturaDeta = models.CharField('Temperatura', max_length=10)
-    indVirouDeta = models.BooleanField('Virou?', )
-    indTombouDeta = models.BooleanField('Tombou?', )
-    viagem = models.ForeignKey('Viagem')
+    numLongitudeDeta = models.DecimalField('Longitude', max_digits=9, decimal_places=6)
+    numLatitudeDeta = models.DecimalField('Latitude', max_digits=9, decimal_places=6)
+    numTemperaturaDeta = models.DecimalField('Temperatura', max_digits=4, decimal_places=1)
+    indVirouDeta = models.BooleanField('Virou?')
+    indTombouDeta = models.BooleanField('Tombou?')
+    imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22)
+    viagem = models.ForeignKey('Viagem', related_name='detalhes', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)

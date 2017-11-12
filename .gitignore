@@ -87,6 +87,9 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
+env/
+myenv/
+myvenv/
 
 # Spyder project settings
 .spyderproject
@@ -102,12 +105,13 @@ ENV/
 .mypy_cache/
 
 # SqLite DataBase#
-db.sqlite3
-bkp_db.sqlite3
+*.sqlite3
 
 #VSCode
 .vscode/
 
-#files
+#Files Folders
 media/
 testeexp/
+uploads/
+_uploloads/

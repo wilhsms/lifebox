@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, InvalidPage # acho que não se usa mais ..a pagnação agora é na tabela
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
+from django.http import JsonResponse, HttpResponseRedirect
+
+from core.models import Equipamento, Caixa, Hospital, Viagem, Status
+from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm, UploadFileForm
 from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm
 from tablib import Dataset # Importante para a função de importar/exportar arquivos no admin django
 from import_export.admin import ExportMixin # Importante para a função de importar/exportar arquivos sem admin django
@@ -175,16 +179,19 @@ def viagem_criar(request):
         return render(request, 'viagem/formulario.html', {'form': form})
 
 def viagem_editar(request, pk):
-        item = get_object_or_404(Viagem, pk=pk)
-        if request.method == "POST":
-            form = ViagemForm(request.POST, instance=item)
-            if form.is_valid():
-                item = form.save(commit=False)
-                item.save()
+    item = get_object_or_404(Viagem, pk=pk)
+    if request.method == "POST":
+        form = ViagemForm(request.POST, instance=item)
+        uploadform = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(pk, request.FILES['file'])
+            item = form.save(commit=False)
+            item.save()
             return redirect('viagem_pesquisar')
-        else:
-            form = ViagemForm(instance=item)
-        return render(request, 'viagem/formulario.html', {'form': form})
+    else:
+        uploadform = UploadFileForm()
+        form = ViagemForm(instance=item)
+    return render(request, 'viagem/formulario.html', {'form': form, 'uploadform': uploadform})
 
 def viagem_exportar(request):
         response = HttpResponse(content_type='text/csv')
@@ -208,8 +215,9 @@ def status_alterar(request, pk, cod):
     item_status = Status.objects.get(codStatus = cod)
     item.status = item_status
     item.save()
-
-    return JsonResponse({'result': 'ok', 'object':item_status.dscStatus})
+    
+    return JsonResponse({'result': 'ok', 'object':itemStatus.dscStatus})
+    
 
 ###################################################################################################
 # carrega página sobre a história e conceito do lifebox
@@ -243,3 +251,22 @@ def importa_arquivo(request):
         return render(request, 'importa/importa.html',)
 
 ###################################################################################################
+
+###################################################################################################
+# Upload de arquivos da viagem:
+@login_required
+def upload_file(request, pk):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(pk, request.FILES['file'])
+            return HttpResponseRedirect('/success/url/')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload/upload.html', {'uploadform': form})
+
+
+def handle_uploaded_file(id, f):
+    with open('uploas/viagens/viagem' + id + '.csv', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)

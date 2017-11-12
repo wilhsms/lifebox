@@ -42,8 +42,5 @@ urlpatterns = [
 
     url(r'^sobre/$', views.sobre, name='sobre'),
     url(r'^equipe/$', views.equipe, name='equipe'),
-
+    #url(r'^viagem/(?P<pk>\d+)/upload/', views.upload_file, name='upload_file'),
 ]
-
-#if settings.DEBUG:
-    # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

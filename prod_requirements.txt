@@ -2,5 +2,4 @@ Django
 django-bootstrap4
 whitenoise
 djangorestframework
-pylint
-django-import-export
+mysqlclient
