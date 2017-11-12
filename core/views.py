@@ -15,6 +15,7 @@ from django.http import JsonResponse, HttpResponse #HttpResponse é para testes 
 from .models import Equipamento, Caixa, Hospital, Viagem, Status
 from django.core.files.storage import FileSystemStorage
 import csv
+import os
 
 
 ###################################################################################################
@@ -184,7 +185,9 @@ def viagem_editar(request, pk):
         form = ViagemForm(request.POST, instance=item)
         uploadform = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(pk, request.FILES['file'])
+            path = handle_uploaded_file(pk, 'viagem', request.FILES['file'])
+            print(path)
+
             item = form.save(commit=False)
             item.save()
             return redirect('viagem_pesquisar')
@@ -250,23 +253,25 @@ def importa_arquivo(request):
             return render(request, 'importa/importa.html', {'uploaded_file_url': uploaded_file_url})
         return render(request, 'importa/importa.html',)
 
-###################################################################################################
 
 ###################################################################################################
-# Upload de arquivos da viagem:
-@login_required
-def upload_file(request, pk):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(pk, request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
-    else:
-        form = UploadFileForm()
-    return render(request, 'upload/upload.html', {'uploadform': form})
+# metodo que recebe o arquivo do request.FILES, armazena no servidor e retorna o endereco
+def handle_uploaded_file(id, folder, f):
+    diretorio = os.path.join('upload', folder, id)
+    
+    #Cria o diretorio caso não exista:
+    try:
+         os.makedirs(diretorio)
+    except Exception as ex:
+        print(ex.message)
+    
+    #Verifica a qnt de arquivos na pasta:
+    onlyfiles = next(os.walk(diretorio))[2]
+    newNumFile =  len(onlyfiles) + 1
+    caminhoCompleto = os.path.join(diretorio, str(newNumFile) + '.csv')
 
-
-def handle_uploaded_file(id, f):
-    with open('uploas/viagens/viagem' + id + '.csv', 'wb+') as destination:
+    with open(caminhoCompleto, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+    
+    return caminhoCompleto

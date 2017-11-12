@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Configuração WSGI para a função de uploads (carregar arquivos).
 Ele expõe o WSGI chamado como uma variável de nível de módulo chamada `` application``.

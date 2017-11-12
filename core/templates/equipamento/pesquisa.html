@@ -9,11 +9,11 @@
         <a href="{% url 'equipamento_criar' %}" class="btn btn-success my-2 my-sm-0"><span class=" fa fa-plus"></span> Novo </a>
         <a href="{% url 'equipamento_exportar' %}" class="btn btn-success my-2 my-sm-0"><span class=" fa fa-download"></span> Exportar </a>
 
-        <form class="btn btn-success" action="{% url 'equipamento_importar' %}"method="post" enctype="multipart/form-data">
+        <!-- <form class="btn btn-success" action="{% url 'equipamento_importar' %}"method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <input type="file" name="myfile" accept=".csv, .xls, .xlsx" required>
           <button type="submit">Carregar</button>
-        </form>
+        </form> -->
 
       </div>
 

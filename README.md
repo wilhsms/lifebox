@@ -7,12 +7,12 @@ A equipe de desenvolvimento web, é incumbida da construção de um sistema web 
 
 ## Sumário
 * [Demonstração](#demo)
-* [Autores](#autores)
+* [Desenvolvedores](#autores)
 
 ## <a name="demo"></a> Demonstração
 <a href="http://lifebox.pythonanywhere.com" target="_blank">LifeBox Project</a>
 
-## <a name="autores"></a> Autores
+## <a name="autores"></a> Desenvolvedores
 
 * **David de Moura Marques** - *Desenvolvedor/Analista de Requisitos* - <mouradavid8@gmail.com>
 * **Márcio Ribeiro** - *Desenvolvedor/Analista de Requisitos* - <marcio_ribeiro@hotmail.com>

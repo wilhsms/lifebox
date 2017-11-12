@@ -77,8 +77,22 @@ class ViagemAdmin(ImportExportMixin, admin.ModelAdmin):
             return self.resource_class
 admin.site.register(Viagem, ViagemAdmin)
 
-class DetalheAdmin(admin.ModelAdmin):
-    list_display = ('id','numLongitudeDeta', 'numLatitudeDeta', 'numTemperaturaDeta')
+################################################################################
+#Habilita importar e exportar no ADMIN - Modulo Detalhe
+class DetalheResource(resources.ModelResource):
+    class Meta:
+        model = Detalhe
+        fields = ('id', 'numLongitudeDeta', 'numLatitudeDeta', 'numTemperaturaDeta', 'indVirouDeta', 'indTombouDeta', 'imeiEquipamento', 'viagem')
+
+class DetalheAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display = ('id','numLongitudeDeta', 'numLatitudeDeta', 'numTemperaturaDeta', 'indVirouDeta', 'indTombouDeta')
+    resource_class = DetalheResource
+
+    def get_resource_class(self):
+        if not self.resource_class:
+            return DetalheResource
+        else:
+            return self.resource_class
     
 admin.site.register(Detalhe, DetalheAdmin)
 

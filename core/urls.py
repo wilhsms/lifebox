@@ -30,17 +30,13 @@ urlpatterns = [
     url(r'^viagem/$', views.viagem_pesquisar, name='viagem_pesquisar'),
     url(r'^viagem/add$', views.viagem_criar, name='viagem_criar'),
     url(r'^viagem/(?P<pk>\d+)/$', views.viagem_editar, name='viagem_editar'),
+    url(r'^viagem/(?P<pk>\d+)/status/(?P<cod>\d+)/', views.status_alterar, name='status_editar'),
     url(r'^viagem/exp/$', views.viagem_exportar, name='viagem_exportar'),
     url(r'^viagem/imp/$', views.viagem_importar, name='viagem_importar'),
-
+    
     url(r'^importa/$', views.importa, name='importa'),
     url(r'^importa/exp/$', views.importa_arquivo, name='importa_arquivo'),
 
-    url(r'^viagem/(?P<pk>\d+)/status/(?P<cod>\d+)/', views.status_alterar, name='status_editar'),
-
-
-
     url(r'^sobre/$', views.sobre, name='sobre'),
     url(r'^equipe/$', views.equipe, name='equipe'),
-    #url(r'^viagem/(?P<pk>\d+)/upload/', views.upload_file, name='upload_file'),
 ]
