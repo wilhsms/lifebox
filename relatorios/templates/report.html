@@ -59,7 +59,7 @@
     <legend>Tela de Relatorios</legend>
       <form method="post" class="form-group" action="{% url 'exibir_relatorios' %}">
         {% csrf_token %}
-        
+
         <div class="row">
           <div class="col-sm-6">
             <label for="caixa" class="form-text">Caixa:</label>
@@ -75,7 +75,7 @@
             <select class="custom-select col-md-12" name="equipamento">
               <option class="form-control"></option>
               {%for equipamento in equipamentos%}
-              <option class="form-control" value="{{equipamento.id}}">{{equipamento.nome}}</option>
+              <option class="form-control" value="{{equipamento.id}}">{{equipamento.idEquipamento}}</option>
               {% endfor %}
             </select>
           </div>
@@ -108,7 +108,7 @@
           </div>
         </div>
       </form>
-      
+
       <table id="busca" class="display nowrap" cellspacing="0" width="100%">
         <thead>
           <tr>
