@@ -81,8 +81,8 @@ class Hospital(models.Model):
 ###################################################################################################
 # Banco Status:
 class Status(models.Model):
-    dscStatus = models.CharField(max_length=50)
-    codStatus = models.CharField(max_length=2)
+    dscStatus = models.CharField('Descrição', max_length=50)
+    codStatus = models.CharField('Código', max_length=2)
 
     def publish(self):
         self.save()
