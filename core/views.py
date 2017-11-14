@@ -267,8 +267,7 @@ def handle_uploaded_file(id, folder, f):
     
     #Verifica a qnt de arquivos na pasta:
     onlyfiles = next(os.walk(diretorio))[2]
-    newNumFile =  len(onlyfiles) + 1
-    caminhoCompleto = os.path.join(diretorio, str(newNumFile) + '.csv')
+    caminhoCompleto = os.path.join(diretorio, str(len(onlyfiles) + 1) + '.csv')
 
     with open(caminhoCompleto, 'wb+') as destination:
         for chunk in f.chunks():

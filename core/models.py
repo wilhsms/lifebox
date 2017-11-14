@@ -158,7 +158,6 @@ class Importa(models.Model):
     createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
     createdPor = models.ForeignKey(User, default=User)
 
-#    arquivo = models.FileField(upload_to=user_directory_path)
 
     def publish(self):
         self.save()
