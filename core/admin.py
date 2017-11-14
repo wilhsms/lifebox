@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # importaçoes originais do admin.py -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
@@ -7,12 +8,10 @@ from core.models import Equipamento, Caixa, Hospital, Viagem, Status, Detalhe, I
 from import_export.admin import ImportExportMixin, ImportExportModelAdmin
 from import_export import resources
 
-admin.site.register({Status, Detalhe, Importa})
 
 ################################################################################
 #Habilita importar e exportar no ADMIM - Modulo Equipamento
 class EquipamentoResource(resources.ModelResource):
-
     class Meta:
         model = Equipamento
         fields = ('id','idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard','createdEm','createdPor')
@@ -24,6 +23,7 @@ class EquipamentoAdmin(ImportExportMixin, admin.ModelAdmin):
             return EquipamentoResource
         else:
             return self.resource_class
+
 
 admin.site.register(Equipamento, EquipamentoAdmin)
 
@@ -75,5 +75,30 @@ class ViagemAdmin(ImportExportMixin, admin.ModelAdmin):
             return ViagemResource
         else:
             return self.resource_class
-
 admin.site.register(Viagem, ViagemAdmin)
+
+################################################################################
+#Habilita importar e exportar no ADMIN - Modulo Detalhe
+class DetalheResource(resources.ModelResource):
+    class Meta:
+        model = Detalhe
+        fields = ('id', 'numLongitudeDeta', 'numLatitudeDeta', 'numTemperaturaDeta', 'indVirouDeta', 'indTombouDeta', 'imeiEquipamento', 'viagem')
+
+class DetalheAdmin(ImportExportMixin, admin.ModelAdmin):
+    list_display = ('id','numLongitudeDeta', 'numLatitudeDeta', 'numTemperaturaDeta', 'indVirouDeta', 'indTombouDeta')
+    resource_class = DetalheResource
+
+    def get_resource_class(self):
+        if not self.resource_class:
+            return DetalheResource
+        else:
+            return self.resource_class
+    
+admin.site.register(Detalhe, DetalheAdmin)
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('id','codStatus', 'dscStatus')
+    
+admin.site.register(Status, StatusAdmin)
+
+admin.site.register(Importa)

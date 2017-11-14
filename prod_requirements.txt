@@ -1,0 +1,6 @@
+Django
+django-bootstrap4
+whitenoise
+djangorestframework
+mysqlclient
+django-import-export

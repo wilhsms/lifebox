@@ -20,6 +20,19 @@ class EquipamentoForm(forms.ModelForm):
             }
 
 
+class DataInput(forms.Form):
+    file = forms.FileField()
+
+
+def save(self):
+    records = csv.reader(self.cleaned_data["file"])
+    for line in records:
+        parts = Caixa()
+        parts.supplier_id = line[0]
+        parts.name = line[1]
+        parts.description = line[2]
+        parts.save()
+
 ###################################################################################################
 # Formulário Caixa:
 class CaixaForm(forms.ModelForm):
@@ -32,8 +45,7 @@ class CaixaForm(forms.ModelForm):
                 'corCaixa': TextInput(attrs={'type': 'color'}),
                 'informacaoAdicional': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,200,'spcontando');contarCaracteres(this.value,200,'sprestante')"}),
                 'createdEm' : DateTimeInput(attrs={'readonly': 'True'}),
-                #'createdPor' : TextInput(attrs={'readonly': 'True'}),
-                   }
+                }
 
 ###################################################################################################
 # Formulário Hospital:
@@ -65,3 +77,7 @@ class ViagemForm(forms.ModelForm):
            'obs': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,500,'spcontando');contarCaracteres(this.value,500,'sprestante')"}),
            'createdEm' : DateTimeInput(attrs={'readonly': 'True'}),
            }
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField(label = '' , widget = forms.FileInput(attrs={'accept':"*.*", 'class':'custom-file-input'}))
