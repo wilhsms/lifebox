@@ -28,8 +28,8 @@ class ViagemSerializer(serializers.ModelSerializer):
     detalhes = DetalheSerializer(many=True, read_only=True)
     caixa = CaixaSerializer(read_only=True)
     localPartida = HospitalSerializer(read_only=True)
-    localChegada = HospitalSerializer(read_only=True)
-    
+    localChegada = HospitalSerializer(read_only=True)    
+
     class Meta:
         model = Viagem
         fields = '__all__'
