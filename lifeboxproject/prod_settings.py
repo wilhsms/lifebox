@@ -11,3 +11,14 @@ DATABASES = {
         'HOST': 'lifebox.mysql.pythonanywhere-services.com',
     }
 }
+
+# REST_FRAMEWORK CONFIG
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'COERCE_DECIMAL_TO_STRING': False,
+}

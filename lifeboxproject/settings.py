@@ -168,9 +168,8 @@ BOOTSTRAP4 = {
 
 # REST_FRAMEWORK CONFIG
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
     'COERCE_DECIMAL_TO_STRING': False,
 }
 

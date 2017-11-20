@@ -82,7 +82,7 @@ admin.site.register(Viagem, ViagemAdmin)
 class DetalheResource(resources.ModelResource):
     class Meta:
         model = Detalhe
-        fields = '__all__'#('id', 'numLongitudeDeta', 'numLatitudeDeta', 'numTemperaturaDeta', 'indVirouDeta', 'indTombouDeta', 'imeiEquipamento', 'viagem')
+        fields = '__all__'
 
 class DetalheAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display = ('id','numLongitudeDeta', 'numLatitudeDeta', 'numTemperatura1Deta', 'numTemperatura2Deta', 'indVirouDeta', 'indTombouDeta')

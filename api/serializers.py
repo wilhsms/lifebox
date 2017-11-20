@@ -44,12 +44,17 @@ class DetalheSerializer(serializers.ModelSerializer):
             
         return Detalhe.objects.create(**validated_data)
 
-class ViagemSerializer(serializers.ModelSerializer):
+class ViagemFullSerializer(serializers.ModelSerializer):
     detalhes = DetalheSerializer(many=True, read_only=True)
     caixa = CaixaSerializer(read_only=True)
     localPartida = HospitalSerializer(read_only=True)
     localChegada = HospitalSerializer(read_only=True)    
 
+    class Meta:
+        model = Viagem
+        fields = '__all__'
+
+class ViagemSingleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Viagem
         fields = '__all__'
