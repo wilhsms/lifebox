@@ -12,7 +12,7 @@ from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm
 from tablib import Dataset # Importante para a função de importar/exportar arquivos no admin django
 from import_export.admin import ExportMixin # Importante para a função de importar/exportar arquivos sem admin django
 from django.http import JsonResponse, HttpResponse #HttpResponse é para testes com export e import
-from .models import Equipamento, Caixa, Hospital, Viagem, Status
+from .models import Equipamento, Caixa, Hospital, Viagem, Status, Detalhe
 from django.core.files.storage import FileSystemStorage
 import csv
 import os
@@ -185,9 +185,10 @@ def viagem_editar(request, pk):
         form = ViagemForm(request.POST, instance=item)
         uploadform = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            path = handle_uploaded_file(pk, 'viagem', request.FILES['file'])
-            print(path)
-
+            if request.FILES['file']:
+                path = handle_uploaded_file(pk, 'viagem', request.FILES['file'])
+                Detalhe.objects.saveCsv(path)
+            
             item = form.save(commit=False)
             item.save()
             return redirect('viagem_pesquisar')

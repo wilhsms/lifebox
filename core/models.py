@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User # carrega user para inserção no campo createdPor
+import csv
 
 
 ###################################################################################################
@@ -99,13 +100,20 @@ class Status(models.Model):
 
 
 ###################################################################################################
+STATUS_VIAGEM = (
+    ('1', 'Em Elaboracao'),
+    ('2', 'Aguardando Viagem'),
+    ('3', 'Viagem Iniciada'),
+    ('4', 'Viagem Finalizada'),
+)
+
 # Banco Viagem:
 class Viagem(models.Model):
     localPartida = models.ForeignKey('Hospital', related_name='local_partida')
     localChegada = models.ForeignKey('Hospital', related_name='local_chegada')
     caixa = models.ForeignKey('Caixa')
     equipamento = models.ForeignKey('Equipamento')
-    status = models.ForeignKey('Status', related_name='status', default=1)
+    status = models.CharField('Status', max_length=2, choices=STATUS_VIAGEM)
     nomeTransportador = models.CharField('Transportado por', max_length=30, null=True, blank=True)
     contato = models.CharField('Contato', max_length=15, null=True, blank=True)
     obs = models.TextField('Observações', max_length=500, null=True, blank=True)
@@ -127,15 +135,38 @@ class Viagem(models.Model):
 class Detalhe(models.Model):
     numLongitudeDeta = models.DecimalField('Longitude', max_digits=9, decimal_places=6)
     numLatitudeDeta = models.DecimalField('Latitude', max_digits=9, decimal_places=6)
-    numTemperaturaDeta = models.DecimalField('Temperatura', max_digits=4, decimal_places=1)
+    numTemperatura1Deta = models.DecimalField('Temperatura 1', max_digits=4, decimal_places=1, default=1)
+    numTemperatura2Deta = models.DecimalField('Temperatura 2', max_digits=4, decimal_places=1, default=2)
     indVirouDeta = models.BooleanField('Virou?')
     indTombouDeta = models.BooleanField('Tombou?')
     imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22)
-    viagem = models.ForeignKey('Viagem', related_name='detalhes', on_delete=models.CASCADE)
+    viagem = models.ForeignKey('Viagem', related_name='detalhes', blank=True, null=True)
+    equipamento = models.ForeignKey('Equipamento', related_name='detalhes', blank=True, null=True)
 
     def __str__(self):
-        return str(self.id)
-
+        return str(self.imeiEquipamento)
+    
+    def saveCsv(self, path):
+        records = csv.reader(path)
+        for record in records:
+            self.numLongitudeDeta = record[0]
+            self.numLatitudeDeta = record[1]
+            self.numTemperaturaDeta = record[2]
+            self.indVirouDeta = record[3]
+            self.indTombouDeta = record[4]
+            self.imeiEquipamento = record[5]
+            
+            equipamento = Equipamento.objects.filter(imeiEquipamento = self.imeiEquipamento).first()
+            viagem = Viagem.objects.filter(status = 3, equipamento = equipamento).first()
+            
+            if equipamento:
+                self.equipamento = equipamento
+            
+            if viagem:
+                self.viagem = viagem
+            
+            self.save()
+    
     class Meta:
       verbose_name = u"Detalhe"
       verbose_name_plural = u"Detalhes"
