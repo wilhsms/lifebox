@@ -27,7 +27,7 @@ class Equipamento(models.Model):
 
     def publish(self):
         self.save()
-        self.nome = "EQ" + str(self.id).zfill(3)
+        self.idEquipamento = "EQ" + str(self.id).zfill(3)
         self.save()
 
     def __str__(self):
@@ -145,16 +145,18 @@ class Detalhe(models.Model):
 
     def __str__(self):
         return str(self.imeiEquipamento)
-    
+    '''
     def saveCsv(self, path):
         records = csv.reader(path)
+        records.readline()#ignora a primeira linha
         for record in records:
             self.numLongitudeDeta = record[0]
             self.numLatitudeDeta = record[1]
-            self.numTemperaturaDeta = record[2]
-            self.indVirouDeta = record[3]
-            self.indTombouDeta = record[4]
-            self.imeiEquipamento = record[5]
+            self.numTemperatura1Deta = record[2]
+            self.numTemperatura2Deta = record[3]
+            self.indVirouDeta = record[4]
+            self.indTombouDeta = record[5]
+            self.imeiEquipamento = record[6]
             
             equipamento = Equipamento.objects.filter(imeiEquipamento = self.imeiEquipamento).first()
             viagem = Viagem.objects.filter(status = 3, equipamento = equipamento).first()
@@ -166,7 +168,7 @@ class Detalhe(models.Model):
                 self.viagem = viagem
             
             self.save()
-    
+    '''
     class Meta:
       verbose_name = u"Detalhe"
       verbose_name_plural = u"Detalhes"

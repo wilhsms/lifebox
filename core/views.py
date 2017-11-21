@@ -25,6 +25,7 @@ def equipamento_pesquisar(request): # Filtra os equipamentos:
         equipamentos = Equipamento.objects.all()
         return render(request, 'equipamento/pesquisa.html', {'equipamentos': equipamentos})
 
+@login_required
 def equipamento_criar(request):
         if request.method == 'POST':
             form = EquipamentoForm(request.POST)
@@ -36,7 +37,7 @@ def equipamento_criar(request):
             form = EquipamentoForm()
         return render(request, 'equipamento/formulario.html', {'form': form})
 
-
+@login_required
 def equipamento_editar(request, pk):
         equipamento = get_object_or_404(Equipamento, pk=pk)
         if request.method == "POST":
@@ -49,7 +50,7 @@ def equipamento_editar(request, pk):
             form = EquipamentoForm(instance=equipamento)
         return render(request, 'equipamento/formulario.html', {'form': form})
 
-
+@login_required
 def equipamento_exportar(request):
         response = HttpResponse (content_type='text/csv')
         response ['Content-Disposition'] = 'attachment; filename = "Equipamentos.csv"'
@@ -60,6 +61,7 @@ def equipamento_exportar(request):
             writer.writerow(equipamento)
         return response
 
+@login_required
 def equipamento_importar(request):
         equipamentos = Equipamento.objects.all()
         return render(request, 'equipamento/pesquisa.html', {'equipamentos': equipamentos})
@@ -72,7 +74,7 @@ def caixa_pesquisar(request):
         caixas = Caixa.objects.all()
         return render(request, 'caixa/pesquisa.html', {'caixas': caixas})
 
-
+@login_required
 def caixa_criar(request):
         if request.method == 'POST':
             form = CaixaForm(request.POST)
@@ -84,7 +86,7 @@ def caixa_criar(request):
             form = CaixaForm()
             return render(request, 'caixa/formulario.html', {'form': form})
 
-
+@login_required
 def caixa_editar(request, pk):
         caixa = get_object_or_404(Caixa, pk=pk)
         if request.method == "POST":
@@ -97,6 +99,7 @@ def caixa_editar(request, pk):
             form = CaixaForm(instance=caixa)
         return render(request, 'caixa/formulario.html', {'form': form})
 
+@login_required
 def caixa_exportar(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Caixas.csv"'
@@ -108,12 +111,10 @@ def caixa_exportar(request):
     return response
 
 
-
+@login_required
 def caixa_importar(request):
     caixas = Caixa.objects.all()
     return render(request, 'caixa/pesquisa.html', {'caixas': caixas})
-
-
 
 ###################################################################################################
 # Cadastro de Hospitais:
@@ -122,7 +123,7 @@ def hospital_pesquisar(request):
         hospitais = Hospital.objects.all()
         return render(request, 'hospital/pesquisa.html', {'hospitais': hospitais})
 
-
+@login_required
 def hospital_criar(request):
         if request.method == 'POST':
             form = HospitalForm(request.POST)
@@ -134,7 +135,7 @@ def hospital_criar(request):
             form = HospitalForm()
         return render(request, 'hospital/formulario.html', {'form': form})
 
-
+@login_required
 def hospital_editar(request, pk):
         item = get_object_or_404(Hospital, pk=pk)
         if request.method == "POST":
@@ -147,6 +148,7 @@ def hospital_editar(request, pk):
             form = HospitalForm(instance=item)
         return render(request, 'hospital/formulario.html', {'form': form})
 
+@login_required
 def hospital_exportar(request):
         response = HttpResponse(content_type='text/csv')
         response ['Content-Disposition'] = 'attachment; filename = "Hospitais.csv"'
@@ -157,6 +159,7 @@ def hospital_exportar(request):
             writer.writerow(hospital)
         return response
 
+@login_required
 def hospital_importar(request):
         hospitais = Hospital.objects.all()
         return render(request, 'hospital/pesquisa.html', {'hospitais': hospitais})
@@ -168,6 +171,7 @@ def viagem_pesquisar(request):
         viagens = Viagem.objects.all()
         return render(request, 'viagem/pesquisa.html', {'viagens': viagens})
 
+@login_required
 def viagem_criar(request):
         if request.method == 'POST':
             form = ViagemForm(request.POST)
@@ -179,6 +183,7 @@ def viagem_criar(request):
             form = ViagemForm()
         return render(request, 'viagem/formulario.html', {'form': form})
 
+@login_required
 def viagem_editar(request, pk):
     item = get_object_or_404(Viagem, pk=pk)
     if request.method == "POST":
@@ -187,7 +192,8 @@ def viagem_editar(request, pk):
         if form.is_valid():
             if request.FILES['file']:
                 path = handle_uploaded_file(pk, 'viagem', request.FILES['file'])
-                Detalhe.objects.saveCsv(path)
+                #Detalhe.saveCsv(path)
+                cria_detalhes_from_csv_file(path)
             
             item = form.save(commit=False)
             item.save()
@@ -197,6 +203,7 @@ def viagem_editar(request, pk):
         form = ViagemForm(instance=item)
     return render(request, 'viagem/formulario.html', {'form': form, 'uploadform': uploadform})
 
+@login_required
 def viagem_exportar(request):
         response = HttpResponse(content_type='text/csv')
         response ['Content-Disposition'] = 'attachment; filename = "Viagens.csv"'
@@ -207,6 +214,7 @@ def viagem_exportar(request):
             writer.writerow(viagem)
         return response
 
+@login_required
 def viagem_importar(request):
         viagens = Viagem.objects.all()
         return render(request, 'viagem/pesquisa.html', {'viagens': viagens})
@@ -275,3 +283,28 @@ def handle_uploaded_file(id, folder, f):
             destination.write(chunk)
     
     return caminho_completo
+
+def cria_detalhes_from_csv_file(path):
+    with open(path) as file:
+        records = csv.reader(file)
+        for record in records:
+            detalhe = Detalhe()
+            print(record)
+            detalhe.numLongitudeDeta = record[0]
+            detalhe.numLatitudeDeta = record[1]
+            detalhe.numTemperatura1Deta = record[2]
+            detalhe.numTemperatura2Deta = record[3]
+            detalhe.indVirouDeta = record[4]
+            detalhe.indTombouDeta = record[5]
+            detalhe.imeiEquipamento = record[6]
+            
+            equipamento = Equipamento.objects.filter(imeiEquipamento = detalhe.imeiEquipamento).first()
+            viagem = Viagem.objects.filter(status = 3, equipamento = equipamento).first()
+            
+            if equipamento:
+                detalhe.equipamento = equipamento
+            
+            if viagem:
+                detalhe.viagem = viagem
+            
+            detalhe.save()
