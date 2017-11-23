@@ -155,3 +155,9 @@ label.title-full-width {
    margin-top: 15px;
 
 }
+
+.menu-buttons{
+    background-color: #33a74d;
+    border-radius: 5px;
+    padding: 3px 5px 1px 5px;
+}

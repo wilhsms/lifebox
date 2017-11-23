@@ -5,17 +5,20 @@ var markers = [];
 
 // Inicializando o mapa do OpenStreetMap:
 function initmap(id) {
-
 	map = new L.Map('map', getPositionOptions());
 
 	var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	layer = new L.TileLayer(osmUrl);
 	map.setView(new L.LatLng(-20.297618, -40.295777), 10);
 	map.addLayer(layer);
+	
 
 	//Atualiza os marcadores a cada x milisegundos:
 	setInterval(function () {
 		$.when(getData(id)).done(function (item) {
+			//Corrige tamanho do mapa no modal do bootstrap
+			map.invalidateSize();
+			
 			var itens = [];
 			itens.push(item)
 			
@@ -25,9 +28,11 @@ function initmap(id) {
 			if (itens != null && itens.length > 0) {
 				criarMarcadores(itens);
 			}
-
+			
 		});
-	}, (5 * 1000));
+	}, (1 * 1000));
+	
+	return map;
 }
 
 // Busca os dados das viagens ativas no sistema;
