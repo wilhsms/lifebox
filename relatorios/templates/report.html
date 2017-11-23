@@ -107,6 +107,7 @@
             <input type="submit" id="gerar_relatorio" class="btn btn-primary" value="Gerar relatório">
           </div>
         </div>
+      <!--Inicio tabela de relatóp-->
       </form>
 
       <table id="busca" class="display nowrap" cellspacing="0" width="100%">
@@ -114,7 +115,7 @@
           <tr>
             <th>Id</th>
             <th>Local de Partida</th>
-            <th>Local de Chegada</th>
+          <th>Local de Chegada</th>
             <th>Caixa</th>
             <th>Equipamento</th>
             <th></th>
@@ -137,29 +138,54 @@
           {% endfor %}
         </tbody>
       </table>
-
+      <!--Inicio modal-->
       <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <!--Inicio cabeçalho modal inicio-->
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Detalhes da viagem</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
           <span aria-hidden="true">&times;</span>
         </button>
+
       </div>
+
       <!--Fim cabeçalho modal inicio-->
       <!--Inicio corpo modal inicio-->
       <div id="modal_relatorio">
+
+        <div class="row">
+          <div class="col-md-7">
+        <img class="imagem_relatorio_modal" src="{% static 'images/logo_lifebox.png' %}">
+      </div>
+        <div class="col-md-5 texto_modal">
+        <strong>LifeBox</strong>
+        <p>Relatório detalhado da viagem</p>
+      </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12">
+        <h5 class="texto_detalhes_modal">Informações do equipamento:</h5>
+
       <div class="modal-body">
         {% for viagem in viagens %}
-            <label> {{viagem.localPartida}}</label>
-            <label> {{viagem.localChegada}}</label>
+
             <label> {{viagem.caixa}}</label>
             <label> {{viagem.equipamento}}</label>
+            <label> {{viagem.localPartida}}</label>
+            <label> {{viagem.localChegada}}</label>
+
         {% endfor %}
+        </div>
+        </div>
       </div>
       </div>
+
       <!--Fim corpo modal inicio-->
       <div class="modal-footer">
 
@@ -198,7 +224,7 @@
     }
 
     $("#btnImprimir").on("click", function () {
-          var content = $('.modal-body').html();
+          var content = $('#modal_relatorio').html();
           var printWindow = window.open('', '', 'height=400,width=800');
           var printWindow = window.open('', '', 'height=400,width=800');
           printWindow.document.write('<html><head><title>Relatório da viagem</title>');

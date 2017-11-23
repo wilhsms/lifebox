@@ -144,3 +144,19 @@ label.title-full-width {
 #aba-dados-viagem .nav-item .nav-link.active{
     background-color: rgba(37, 115, 174, 0.59);
 }
+
+.imagem_relatorio_modal{
+ width: 80px;
+ margin-left: 15px;
+
+}
+
+.texto_modal{
+   margin-top: 15px;
+}
+
+.texto_detalhes_modal{
+  margin-top: 5px;
+  padding-left: -5px;
+  margin-left: 15px;
+}
