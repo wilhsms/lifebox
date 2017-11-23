@@ -203,7 +203,7 @@
     function openModal(id){
       $.ajax({
     		type: "get",
-    		url: "/api/viagem/" + id,
+    		url: "/api/viagem/ativas/" + id,
     		cache: false,
     		Accept: "application/json",
     		contentType: "application/json",
@@ -212,7 +212,7 @@
             "Local de partida: <label> "+ viagem.localPartida.nome +"</label><br/>"+
             "Local de chegada: <label> "+ viagem.localChegada.nome +"</label><br/>"+
             "Caixa: <label> "+ viagem.caixa.idCaixa +"</label><br/>"+
-            "Equipamento: <label> "+ viagem.equipamento +"</label>"
+            "Equipamento: <label> "+ viagem.equipamento.idEquipamento +"</label>"
           )
 
           $('#modal_relatorio').modal('show');

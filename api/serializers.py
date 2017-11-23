@@ -13,11 +13,6 @@ class CaixaSerializer(serializers.ModelSerializer):
         model = Caixa
         fields = '__all__'
 
-class EquipamentoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Equipamento
-        fields = '__all__'
-
 class HospitalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hospital
@@ -44,9 +39,17 @@ class DetalheSerializer(serializers.ModelSerializer):
             
         return Detalhe.objects.create(**validated_data)
 
+class EquipamentoSerializer(serializers.ModelSerializer):
+    detalhes = DetalheSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Equipamento
+        fields = '__all__'
+
 class ViagemFullSerializer(serializers.ModelSerializer):
     detalhes = DetalheSerializer(many=True, read_only=True)
     caixa = CaixaSerializer(read_only=True)
+    equipamento = EquipamentoSerializer(read_only=True)
     localPartida = HospitalSerializer(read_only=True)
     localChegada = HospitalSerializer(read_only=True)    
 
@@ -59,9 +62,3 @@ class ViagemSingleSerializer(serializers.ModelSerializer):
         model = Viagem
         fields = '__all__'
         
-class EquipamentoSerializer(serializers.ModelSerializer):
-    detalhes = DetalheSerializer(many=True, read_only=True)
-    
-    class Meta:
-        model = Equipamento
-        fields = '__all__'
