@@ -144,3 +144,9 @@ label.title-full-width {
 #aba-dados-viagem .nav-item .nav-link.active{
     background-color: rgba(37, 115, 174, 0.59);
 }
+
+.menu-buttons{
+    background-color: #33a74d;
+    border-radius: 5px;
+    padding: 3px 5px 1px 5px;
+}

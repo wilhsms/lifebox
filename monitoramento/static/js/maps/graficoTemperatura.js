@@ -40,7 +40,7 @@ GraficoTemperatura.prototype.getDataGraficoTemperaturas = function () {
 
     return $.ajax({
         type: "get",
-        url: "/api/viagem/" + _this.id,
+        url: "/api/viagem/ativas/" + _this.id,
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
