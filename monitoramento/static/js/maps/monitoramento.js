@@ -37,7 +37,7 @@ function initmap() {
 function getData() {
 	return $.ajax({
 		type: "get",
-		url: "/api/viagem-ativas/",
+		url: "/api/viagem/ativas/",
 		cache: false,
 		Accept: "application/json",
 		contentType: "application/json",

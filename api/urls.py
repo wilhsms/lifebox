@@ -8,10 +8,10 @@ from api import apis
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 
-router.register(r'viagem-ativas', apis.ViagemAtivasViewSet)
+router.register(r'viagem/ativas', apis.ViagemAtivasViewSet)
 router.register(r'equipamento', apis.EquipamentoViewSet)
 router.register(r'detalhe', apis.DetalheViewSet)
-#router.register(r'viagem', apis.ViagemViewSet)
+router.register(r'viagem', apis.ViagemViewSet)
 
 urlpatterns = [
     url(r'', include(router.urls)),

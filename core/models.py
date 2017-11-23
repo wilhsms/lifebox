@@ -145,30 +145,7 @@ class Detalhe(models.Model):
 
     def __str__(self):
         return str(self.imeiEquipamento)
-    '''
-    def saveCsv(self, path):
-        records = csv.reader(path)
-        records.readline()#ignora a primeira linha
-        for record in records:
-            self.numLongitudeDeta = record[0]
-            self.numLatitudeDeta = record[1]
-            self.numTemperatura1Deta = record[2]
-            self.numTemperatura2Deta = record[3]
-            self.indVirouDeta = record[4]
-            self.indTombouDeta = record[5]
-            self.imeiEquipamento = record[6]
-            
-            equipamento = Equipamento.objects.filter(imeiEquipamento = self.imeiEquipamento).first()
-            viagem = Viagem.objects.filter(status = 3, equipamento = equipamento).first()
-            
-            if equipamento:
-                self.equipamento = equipamento
-            
-            if viagem:
-                self.viagem = viagem
-            
-            self.save()
-    '''
+
     class Meta:
       verbose_name = u"Detalhe"
       verbose_name_plural = u"Detalhes"
@@ -197,12 +174,3 @@ class Importa(models.Model):
 
     def __str__(self):
         return self.imei
-
-## exemplo para utilizar upload de arquivos
-#   def user_directory_path(instance, filename):
-#    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-#    return 'user_{0}/{1}'.format(instance.user.id, filename)
-#
-#  class MyModel(models.Model):
-#    upload = models.FileField(upload_to=user_directory_path)
-#
