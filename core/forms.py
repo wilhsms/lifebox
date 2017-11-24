@@ -12,7 +12,7 @@ class EquipamentoForm(forms.ModelForm):
         fields = ('idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard', 'createdEm', 'createdPor')
         widgets = {
             'id': TextInput(attrs={'readonly': 'True'}),
-            'idEquipamento': TextInput(attrs={'class':'eq_mask'}),
+            'idEquipamento': TextInput(attrs={'class':'eq_mask', 'readonly': 'True', 'placeholder': ''}),
             'imeiEquipamento': TextInput(attrs={'class': 'imeiTracker'}),
             'telefone': TextInput(attrs={'class': 'phone'}),
             'imeiSimCard': TextInput(attrs={'class': 'imeiSimCard'}),
@@ -27,7 +27,7 @@ class CaixaForm(forms.ModelForm):
        fields = ('idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional', 'createdEm', 'createdPor')
        widgets = {
                 'id': TextInput(attrs={'readonly': 'True'}),
-                'idCaixa': TextInput(attrs={'class':'cx_mask'}),
+                'idCaixa': TextInput(attrs={'class':'cx_mask', 'readonly': 'True', 'placeholder': ''}),
                 'corCaixa': TextInput(attrs={'type': 'color'}),
                 'informacaoAdicional': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,200,'spcontando');contarCaracteres(this.value,200,'sprestante')"}),
                 'createdEm' : DateTimeInput(attrs={'readonly': 'True'}),

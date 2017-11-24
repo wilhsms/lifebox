@@ -17,7 +17,7 @@ OPERADORA_CHOICES = (
 )
 
 class Equipamento(models.Model):
-    idEquipamento = models.CharField('Id Equipamento', max_length=6, unique=True)
+    idEquipamento = models.CharField('Id Equipamento', max_length=6, unique=True, blank=True)
     imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22, unique=True)
     telefone = models.CharField('Telefone', max_length=15)
     operadora = models.CharField('Operadora', max_length=8, choices=OPERADORA_CHOICES)
@@ -26,8 +26,10 @@ class Equipamento(models.Model):
     createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
+        print(self.idEquipamento)
         self.save()
-        self.idEquipamento = "EQ" + str(self.id).zfill(3)
+        self.idEquipamento = "EQ-" + str(self.id).zfill(3)
+        print(self.idEquipamento)
         self.save()
 
     def __str__(self):
@@ -36,7 +38,7 @@ class Equipamento(models.Model):
 ###################################################################################################
 # Banco Caixa:
 class Caixa(models.Model):
-    idCaixa = models.CharField('Id Caixa', max_length=6, unique=True)
+    idCaixa = models.CharField('Id Caixa', max_length=6, unique=True, blank=True )
     autorizacao = models.CharField('Autorização da Caixa', max_length=20, unique=True)
     corCaixa = models.CharField('Cor da Tarja', max_length=7, null=True)
     informacaoAdicional = models.TextField('Informações Adicionais', max_length=200)
@@ -45,7 +47,7 @@ class Caixa(models.Model):
 
     def publish(self):
         self.save()
-        self.idCaixa = "CX" + str(self.id).zfill(3)
+        self.idCaixa = "CX-" + str(self.id).zfill(3)
         self.save()
 
     def __str__(self):

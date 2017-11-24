@@ -29,9 +29,10 @@ def equipamento_pesquisar(request): # Filtra os equipamentos:
 def equipamento_criar(request):
         if request.method == 'POST':
             form = EquipamentoForm(request.POST)
+            print(form.is_valid())
             if form.is_valid():
                 equipamento = form.save(commit=False)
-                equipamento.save()
+                equipamento.publish()
             return redirect('equipamento_pesquisar')
         else:
             form = EquipamentoForm()
@@ -44,7 +45,7 @@ def equipamento_editar(request, pk):
             form = EquipamentoForm(request.POST, instance=equipamento)
             if form.is_valid():
                 equipamento = form.save(commit=False)
-                equipamento.save()
+                equipamento.publish()
             return redirect('equipamento_pesquisar')
         else:
             form = EquipamentoForm(instance=equipamento)
@@ -80,7 +81,7 @@ def caixa_criar(request):
             form = CaixaForm(request.POST)
             if form.is_valid():
                 caixa = form.save(commit=False)
-                caixa.save()
+                caixa.publish()
             return redirect('caixa_pesquisar')
         else:
             form = CaixaForm()
@@ -93,7 +94,7 @@ def caixa_editar(request, pk):
             form = CaixaForm(request.POST, instance=caixa)
             if form.is_valid():
                 caixa = form.save(commit=False)
-                caixa.save()
+                caixa.publish()
             return redirect('caixa_pesquisar')
         else:
             form = CaixaForm(instance=caixa)
@@ -177,6 +178,7 @@ def viagem_criar(request):
             form = ViagemForm(request.POST)
             if form.is_valid():
                 item = form.save(commit=False)
+                item.status = 1
                 item.save()
             return redirect('viagem_pesquisar')
         else:
