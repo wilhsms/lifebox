@@ -56,8 +56,8 @@ def equipamento_exportar(request):
         response = HttpResponse (content_type='text/csv')
         response ['Content-Disposition'] = 'attachment; filename = "Equipamentos.csv"'
         writer = csv.writer(response)
-        writer.writerow ([ 'id', 'idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard', 'createdEm', 'createdPor'])
-        equipamentos = Equipamento.objects.all().values_list( 'id', 'idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard', 'createdEm', 'createdPor')
+        writer.writerow ([ 'id', 'idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard'])
+        equipamentos = Equipamento.objects.all().values_list( 'id', 'idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard')
         for equipamento in equipamentos:
             writer.writerow(equipamento)
         return response
@@ -105,8 +105,8 @@ def caixa_exportar(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="Caixas.csv"'
     writer = csv.writer(response)
-    writer.writerow(['id', 'idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional', 'createdEm', 'createdPor'])
-    caixas = Caixa.objects.all().values_list( 'id', 'idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional', 'createdEm', 'createdPor')
+    writer.writerow(['id', 'idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional'])
+    caixas = Caixa.objects.all().values_list( 'id', 'idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional')
     for caixa in caixas:
         writer.writerow(caixa)
     return response
@@ -154,8 +154,8 @@ def hospital_exportar(request):
         response = HttpResponse(content_type='text/csv')
         response ['Content-Disposition'] = 'attachment; filename = "Hospitais.csv"'
         writer = csv.writer(response)
-        writer.writerow (['id', 'nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf', 'createdEm', 'createdPor'])
-        hospitais = Hospital.objects.all().values_list( 'id', 'nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf', 'createdEm', 'createdPor')
+        writer.writerow (['id', 'nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf'])
+        hospitais = Hospital.objects.all().values_list( 'id', 'nome', 'telefone', 'nomeResponsavel', 'emailResponsavel', 'cep', 'logradouro', 'bairro', 'cidade', 'uf')
         for hospital in hospitais:
             writer.writerow(hospital)
         return response
@@ -196,7 +196,7 @@ def viagem_editar(request, pk):
                 path = handle_uploaded_file(pk, 'viagem', request.FILES['file'])
                 #Detalhe.saveCsv(path)
                 cria_detalhes_from_csv_file(path)
-            
+
             item = form.save(commit=False)
             item.save()
             return redirect('viagem_pesquisar')
@@ -210,8 +210,8 @@ def viagem_exportar(request):
         response = HttpResponse(content_type='text/csv')
         response ['Content-Disposition'] = 'attachment; filename = "Viagens.csv"'
         writer = csv.writer(response)
-        writer.writerow (['id', 'localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs', 'createdEm', 'createdPor'])
-        viagens = Viagem.objects.all().values_list( 'id', 'localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs', 'createdEm', 'createdPor')
+        writer.writerow (['id', 'localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs'])
+        viagens = Viagem.objects.all().values_list( 'id', 'localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs')
         for viagem in viagens:
             writer.writerow(viagem)
         return response
@@ -229,9 +229,9 @@ def status_alterar(request, pk, cod):
     item_status = Status.objects.get(codStatus = cod)
     item.status = item_status
     item.save()
-    
+
     return JsonResponse({'result': 'ok', 'object':itemStatus.dscStatus})
-    
+
 
 ###################################################################################################
 # carrega página sobre a história e conceito do lifebox
@@ -269,13 +269,13 @@ def importa_arquivo(request):
 # metodo que recebe o arquivo do request.FILES, armazena no servidor e retorna o endereco
 def handle_uploaded_file(id, folder, f):
     diretorio = os.path.join('upload', folder, id)
-    
+
     #Cria o diretorio caso não exista:
     try:
          os.makedirs(diretorio)
     except Exception as ex:
         print(ex.message)
-    
+
     #Verifica a qnt de arquivos na pasta:
     onlyfiles = next(os.walk(diretorio))[2]
     caminho_completo = os.path.join(diretorio, str(len(onlyfiles) + 1) + '.csv')
@@ -283,7 +283,7 @@ def handle_uploaded_file(id, folder, f):
     with open(caminho_completo, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-    
+
     return caminho_completo
 
 def cria_detalhes_from_csv_file(path):
@@ -299,14 +299,14 @@ def cria_detalhes_from_csv_file(path):
             detalhe.indVirouDeta = record[4]
             detalhe.indTombouDeta = record[5]
             detalhe.imeiEquipamento = record[6]
-            
+
             equipamento = Equipamento.objects.filter(imeiEquipamento = detalhe.imeiEquipamento).first()
             viagem = Viagem.objects.filter(status = 3, equipamento = equipamento).first()
-            
+
             if equipamento:
                 detalhe.equipamento = equipamento
-            
+
             if viagem:
                 detalhe.viagem = viagem
-            
+
             detalhe.save()

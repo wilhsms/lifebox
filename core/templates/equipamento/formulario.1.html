@@ -21,7 +21,7 @@
     <div class="col-sm-10">
       {% if form.instance.id %}
       <h2><i class="glyphicon glyphicon-hdd"></i> Equipamento {{form.instance.idEquipamento}}</h2>
-      
+
       {% else %}
       <h2><i class="glyphicon glyphicon-hdd"></i> Adicionar Equipamento</h2>
       {% endif %}
@@ -30,7 +30,7 @@
       <a href="{% url 'equipamento_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar </a>
     </div>
   </div>
-  
+
   <form action="#" method="post">
     <div class="menu-buttons">
       <div class="row ">
@@ -41,7 +41,7 @@
             <a href="javascript: openModal();" class="btn btn-success my-2 my-sm-0">
               <span class="fa fa-map-o"></span> Localizar</a>
             {% endif %}
-            
+
           </div>
         </div>
         {% if form.instance.id %}
@@ -76,11 +76,6 @@
       <div class="col-sm-4">{% bootstrap_field form.imeiSimCard%}</div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-3">{% bootstrap_field form.createdEm%}</div>
-      <div class="col-sm-3">{% bootstrap_field form.createdPor%}</div>
-    </div>
-
     <!--<div class="row">
       <div class="col-sm-12 menu-buttons">
         <div class="btn-group">
@@ -95,7 +90,7 @@
     </div>-->
 
   </form>
-  
+
 {% if form.instance.id %}
   <div class="modal fade" id="modalMapaEquipamento" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -116,7 +111,7 @@
   <script src="{% static 'js/equipamento/localizarNoMapa.js' %}"></script>
   <script type="text/javascript">
     initmap({{form.instance.id}});
-      
+
     function openModal(){
       $('#modalMapaEquipamento').modal('show');
     }

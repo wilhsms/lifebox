@@ -22,8 +22,6 @@ class Equipamento(models.Model):
     telefone = models.CharField('Telefone', max_length=15)
     operadora = models.CharField('Operadora', max_length=8, choices=OPERADORA_CHOICES)
     imeiSimCard = models.CharField('IMEI SIM Card', max_length=26)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
         print(self.idEquipamento)
@@ -42,8 +40,6 @@ class Caixa(models.Model):
     autorizacao = models.CharField('Autorização da Caixa', max_length=20, unique=True)
     corCaixa = models.CharField('Cor da Tarja', max_length=7, null=True)
     informacaoAdicional = models.TextField('Informações Adicionais', max_length=200)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
         self.save()
@@ -65,9 +61,6 @@ class Hospital(models.Model):
     bairro = models.CharField('Bairro',max_length=30)
     cidade = models.CharField('Cidade',max_length=30)
     uf = models.CharField('UF',max_length=2)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
-
 
     def publish(self):
         self.save()
@@ -119,8 +112,6 @@ class Viagem(models.Model):
     nomeTransportador = models.CharField('Transportado por', max_length=30, null=True, blank=True)
     contato = models.CharField('Contato', max_length=15, null=True, blank=True)
     obs = models.TextField('Observações', max_length=500, null=True, blank=True)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
         self.save()
@@ -167,9 +158,6 @@ class Importa(models.Model):
     tombo = models.BooleanField('Tombou?', )
     course = models.IntegerField('Curso')
     satelites = models.SmallIntegerField('Satélites')
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
-
 
     def publish(self):
         self.save()
