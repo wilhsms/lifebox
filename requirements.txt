@@ -4,3 +4,4 @@ whitenoise
 djangorestframework
 pylint
 django-import-export
+django-easy-audit
