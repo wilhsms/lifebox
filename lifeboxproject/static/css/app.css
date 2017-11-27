@@ -165,3 +165,8 @@ label.title-full-width {
 input[type='color']{
     height: 38px
 }
+.texto_detalhes_modal{
+  margin-top: 5px;
+  padding-left: -5px;
+  margin-left: 15px;
+}
