@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User # carrega user para inserção no campo createdPor
+import csv
 
 
 ###################################################################################################
@@ -16,17 +17,17 @@ OPERADORA_CHOICES = (
 )
 
 class Equipamento(models.Model):
-    idEquipamento = models.CharField('Id Equipamento', max_length=6, unique=True)
+    idEquipamento = models.CharField('Id Equipamento', max_length=6, unique=True, blank=True)
     imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22, unique=True)
     telefone = models.CharField('Telefone', max_length=15)
     operadora = models.CharField('Operadora', max_length=8, choices=OPERADORA_CHOICES)
     imeiSimCard = models.CharField('IMEI SIM Card', max_length=26)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
+        print(self.idEquipamento)
         self.save()
-        self.nome = "EQ" + str(self.id).zfill(3)
+        self.idEquipamento = "EQ-" + str(self.id).zfill(3)
+        print(self.idEquipamento)
         self.save()
 
     def __str__(self):
@@ -35,16 +36,14 @@ class Equipamento(models.Model):
 ###################################################################################################
 # Banco Caixa:
 class Caixa(models.Model):
-    idCaixa = models.CharField('Id Caixa', max_length=6, unique=True)
+    idCaixa = models.CharField('Id Caixa', max_length=6, unique=True, blank=True )
     autorizacao = models.CharField('Autorização da Caixa', max_length=20, unique=True)
     corCaixa = models.CharField('Cor da Tarja', max_length=7, null=True)
     informacaoAdicional = models.TextField('Informações Adicionais', max_length=200)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
         self.save()
-        self.idCaixa = "CX" + str(self.id).zfill(3)
+        self.idCaixa = "CX-" + str(self.id).zfill(3)
         self.save()
 
     def __str__(self):
@@ -62,9 +61,6 @@ class Hospital(models.Model):
     bairro = models.CharField('Bairro',max_length=30)
     cidade = models.CharField('Cidade',max_length=30)
     uf = models.CharField('UF',max_length=2)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
-
 
     def publish(self):
         self.save()
@@ -99,18 +95,23 @@ class Status(models.Model):
 
 
 ###################################################################################################
+STATUS_VIAGEM = (
+    ('1', 'Em Elaboracao'),
+    ('2', 'Aguardando Viagem'),
+    ('3', 'Viagem Iniciada'),
+    ('4', 'Viagem Finalizada'),
+)
+
 # Banco Viagem:
 class Viagem(models.Model):
     localPartida = models.ForeignKey('Hospital', related_name='local_partida')
     localChegada = models.ForeignKey('Hospital', related_name='local_chegada')
     caixa = models.ForeignKey('Caixa')
     equipamento = models.ForeignKey('Equipamento')
-    status = models.ForeignKey('Status', related_name='status', default=1)
+    status = models.CharField('Status', max_length=2, choices=STATUS_VIAGEM)
     nomeTransportador = models.CharField('Transportado por', max_length=30, null=True, blank=True)
     contato = models.CharField('Contato', max_length=15, null=True, blank=True)
     obs = models.TextField('Observações', max_length=500, null=True, blank=True)
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
 
     def publish(self):
         self.save()
@@ -127,14 +128,16 @@ class Viagem(models.Model):
 class Detalhe(models.Model):
     numLongitudeDeta = models.DecimalField('Longitude', max_digits=9, decimal_places=6)
     numLatitudeDeta = models.DecimalField('Latitude', max_digits=9, decimal_places=6)
-    numTemperaturaDeta = models.DecimalField('Temperatura', max_digits=4, decimal_places=1)
+    numTemperatura1Deta = models.DecimalField('Temperatura 1', max_digits=4, decimal_places=1, default=1)
+    numTemperatura2Deta = models.DecimalField('Temperatura 2', max_digits=4, decimal_places=1, default=2)
     indVirouDeta = models.BooleanField('Virou?')
     indTombouDeta = models.BooleanField('Tombou?')
     imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22)
-    viagem = models.ForeignKey('Viagem', related_name='detalhes', on_delete=models.CASCADE)
+    viagem = models.ForeignKey('Viagem', related_name='detalhes', blank=True, null=True)
+    equipamento = models.ForeignKey('Equipamento', related_name='detalhes', blank=True, null=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.imeiEquipamento)
 
     class Meta:
       verbose_name = u"Detalhe"
@@ -155,21 +158,9 @@ class Importa(models.Model):
     tombo = models.BooleanField('Tombou?', )
     course = models.IntegerField('Curso')
     satelites = models.SmallIntegerField('Satélites')
-    createdEm = models.DateTimeField('Registro criado em:', default=timezone.now)
-    createdPor = models.ForeignKey(User, default=User)
-
 
     def publish(self):
         self.save()
 
     def __str__(self):
         return self.imei
-
-## exemplo para utilizar upload de arquivos
-#   def user_directory_path(instance, filename):
-#    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-#    return 'user_{0}/{1}'.format(instance.user.id, filename)
-#
-#  class MyModel(models.Model):
-#    upload = models.FileField(upload_to=user_directory_path)
-#

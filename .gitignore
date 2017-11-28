@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+**/*.pyc
 *.pyc
 
 # C extensions
@@ -113,6 +114,7 @@ myvenv/
 #Files Folders
 media/
 testeexp/
+upload/
 uploads/
 _uploloads/
 

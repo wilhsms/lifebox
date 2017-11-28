@@ -30,14 +30,14 @@ function initmap() {
 			}
 
 		});
-	}, (1 * 1000));
+	}, (5 * 1000));
 }
 
 // Busca os dados das viagens ativas no sistema;
 function getData() {
 	return $.ajax({
 		type: "get",
-		url: "/api/viagem-ativas/",
+		url: "/api/viagem/ativas/",
 		cache: false,
 		Accept: "application/json",
 		contentType: "application/json",
@@ -81,11 +81,13 @@ function criarMarcadores(_viagens) {
 						viagemId: viagem.id,
 						hospitalPartida: viagem.localPartida.nome,
 						hospitalChegada: viagem.localChegada.nome,
-						temperaturaAtual: ultimoDetalhe.numTemperaturaDeta,
+						temperatura1Atual: ultimoDetalhe.numTemperatura1Deta,
+						temperatura2Atual: ultimoDetalhe.numTemperatura2Deta,
 						temperaturas: viagem.detalhes.map(function (item) {
 							return {
 								'id': item.id,
-								'temperatura': item.numTemperaturaDeta,
+								'temperatura1': item.numTemperatura1Deta,
+								'temperatura2': item.numTemperatura2Deta,
 								'virou': item.indVirouDeta,
 								'tombou': item.indTombouDeta
 							};

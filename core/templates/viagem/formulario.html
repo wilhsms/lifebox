@@ -26,7 +26,8 @@
 {% endblock %} {% block custom_js %}
 <script src="{% static 'js/mask/mascaras.js' %}"></script>
 <script src="{% static 'js/mask/jquery.maskedinput.min.js' %}"></script>
-<script src="{% static 'js/context/contador.js' %}"></script> {% endblock%} {% block content %}
+<script src="{% static 'js/context/contador.js' %}"></script> 
+<script src="{% static 'js/viagem/disabledHospitalDestino.js' %}"></script> {% endblock%} {% block content %}
 <div class="jumbotron">
   <h2>
     <i class="glyphicon glyphicon-plane"></i> Adicionar Nova Viagem</h2>
@@ -38,7 +39,8 @@
           <button type="submit" class="btn btn-success my-2 my-sm-0">
             <span class="fa fa-check"></span> Salvar </button>
           {% if uploadform != None%}
-          <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal" data-target="#modalUpload">Carregar Dados Offline</button>
+          <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal" data-target="#modalUpload">
+             <span class="fa fa-cloud-upload"></span> Carregar Dados</button>
           {%endif%}
           <a href="{% url 'viagem_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0">
             <span class="fa fa-undo"></span> Voltar </a>
@@ -71,17 +73,13 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-2">{% bootstrap_field form.createdEm%}</div>
-      <div class="col-sm-2">{% bootstrap_field form.createdPor%}</div>
-    </div>
-
-    <div class="row">
       <div class="col-sm-12">
         <div class="btn-group">
           <button type="submit" class="btn btn-success my-2 my-sm-0">
             <span class="fa fa-check"></span> Salvar </button>
           {% if uploadform != None%}
-          <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal" data-target="#modalUpload">Carregar Dados Offline</button>
+          <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal" data-target="#modalUpload">
+            <span class="fa fa-cloud-upload"></span> Carregar Dados</button>
           {%endif%}
           <a href="{% url 'viagem_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0">
             <span class="fa fa-undo"></span> Voltar </a>

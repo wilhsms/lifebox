@@ -38,7 +38,19 @@
         <td>{{viagem.localChegada}}</td>
         <td>{{viagem.caixa}}</td>
         <td>{{viagem.equipamento}}</td>
-        <td>{{viagem.status}}</td>
+        <td>
+          {% if viagem.status == '1'  %}
+          Em Elaboração
+          {% elif  viagem.status == '2' %}
+          Aguardando Viagem
+          {% elif  viagem.status == '3' %}
+          Viagem Iniciada
+          {% elif  viagem.status == '4' %}
+          Viagem Finalizada
+          {% else%}
+          -
+          {% endif %}
+          </td>
       </tr>
       {% endfor %}
     </tbody>

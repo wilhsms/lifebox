@@ -25,7 +25,8 @@ GraficoTemperatura.prototype.init = function (_data) {
             _this._createMorrisGraph(viagem.detalhes.map(function (item) {
                     return {
                         'id': item.id,
-                        'temperatura': item.numTemperaturaDeta,
+                        'temperatura1': item.numTemperatura1Deta,
+                        'temperatura2': item.numTemperatura2Deta,
                         'virou': item.indVirouDeta,
                         'tombou': item.indTombouDeta
                     };
@@ -39,7 +40,7 @@ GraficoTemperatura.prototype.getDataGraficoTemperaturas = function () {
 
     return $.ajax({
         type: "get",
-        url: "/api/viagem/" + _this.id,
+        url: "/api/viagem/ativas/" + _this.id,
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
@@ -59,11 +60,12 @@ GraficoTemperatura.prototype._createMorrisGraph =  function (_data){
         element: _this.element,
         data: _data,
         xkey: 'id',
-        ykeys: ['temperatura'],
-        labels: ['Temperatura'],
+        ykeys: ['temperatura1', 'temperatura2'],
+        labels: ['Temperatura 1', 'Temperatura 2'],
         resize: true,
         hoverCallback: function (index, options, content, row) {
-            return "<b>Temperatura</b>: " + row.temperatura + "ºC"
+            return "<b>Temperatura 1</b>: " + row.temperatura1 + "ºC"
+                + "</br><b>Temperatura 2</b>: " + row.temperatura2 + "ºC"
                 + "</br><b>Virou</b>: " + (row.virou ? 'Sim' : 'Não')
                 + "</br><b>Tombou</b>: " + (row.tombou ? 'Sim' : 'Não');
         }

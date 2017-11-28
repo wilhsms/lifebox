@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^cadastro/', include('core.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^import/csv/$', views.importa_arquivo, name='importa_arquivo'),
+
 ]
