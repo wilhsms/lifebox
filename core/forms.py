@@ -2,7 +2,6 @@
 from django import forms
 from django.forms.widgets import TextInput, Textarea, DateTimeInput
 from .models import Equipamento, Caixa, Hospital, Viagem
-# from django.contrib.auth.models import User # carrega user para inserção no campo createdPor
 
 ###################################################################################################
 # Formulário Equipamento:
