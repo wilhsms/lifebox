@@ -13,12 +13,14 @@ from core.models import *
 @login_required
 def relatorios(request):
     resultado = None
+    #Realiza o filtro em cada tabela
     if request.method == "POST":
         caixa_filtro=request.POST.get("caixa")
         equipamento_filtro=request.POST.get("equipamento")
         hospital_saida_filtro=request.POST.get("hospital_saida")
         hospital_chegada_filtro=request.POST.get("hospital_chegada")
-        
+
+        #Une os filtros realizando um filtro combinado entre todas as tabelas
         resultado = Viagem.objects.all()
         if caixa_filtro:
             resultado = resultado.filter(caixa__id=caixa_filtro)
@@ -28,9 +30,9 @@ def relatorios(request):
             resultado = resultado.filter(localPartida__id=hospital_saida_filtro)
         if hospital_chegada_filtro:
             resultado = resultado.filter(localChegada__id=hospital_chegada_filtro)
-            
+        #Print que mostra o resultado no terminal
         print(resultado)
-
+    #Retorna as caixas e equipamentos para realizar filtro
     caixas = Caixa.objects.all()
     equipamentos = Equipamento.objects.all()
     hospitais = Hospital.objects.all()
