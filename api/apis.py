@@ -42,8 +42,16 @@ def get_insere(request):
         content = request.query_params['content']
         if content:
             array = content.split('/')
+
+            #Formatar imeiEquipamento para o formato do sistema:
+            inicio = array[0][:5]
+            fim = array[0][10:]
+            meio = (array[0][5:])[:5]
+
+            imei = ".".join((inicio, meio, fim))
+            
             detalhe = Detalhe.criar(
-                array[0],# Imei do Equipamento
+                imei,# Imei do Equipamento
                 Decimal(array[1]),# Temperatura interna
                 Decimal(array[2]),# Temperatura externa
                 eval(array[3]),# virou
