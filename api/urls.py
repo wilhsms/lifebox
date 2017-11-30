@@ -15,5 +15,6 @@ router.register(r'viagem', apis.ViagemViewSet)
 
 urlpatterns = [
     url(r'', include(router.urls)),
+    url(r'^get_insere/', apis.get_insere, name="get_insere"),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
