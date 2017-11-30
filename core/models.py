@@ -132,12 +132,34 @@ class Detalhe(models.Model):
     numTemperatura2Deta = models.DecimalField('Temperatura 2', max_digits=4, decimal_places=1, default=2)
     indVirouDeta = models.BooleanField('Virou?')
     indTombouDeta = models.BooleanField('Tombou?')
+    numTemperatura1Deta = models.DecimalField('Temperatura 1', max_digits=4, decimal_places=1, default=1)
+    numElevacaoDeta = models.DecimalField('Elevação', max_digits=4, decimal_places=1, default=1)
+    numVelocidadeDeta = models.DecimalField('Velocidade', max_digits=4, decimal_places=1, default=1)
+    datDataHoraDeta = models.DateTimeField('Data Hora Envio', default=timezone.now)
     imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22)
     viagem = models.ForeignKey('Viagem', related_name='detalhes', blank=True, null=True)
     equipamento = models.ForeignKey('Equipamento', related_name='detalhes', blank=True, null=True)
 
     def __str__(self):
         return str(self.imeiEquipamento)
+    
+    @classmethod    
+    def criar(cls, _imeiEquipamento, _numTemperatura1Deta, _numTemperatura2Deta, _indVirouDeta, _indTombouDeta,
+        _numLatitudeDeta, _numLongitudeDeta, _numElevacaoDeta, _numVelocidadeDeta, _datDataHoraDeta):
+        
+        detalhe = cls()
+        detalhe.numLongitudeDeta = _numLongitudeDeta
+        detalhe.numLatitudeDeta = _numLatitudeDeta
+        detalhe.numTemperatura1Deta = _numTemperatura1Deta
+        detalhe.numTemperatura2Deta = _numTemperatura2Deta
+        detalhe.indVirouDeta = _indVirouDeta
+        detalhe.indTombouDeta = _indTombouDeta
+        detalhe.numElevacaoDeta = _numElevacaoDeta
+        detalhe.numVelocidadeDeta = _numVelocidadeDeta
+        detalhe.imeiEquipamento = _imeiEquipamento
+        detalhe.datDataHoraDeta = _datDataHoraDeta
+        
+        return detalhe
 
     class Meta:
       verbose_name = u"Detalhe"
