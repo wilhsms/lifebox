@@ -145,17 +145,7 @@ label.title-full-width {
     background-color: rgba(37, 115, 174, 0.59);
 }
 
-.imagem_relatorio_modal{
- width: 80px;
- margin-left: 12px;
- margin-top: 5px;
 
-}
-
-.texto_modal{
-   margin-top: 15px;
-
-}
 
 .menu-buttons{
     background-color: #33a74d;
@@ -164,25 +154,5 @@ label.title-full-width {
 }
 
 input[type='color']{
-    height: 38px
-}
-.texto_detalhes_modal{
-  margin-top: 5px;
-  padding-left: -5px;
-  border-bottom: 2px solid !important;
-  border-bottom-color: #8D8280 !important;
-  background: #EEE9E9;
-  padding: 2px 4px 2px 7px;
-  border-radius: 5px;
-  font-size: 16px;
-
-}
-
-.texto_cabeçalho{
-    font-size: 19px;
-}
-.texto_detalhe_modal{
-    margin-bottom: 1px;
-
-
+    height: 38px;
 }
