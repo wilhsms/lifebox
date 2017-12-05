@@ -6,13 +6,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.http import JsonResponse, HttpResponseRedirect
 
-from core.models import Equipamento, Caixa, Hospital, Viagem, Status
+from core.models import Equipamento, Caixa, Hospital, Viagem, Detalhe
 from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm, UploadFileForm
 from core.forms import EquipamentoForm, CaixaForm, HospitalForm, ViagemForm
 from tablib import Dataset # Importante para a função de importar/exportar arquivos no admin django
 from import_export.admin import ExportMixin # Importante para a função de importar/exportar arquivos sem admin django
 from django.http import JsonResponse, HttpResponse #HttpResponse é para testes com export e import
-from .models import Equipamento, Caixa, Hospital, Viagem, Status, Detalhe
+
 from django.core.files.storage import FileSystemStorage
 import csv
 import os
@@ -33,7 +33,7 @@ def equipamento_criar(request):
             if form.is_valid():
                 equipamento = form.save(commit=False)
                 equipamento.publish()
-            return redirect('equipamento_pesquisar')
+                return redirect('equipamento_pesquisar')
         else:
             form = EquipamentoForm()
         return render(request, 'equipamento/formulario.html', {'form': form})
@@ -46,7 +46,7 @@ def equipamento_editar(request, pk):
             if form.is_valid():
                 equipamento = form.save(commit=False)
                 equipamento.publish()
-            return redirect('equipamento_pesquisar')
+                return redirect('equipamento_pesquisar')
         else:
             form = EquipamentoForm(instance=equipamento)
         return render(request, 'equipamento/formulario.html', {'form': form})
@@ -82,7 +82,7 @@ def caixa_criar(request):
             if form.is_valid():
                 caixa = form.save(commit=False)
                 caixa.publish()
-            return redirect('caixa_pesquisar')
+                return redirect('caixa_pesquisar')
         else:
             form = CaixaForm()
             return render(request, 'caixa/formulario.html', {'form': form})
@@ -95,7 +95,7 @@ def caixa_editar(request, pk):
             if form.is_valid():
                 caixa = form.save(commit=False)
                 caixa.publish()
-            return redirect('caixa_pesquisar')
+                return redirect('caixa_pesquisar')
         else:
             form = CaixaForm(instance=caixa)
         return render(request, 'caixa/formulario.html', {'form': form})
@@ -131,7 +131,7 @@ def hospital_criar(request):
             if form.is_valid():
                 item = form.save(commit=False)
                 item.save()
-            return redirect('hospital_pesquisar')
+                return redirect('hospital_pesquisar')
         else:
             form = HospitalForm()
         return render(request, 'hospital/formulario.html', {'form': form})
@@ -144,7 +144,7 @@ def hospital_editar(request, pk):
             if form.is_valid():
                 item = form.save(commit=False)
                 item.save()
-            return redirect('hospital_pesquisar')
+                return redirect('hospital_pesquisar')
         else:
             form = HospitalForm(instance=item)
         return render(request, 'hospital/formulario.html', {'form': form})
@@ -180,7 +180,7 @@ def viagem_criar(request):
                 item = form.save(commit=False)
                 item.status = 1
                 item.save()
-            return redirect('viagem_pesquisar')
+                return redirect('viagem_pesquisar')
         else:
             form = ViagemForm()
         return render(request, 'viagem/formulario.html', {'form': form})
@@ -225,12 +225,14 @@ def viagem_importar(request):
 # Alteração de status
 @login_required
 def status_alterar(request, pk, cod):
-    item = get_object_or_404(Viagem, pk=pk)
-    item_status = Status.objects.get(codStatus = cod)
-    item.status = item_status
-    item.save()
+    viagem = get_object_or_404(Viagem, pk=pk)
 
-    return JsonResponse({'result': 'ok', 'object':itemStatus.dscStatus})
+    viagem.status = str(cod)
+    viagem.save()
+    
+    uploadform = UploadFileForm()
+    form = ViagemForm(instance=viagem)
+    return render(request, 'viagem/formulario.html', {'form': form, 'uploadform': uploadform})
 
 
 ###################################################################################################

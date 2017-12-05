@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.forms.widgets import TextInput, Textarea, DateTimeInput
+from datetimewidget.widgets import DateTimeWidget
 from .models import Equipamento, Caixa, Hospital, Viagem
 
 ###################################################################################################
@@ -52,11 +53,20 @@ class HospitalForm(forms.ModelForm):
 class ViagemForm(forms.ModelForm):
    class Meta:
        model = Viagem
-       fields = ('localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs')
+       fields = ('status', 'localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs', 'dataInicio', 'dataFim')
        widgets = {
-           'id': TextInput(attrs={'readonly': 'True'}),
            'contato': TextInput(attrs={'class': 'phone'}),
            'obs': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,500,'spcontando');contarCaracteres(this.value,500,'sprestante')"}),
+           'dataInicio': DateTimeWidget(options={
+                            'format': 'dd/mm/yyyy HH:ii P',
+                            'autoclose': True,
+                            'showMeridian' : True
+                            }),
+           'dataFim': DateTimeWidget(options={
+                            'format': 'dd/mm/yyyy HH:ii P',
+                            'autoclose': True,
+                            'showMeridian' : True
+                            })
            }
 
 

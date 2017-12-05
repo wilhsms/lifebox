@@ -76,7 +76,7 @@ class Hospital(models.Model):
 
 ###################################################################################################
 # Banco Status:
-class Status(models.Model):
+'''class Status(models.Model):
     dscStatus = models.CharField('Descrição', max_length=50)
     codStatus = models.CharField('Código', max_length=2)
 
@@ -92,7 +92,7 @@ class Status(models.Model):
     class Meta:
         verbose_name_plural = 'Status'
         verbose_name = 'Status'
-
+'''
 
 ###################################################################################################
 STATUS_VIAGEM = (
@@ -112,6 +112,8 @@ class Viagem(models.Model):
     nomeTransportador = models.CharField('Transportado por', max_length=30, null=True, blank=True)
     contato = models.CharField('Contato', max_length=15, null=True, blank=True)
     obs = models.TextField('Observações', max_length=500, null=True, blank=True)
+    dataInicio = models.DateTimeField("Data de Início", null=True, blank=True, default=timezone.now)
+    dataFim = models.DateTimeField("Data de Fim", null=True, blank=True, default=timezone.now)
 
     def publish(self):
         self.save()
@@ -167,7 +169,7 @@ class Detalhe(models.Model):
 
 ###################################################################################################
 # Banco importa: para importação e armazenamento de CSVs
-class Importa(models.Model):
+'''class Importa(models.Model):
     imei = models.CharField('IMEI', max_length=22, unique=True)
     dia = models.DateField('Dia', max_length=10)
     hora = models.TimeField('Hora', max_length=8)
@@ -186,3 +188,4 @@ class Importa(models.Model):
 
     def __str__(self):
         return self.imei
+'''

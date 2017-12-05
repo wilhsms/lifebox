@@ -2,7 +2,7 @@
 # importaçoes originais do admin.py -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from core.models import Equipamento, Caixa, Hospital, Viagem, Status, Detalhe, Importa
+from core.models import Equipamento, Caixa, Hospital, Viagem, Detalhe
 
 # importaçoes para atender função importa/exporta
 from import_export.admin import ImportExportMixin, ImportExportModelAdmin
@@ -96,9 +96,10 @@ class DetalheAdmin(ImportExportMixin, admin.ModelAdmin):
     
 admin.site.register(Detalhe, DetalheAdmin)
 
-class StatusAdmin(admin.ModelAdmin):
+'''class StatusAdmin(admin.ModelAdmin):
     list_display = ('id','codStatus', 'dscStatus')
     
 admin.site.register(Status, StatusAdmin)
 
 admin.site.register(Importa)
+'''

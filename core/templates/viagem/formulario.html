@@ -22,33 +22,45 @@
   .custom-file-control {
     white-space: nowrap;
   }
+  
 </style>
 {% endblock %} {% block custom_js %}
 <script src="{% static 'js/mask/mascaras.js' %}"></script>
 <script src="{% static 'js/mask/jquery.maskedinput.min.js' %}"></script>
 <script src="{% static 'js/context/contador.js' %}"></script> 
-<script src="{% static 'js/viagem/disabledHospitalDestino.js' %}"></script> {% endblock%} {% block content %}
+<script src="{% static 'js/viagem/disabledHospitalDestino.js' %}"></script> 
+{{ form.media }}
+{% endblock%} {% block content %}
 <div class="jumbotron">
   <h2>
     <i class="glyphicon glyphicon-plane"></i> Adicionar Nova Viagem</h2>
 
   <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class="row">
       <div class="col-sm-12">
         <div class="btn-group">
           <button type="submit" class="btn btn-success my-2 my-sm-0">
             <span class="fa fa-check"></span> Salvar </button>
-          {% if uploadform != None%}
+          {% if uploadform != None and form.status.value == '4'%}
           <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal" data-target="#modalUpload">
              <span class="fa fa-cloud-upload"></span> Carregar Dados</button>
+          {%endif%}
+          {% if form.instance.pk != None and form.status.value == '1'%}
+          <a href="{% url 'status_editar' pk=form.instance.pk cod=3 %}" class="btn btn-info my-2 my-sm-0">
+            <span class="fa fa-play"></span> Iniciar Viagem </a>
+          {%endif%}
+          
+          {% if form.instance.pk != None and form.status.value == '3'%}
+          <a href="{% url 'status_editar' pk=form.instance.pk cod=4 %}" class="btn btn-info my-2 my-sm-0">
+            <span class="fa fa-stop"></span> Finalizar Viagem </a>
           {%endif%}
           <a href="{% url 'viagem_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0">
             <span class="fa fa-undo"></span> Voltar </a>
         </div>
       </div>
     </div>
-
-    <hr> {% csrf_token %}
+    <hr>
     <div class="row">
       <div class="col-sm-4">{% bootstrap_field form.localPartida%}</div>
       <div class="col-sm-4">{% bootstrap_field form.localChegada%}</div>
@@ -59,6 +71,8 @@
     <div class="row">
       <div class="col-sm-4">{% bootstrap_field form.nomeTransportador%}</div>
       <div class="col-sm-2">{% bootstrap_field form.contato%}</div>
+      <div class="col-sm-3">{% bootstrap_field form.dataInicio%}</div>
+      <div class="col-sm-3">{% bootstrap_field form.dataFim%}</div>
     </div>
 
     <div class="row">
