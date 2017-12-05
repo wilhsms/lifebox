@@ -131,24 +131,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="modal-body">
-                  <h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O EQUIPAMENTO</h5>
-                  <div class="col-xl-12">
-                      <p class="texto_detalhe_modal">Caixa:</p>
-                    {% for viagem in viagens %}
-                    <label> {{viagem.caixa}}</label>{% endfor %}
-                    <p class="texto_detalhe_modal">LifeBox:</p>
-                    {% for viagem in viagens %}
-                    <label> {{viagem.equipamento}}</label> {% endfor %}
-                  </div>
-                  <h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O TRAJETO</h5>
-                 <div class="col-xl-12">
-                      <p class="texto_detalhe_modal">Local de partida:</p>
-                    {% for viagem in viagens %}
-                    <label> {{viagem.localPartida}}</label>{% endfor %}
-                    <p class="texto_detalhe_modal">Local de chegada:</p>
-                    {% for viagem in viagens %}
-                    <label> {{viagem.localChegada}}</label>{% endfor %}
-                  </div>
+               
                 </div>
               </div>
             </div>

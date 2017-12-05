@@ -9,10 +9,29 @@
       contentType: "application/json",
       success: function (viagem) {
         $('.modal-body').html(
-          "Local de partida: <label> " + viagem.localPartida.nome + "</label><br/>" +
-          "Local de chegada: <label> " + viagem.localChegada.nome + "</label><br/>" +
-          "Caixa: <label> " + viagem.caixa.idCaixa + "</label><br/>" +
-          "Equipamento: <label> " + viagem.equipamento.idEquipamento + "</label>"
+
+          '<div class="row">'+
+          '<div class="col-md-4">'+
+          '<p>Transportador:</p>'+
+          '<p>Romilson</p>'+
+          '</div>'+
+          '</div>'+
+
+          '<h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O EQUIPAMENTO</h5>'+
+          '<div class="col-xl-12">'+
+              '<p class="texto_detalhe_modal">Caixa:</p>'+
+           '<label>'+viagem.caixa.idCaixa+'</label>'+
+            '<p class="texto_detalhe_modal">LifeBox:</p>'+
+           
+            '<label>'+ viagem.equipamento.idEquipamento+'</label>'+
+          '</div>'+
+          '<h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O TRAJETO</h5>'+
+         '<div class="col-xl-12">'+
+              '<p class="texto_detalhe_modal">Local de partida:</p>'+
+            '<label>'+viagem.localPartida.nome+'</label>'+
+            '<p class="texto_detalhe_modal">Local de chegada:</p>'+
+           //teste
+            '<label>'+ viagem.localChegada.nome+'</label>'
         )
 
         $('#modal_relatorio').modal('show');
