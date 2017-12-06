@@ -51,22 +51,14 @@ class HospitalForm(forms.ModelForm):
 ###################################################################################################
 # Formulário Viagem:
 class ViagemForm(forms.ModelForm):
-   class Meta:
+    class Meta:
        model = Viagem
        fields = ('status', 'localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs', 'dataInicio', 'dataFim')
        widgets = {
            'contato': TextInput(attrs={'class': 'phone'}),
            'obs': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,500,'spcontando');contarCaracteres(this.value,500,'sprestante')"}),
-           'dataInicio': DateTimeWidget(options={
-                            'format': 'dd/mm/yyyy HH:ii P',
-                            'autoclose': True,
-                            'showMeridian' : True
-                            }),
-           'dataFim': DateTimeWidget(options={
-                            'format': 'dd/mm/yyyy HH:ii P',
-                            'autoclose': True,
-                            'showMeridian' : True
-                            })
+           'dataInicio': DateTimeWidget(usel10n=True),
+           'dataFim': DateTimeWidget(usel10n=True)
            }
 
 

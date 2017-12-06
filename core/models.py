@@ -108,7 +108,7 @@ class Viagem(models.Model):
     localChegada = models.ForeignKey('Hospital', related_name='local_chegada')
     caixa = models.ForeignKey('Caixa')
     equipamento = models.ForeignKey('Equipamento')
-    status = models.CharField('Status', max_length=2, choices=STATUS_VIAGEM)
+    status = models.CharField('Status', max_length=1, choices=STATUS_VIAGEM, null=True, blank=True, default='1')
     nomeTransportador = models.CharField('Transportado por', max_length=30, null=True, blank=True)
     contato = models.CharField('Contato', max_length=15, null=True, blank=True)
     obs = models.TextField('Observações', max_length=500, null=True, blank=True)

@@ -8,80 +8,66 @@
       Accept: "application/json",
       contentType: "application/json",
       success: function (viagem) {
+        var detalhesHtml = '';
+        
+        $.each(viagem.detalhes, function (idx, detalhe) {
+          detalhesHtml = detalhesHtml + 
+          '<tr>'+
+              '<td>'+detalhe.datDataHoraDeta+'</td>'+
+              '<td>'+(detalhe.indVirouDeta ? 'Sim' : 'Não')+'</td>'+
+              '<td>'+(detalhe.indTombouDeta ? 'Sim' : 'Não')+'</td>'+
+              '<td>'+detalhe.numTemperatura1Deta+' º</td>'+
+          '</tr>'
+				});
+        
         $('.modal-body').html(
           //Cabeçalho com dados ficticios a serem preenchidos pela API
             '<div class="row">'+
-            '<div class="col-xs-4">'+
-                '<strong>TRANSPORTADOR:</strong>'+
-                '<p>Jose Maria Jose</p>'+
-            '</div>'+
-
-            '<div class="col-xs-4">'+
-                '<strong>DATA DO TRANSPORTE:</strong>'+
-                '<p>06/2017</p>'+
-            '</div>'+
-
-            '<div class="col-xs-4">'+
-                '<strong>CÓDIGO DA VIAGEM:</strong>'+
-                '<p>01</p>'+
-            '</div>'+
-        '</div>'+
+              '<div class="col-xs-4">'+
+                  '<strong>TRANSPORTADOR:</strong>'+
+                  '<p>Jose Maria Jose</p>'+
+              '</div>'+
+  
+              '<div class="col-xs-4">'+
+                  '<strong>DATA DO TRANSPORTE:</strong>'+
+                  '<p>06/2017</p>'+
+              '</div>'+
+  
+              '<div class="col-xs-4">'+
+                  '<strong>CÓDIGO DA VIAGEM:</strong>'+
+                  '<p>01</p>'+
+              '</div>'+
+          '</div>'+
           
           '<h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O EQUIPAMENTO</h5>'+
           '<div class="col-xl-12">'+
               '<p class="texto_detalhe_modal">Caixa:</p>'+
-           '<label>'+viagem.caixa.idCaixa+'</label>'+
-            '<p class="texto_detalhe_modal">LifeBox:</p>'+
-           
-            '<label>'+ viagem.equipamento.idEquipamento+'</label>'+
+              '<label>'+viagem.caixa.idCaixa+'</label>'+
+              '<p class="texto_detalhe_modal">LifeBox:</p>'+
+              '<label>'+ viagem.equipamento.idEquipamento+'</label>'+
           '</div>'+
           '<h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O TRAJETO</h5>'+
-         '<div class="col-xl-12">'+
-              '<p class="texto_detalhe_modal">Local de partida:</p>'+
+            '<div class="col-xl-12">'+
+            '<p class="texto_detalhe_modal">Local de partida:</p>'+
             '<label>'+viagem.localPartida.nome+'</label>'+
             '<p class="texto_detalhe_modal">Local de chegada:</p>'+
           
             '<label>'+ viagem.localChegada.nome+'</label>'+
           
           '<h5 class="texto_detalhes_modal">DETALHAMENTO DA VIAGEM</h5>'+
-          
              '<table border="0" class="table table-striped">'+
-                            '<thead>'+
-                                '<tr>'+
-                                    '<th>HORA</th>'+
-                                    '<th>TOMBOU</th>'+
-                                    '<th>VIROU</th>'+
-                                    '<th>TEMPERATURA</th>'+
-                                '</tr>'+
-                            '</thead>'+
-                            '<tbody>'+
-                                '<tr>'+
-                                    '<td>20:21</td>'+
-                                    '<td>Sim</td>'+
-                                    '<td>Não</td>'+
-                                    '<td>5 Cº</td>'+
-                                '</tr>'+
-                                  '<tr>'+
-                                    '<td>20:21</td>'+
-                                    '<td>Sim</td>'+
-                                    '<td>Não</td>'+
-                                    '<td>5 Cº</td>'+
-                                '</tr>'+
-                                  '<tr>'+
-                                    '<td>20:21</td>'+
-                                    '<td>Sim</td>'+
-                                    '<td>Não</td>'+
-                                    '<td>5 Cº</td>'+
-                                '</tr>'+
-                                
-                                  '<tr>'+
-                                    '<td>20:21</td>'+
-                                    '<td>Sim</td>'+
-                                    '<td>Não</td>'+
-                                    '<td>5 Cº</td>'+
-                                '</tr>'+
-                            '</tbody>'+
-                        '</table>'
+                '<thead>'+
+                    '<tr>'+
+                        '<th>DATA/HORA</th>'+
+                        '<th>TOMBOU</th>'+
+                        '<th>VIROU</th>'+
+                        '<th>TEMPERATURA</th>'+
+                    '</tr>'+
+                '</thead>'+
+                '<tbody>'+
+                  detalhesHtml +
+                '</tbody>'+
+            '</table>'
           
         )
 

@@ -176,9 +176,9 @@ def viagem_pesquisar(request):
 def viagem_criar(request):
         if request.method == 'POST':
             form = ViagemForm(request.POST)
+            print("valido: {0}\n erros: {1}").format(form.is_valid(), form.errors)
             if form.is_valid():
                 item = form.save(commit=False)
-                item.status = 1
                 item.save()
                 return redirect('viagem_pesquisar')
         else:
