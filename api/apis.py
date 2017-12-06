@@ -25,14 +25,18 @@ class ViagemViewSet(viewsets.ModelViewSet):
     queryset = Viagem.objects.all()
     serializer_class = ViagemSingleSerializer
 
+class ViagemCompletoAtivasViewSet(viewsets.ModelViewSet):
+    queryset = Viagem.objects.filter(status = 3)
+    serializer_class = ViagemFullSerializer
+
+class ViagemCompletoViewSet(viewsets.ModelViewSet):
+    queryset = Viagem.objects.all()
+    serializer_class = ViagemFullSerializer
+
 class DetalheViewSet(viewsets.ModelViewSet):
     queryset = Detalhe.objects.all()
     serializer_class = DetalheSerializer
-    
-class ViagemAtivasViewSet(viewsets.ModelViewSet):
-    queryset = Viagem.objects.filter(status = 3)
-    serializer_class = ViagemFullSerializer
-    
+
 
 @api_view(['GET'])
 def get_insere(request):

@@ -3,7 +3,7 @@
   function openModal(id) {
     $.ajax({
       type: "get",
-      url: "/api/viagem/ativas/" + id,
+      url: "/api/viagem/" + id,
       cache: false,
       Accept: "application/json",
       contentType: "application/json",
