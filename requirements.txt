@@ -2,11 +2,11 @@ Django==1.11.7
 django-bootstrap4
 whitenoise
 djangorestframework
-pylint
+#pylint
 django-import-export
 django-easy-audit
-django-extensions
-pyparsing==1.5.4
-pydot
-graphviz
+#django-extensions
+#pyparsing
+#pydot
+#graphviz
 django-datetime-widget

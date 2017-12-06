@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'api',
     'import_export',
     'easyaudit',
-    'django_extensions',
+    #'django_extensions',
     'datetimewidget'
 ]
 
