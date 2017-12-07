@@ -16,8 +16,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/locale/pt-br.js"></script>
 <script src="{% static '/js/relatorios.js' %}"></script>
 <script>
-  var bootstrap = '{% bootstrap_css %}'
-  var relatorio_estilos = '<link href="{% static "css/relatorios.css" %}" rel="stylesheet"/>'
+  var bootstrap = '{% bootstrap_css %}';
+  var relatorio_estilos = '<link href="{% static "css/relatorios.css" %}" rel="stylesheet"/>'+
+  '<link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">';
 </script>
 
 <link href="{% static 'css/relatorios.css' %}" rel="stylesheet"> {% endblock%} {% block content %}
@@ -123,14 +124,14 @@
                 <img class="imagem_relatorio_modal" src="{% static 'images/logo_lifebox.png' %}">
               </div>
               <div class="col-md-5 texto_modal texto_cabeçalho">
-                <strong>LifeBox</strong>
-                <p>Relatório detalhado da viagem</p>
+                <h2><b>LifeBox</b></h2>
+                <h5><i>Relatório Detalhado da Viagem</i></h5>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12">
                 <div id="modal_relatorio">
-
+                  <!--Conteudo do modal setado via javascript-->
                 </div>
               </div>
             </div>

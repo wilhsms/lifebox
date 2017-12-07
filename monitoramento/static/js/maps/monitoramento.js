@@ -89,7 +89,8 @@ function criarMarcadores(_viagens) {
 								'temperatura1': item.numTemperatura1Deta,
 								'temperatura2': item.numTemperatura2Deta,
 								'virou': item.indVirouDeta,
-								'tombou': item.indTombouDeta
+								'tombou': item.indTombouDeta,
+								'data': item.datDataHoraDeta,
 							};
 						})
 					}
@@ -142,6 +143,18 @@ function onMarkerClick(e) {
 	$('#modalLabel').html("<i class='fa fa-plane'></i> Viagem #" + _viagem.viagemId);
 	$('#localPartida').val(_viagem.hospitalPartida);
 	$('#localChegada').val(_viagem.hospitalChegada);
+	
+	var detalhesHtml = '';
+	$.each(_viagem.temperaturas, function (idx, detalhe) {
+	  detalhesHtml = detalhesHtml + 
+	    '<tr>'+
+	        '<td>'+moment(detalhe.data).format('DD/MM/YYYY HH:MM:ss')+'</td>'+
+	        '<td class="center">'+(detalhe.virou ? 'Sim' : 'Não')+'</td>'+
+	        '<td class="center">'+(detalhe.tombou ? 'Sim' : 'Não')+'</td>'+
+	    '</tr>'
+	});
+	
+	$('.content-cocorrencias').html(detalhesHtml);
 
 	//Abre modal com gráfico da viagem:
 	$('#modalViagem').modal('show');
