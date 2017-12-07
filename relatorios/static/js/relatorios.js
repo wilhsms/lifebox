@@ -47,8 +47,8 @@
                         '<th>Data/Hora</th>'+
                         '<th>Tombo?</th>'+
                         '<th>Virou?</th>'+
-                        '<th>Temperatura Interna</th>'+
-                        '<th>Temperatura Externa</th>'+
+                        '<th>Temp. Interna</th>'+
+                        '<th>Temp. Externa</th>'+
                         '<th>Elevação</th>'+
                         '<th>Velocidade</th>'+
                     '</tr>'+
