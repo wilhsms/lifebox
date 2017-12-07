@@ -12,15 +12,15 @@
 <link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}">
 <script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
 <script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/locale/pt-br.js"></script>
 <script src="{% static '/js/relatorios.js' %}"></script>
 <script>
   var bootstrap = '{% bootstrap_css %}'
   var relatorio_estilos = '<link href="{% static "css/relatorios.css" %}" rel="stylesheet"/>'
 </script>
 
-<link href="{% static 'css/relatorios.css' %}" rel="stylesheet">
-
-{% endblock%} {% block content %}
+<link href="{% static 'css/relatorios.css' %}" rel="stylesheet"> {% endblock%} {% block content %}
 <div class="jumbotron">
   <fieldset>
     <legend>Tela de Relatorios</legend>
@@ -112,13 +112,12 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Detalhes da viagem</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <!--Fim cabeçalho modal inicio-->
           <!--Inicio corpo modal inicio-->
-          <div id="modal_relatorio">
-
+          <div class="modal-body">
             <div class="row">
               <div class="col-md-7">
                 <img class="imagem_relatorio_modal" src="{% static 'images/logo_lifebox.png' %}">
@@ -129,13 +128,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
-                <div class="modal-body">
-               
+              <div class="col-sm-12">
+                <div id="modal_relatorio">
+
                 </div>
               </div>
             </div>
-          </div>
+          </div>          
           <!--Fim corpo modal inicio-->
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="btnImprimir">Imprimir</button>

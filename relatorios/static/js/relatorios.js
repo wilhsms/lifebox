@@ -8,37 +8,22 @@
       Accept: "application/json",
       contentType: "application/json",
       success: function (viagem) {
-        var detalhesHtml = '';
-        
+        var detalhesHtml = '';        
         $.each(viagem.detalhes, function (idx, detalhe) {
           detalhesHtml = detalhesHtml + 
-          '<tr>'+
-              '<td>'+detalhe.datDataHoraDeta+'</td>'+
-              '<td>'+(detalhe.indVirouDeta ? 'Sim' : 'Não')+'</td>'+
-              '<td>'+(detalhe.indTombouDeta ? 'Sim' : 'Não')+'</td>'+
-              '<td>'+detalhe.numTemperatura1Deta+' º</td>'+
-          '</tr>'
+            '<tr>'+
+                '<td>'+moment(detalhe.datDataHoraDeta).format('DD/MM/YYYY HH:MM:ss')+'</td>'+
+                '<td>'+(detalhe.indVirouDeta ? 'Sim' : 'Não')+'</td>'+
+                '<td>'+(detalhe.indTombouDeta ? 'Sim' : 'Não')+'</td>'+
+                '<td>'+detalhe.numTemperatura1Deta+' º</td>'+
+                '<td>'+detalhe.numTemperatura2Deta+' º</td>'+
+                '<td>'+detalhe.numElevacaoDeta+' pés</td>'+
+                '<td>'+detalhe.numVelocidadeDeta+' km/h</td>'+
+            '</tr>'
 				});
         
-        $('.modal-body').html(
+        $('#modal_relatorio').html(
           //Cabeçalho com dados ficticios a serem preenchidos pela API
-            '<div class="row">'+
-              '<div class="col-xs-4">'+
-                  '<strong>TRANSPORTADOR:</strong>'+
-                  '<p>Jose Maria Jose</p>'+
-              '</div>'+
-  
-              '<div class="col-xs-4">'+
-                  '<strong>DATA DO TRANSPORTE:</strong>'+
-                  '<p>06/2017</p>'+
-              '</div>'+
-  
-              '<div class="col-xs-4">'+
-                  '<strong>CÓDIGO DA VIAGEM:</strong>'+
-                  '<p>01</p>'+
-              '</div>'+
-          '</div>'+
-          
           '<h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O EQUIPAMENTO</h5>'+
           '<div class="col-xl-12">'+
               '<p class="texto_detalhe_modal">Caixa:</p>'+
@@ -48,30 +33,34 @@
           '</div>'+
           '<h5 class="texto_detalhes_modal">INFORMAÇÕES SOBRE O TRAJETO</h5>'+
             '<div class="col-xl-12">'+
-            '<p class="texto_detalhe_modal">Local de partida:</p>'+
-            '<label>'+viagem.localPartida.nome+'</label>'+
-            '<p class="texto_detalhe_modal">Local de chegada:</p>'+
-          
-            '<label>'+ viagem.localChegada.nome+'</label>'+
-          
+              '<p class="texto_detalhe_modal">Local de partida:</p>'+
+              '<label>'+viagem.localPartida.nome+'</label>'+
+              '<p class="texto_detalhe_modal">Local de chegada:</p>'+
+            
+              '<label>'+ viagem.localChegada.nome+'</label>'+
+            '</div>'+
           '<h5 class="texto_detalhes_modal">DETALHAMENTO DA VIAGEM</h5>'+
+          '<div class="col-xl-12">'+
              '<table border="0" class="table table-striped">'+
                 '<thead>'+
                     '<tr>'+
-                        '<th>DATA/HORA</th>'+
-                        '<th>TOMBOU</th>'+
-                        '<th>VIROU</th>'+
-                        '<th>TEMPERATURA</th>'+
+                        '<th>Data/Hora</th>'+
+                        '<th>Tombo?</th>'+
+                        '<th>Virou?</th>'+
+                        '<th>Temperatura Interna</th>'+
+                        '<th>Temperatura Externa</th>'+
+                        '<th>Elevação</th>'+
+                        '<th>Velocidade</th>'+
                     '</tr>'+
                 '</thead>'+
                 '<tbody>'+
                   detalhesHtml +
                 '</tbody>'+
-            '</table>'
-          
-        )
+              '</table>' + 
+            '</div>'          
+        );
 
-        $('#modal_relatorio').modal('show');
+        //$('#exampleModalLong').modal('show');
       },
       error: function (response, status, error) {
         console.log(
@@ -127,7 +116,7 @@
 
     //JS responsável pela impressão.
     $("#btnImprimir").on("click", function () {
-      var content = $('#modal_relatorio').html();
+      var content = $('.modal-body').html();
       var printWindow = window.open('', '', 'height=400,width=800');
       printWindow.document.write(
         '<html><head><title>Relatório da viagem</title>' +

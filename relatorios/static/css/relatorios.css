@@ -36,3 +36,7 @@
     margin-top: 15px;
  
  }
+
+ .modal-lg {
+    max-width: 1000px !important;
+}
