@@ -86,7 +86,6 @@
               '</div>'+
             '</div>'+
           '<h5 class="texto_detalhes_modal">DETALHAMENTO DA VIAGEM</h5>'+
-<<<<<<< HEAD
           '<div class="row">'+
             '<div class="col-sm-12">'+
                '<table class="table table-striped">'+
@@ -107,26 +106,6 @@
                 '</table>' + 
               '</div>'+
             '</div>'
-=======
-          '<div class="col-xl-12">'+
-             '<table border="0" class="table table-striped">'+
-                '<thead>'+
-                    '<tr>'+
-                        '<th>Data/Hora</th>'+
-                        '<th>Tombo?</th>'+
-                        '<th>Virou?</th>'+
-                        '<th>Temp. Interna</th>'+
-                        '<th>Temp. Externa</th>'+
-                        '<th>Elevação</th>'+
-                        '<th>Velocidade</th>'+
-                    '</tr>'+
-                '</thead>'+
-                '<tbody>'+
-                  detalhesHtml +
-                '</tbody>'+
-              '</table>' + 
-            '</div>'          
->>>>>>> 7d4fdb95ba758811a0406331f2f74eedb4580da6
         );
 
         //$('#exampleModalLong').modal('show');

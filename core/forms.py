@@ -57,8 +57,8 @@ class ViagemForm(forms.ModelForm):
        widgets = {
            'contato': TextInput(attrs={'class': 'phone'}),
            'obs': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,500,'spcontando');contarCaracteres(this.value,500,'sprestante')"}),
-           'dataInicio': DateTimeWidget(usel10n=True),
-           'dataFim': DateTimeWidget(usel10n=True)
+           'dataInicio': DateTimeWidget(usel10n=True, attrs = {'data-readonly': 'false'}),
+           'dataFim': DateTimeWidget(usel10n=True, attrs = {'data-readonly': 'false'})
            }
 
 
