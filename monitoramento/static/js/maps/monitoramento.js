@@ -21,6 +21,8 @@ function initmap() {
 			markers.map(function (item) { item.remove() });
 
 			var caixas = viagens.map(function (item) {
+				var caixa = item.caixa;
+				caixa.descricao =  caixa.idCaixa + ' - Viagem#' + item.id;
 				return item.caixa;
 			});
 
@@ -178,9 +180,9 @@ function atualizarListaCaixas(_caixas) {
 
 	// Adiciona itens no para seleção:
 	$.each(_caixas, function (idx, caixa) {
-		$('#custom-search-input .list-group').append("<a href='#"// + caixa.id
+		$('#custom-search-input .list-group').append("<a href='#"
 			+ "' class='list-group-item'><span style='color : " + caixa.corCaixa
-			+ "'><i class='ion-cube'></i></span> " + caixa.idCaixa + "</a>");
+			+ "'><i class='ion-cube'></i></span> " + caixa.descricao + "</a>");
 	});
 
 	buscarItens();
