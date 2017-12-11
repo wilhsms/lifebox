@@ -76,7 +76,7 @@ class Hospital(models.Model):
 
 ###################################################################################################
 # Banco Status:
-class Status(models.Model):
+'''class Status(models.Model):
     dscStatus = models.CharField('Descrição', max_length=50)
     codStatus = models.CharField('Código', max_length=2)
 
@@ -92,7 +92,7 @@ class Status(models.Model):
     class Meta:
         verbose_name_plural = 'Status'
         verbose_name = 'Status'
-
+'''
 
 ###################################################################################################
 STATUS_VIAGEM = (
@@ -108,10 +108,12 @@ class Viagem(models.Model):
     localChegada = models.ForeignKey('Hospital', related_name='local_chegada')
     caixa = models.ForeignKey('Caixa')
     equipamento = models.ForeignKey('Equipamento')
-    status = models.CharField('Status', max_length=2, choices=STATUS_VIAGEM)
+    status = models.CharField('Status', max_length=1, choices=STATUS_VIAGEM, null=True, blank=True, default='1')
     nomeTransportador = models.CharField('Transportado por', max_length=30, null=True, blank=True)
     contato = models.CharField('Contato', max_length=15, null=True, blank=True)
     obs = models.TextField('Observações', max_length=500, null=True, blank=True)
+    dataInicio = models.DateTimeField("Data de Início", null=True, blank=True, default=timezone.now)
+    dataFim = models.DateTimeField("Data de Fim", null=True, blank=True, default=timezone.now)
 
     def publish(self):
         self.save()
@@ -132,12 +134,34 @@ class Detalhe(models.Model):
     numTemperatura2Deta = models.DecimalField('Temperatura 2', max_digits=4, decimal_places=1, default=2)
     indVirouDeta = models.BooleanField('Virou?')
     indTombouDeta = models.BooleanField('Tombou?')
+    numTemperatura1Deta = models.DecimalField('Temperatura 1', max_digits=4, decimal_places=1, default=1)
+    numElevacaoDeta = models.DecimalField('Elevação', max_digits=4, decimal_places=1, default=1)
+    numVelocidadeDeta = models.DecimalField('Velocidade', max_digits=4, decimal_places=1, default=1)
+    datDataHoraDeta = models.DateTimeField('Data Hora Envio', default=timezone.now)
     imeiEquipamento = models.CharField('IMEI do Equipamento', max_length=22)
     viagem = models.ForeignKey('Viagem', related_name='detalhes', blank=True, null=True)
     equipamento = models.ForeignKey('Equipamento', related_name='detalhes', blank=True, null=True)
 
     def __str__(self):
         return str(self.imeiEquipamento)
+    
+    @classmethod    
+    def criar(cls, _imeiEquipamento, _numTemperatura1Deta, _numTemperatura2Deta, _indVirouDeta, _indTombouDeta,
+        _numLatitudeDeta, _numLongitudeDeta, _numElevacaoDeta, _numVelocidadeDeta, _datDataHoraDeta):
+        
+        detalhe = cls()
+        detalhe.numLongitudeDeta = _numLongitudeDeta
+        detalhe.numLatitudeDeta = _numLatitudeDeta
+        detalhe.numTemperatura1Deta = _numTemperatura1Deta
+        detalhe.numTemperatura2Deta = _numTemperatura2Deta
+        detalhe.indVirouDeta = _indVirouDeta
+        detalhe.indTombouDeta = _indTombouDeta
+        detalhe.numElevacaoDeta = _numElevacaoDeta
+        detalhe.numVelocidadeDeta = _numVelocidadeDeta
+        detalhe.imeiEquipamento = _imeiEquipamento
+        detalhe.datDataHoraDeta = _datDataHoraDeta
+        
+        return detalhe
 
     class Meta:
       verbose_name = u"Detalhe"
@@ -145,7 +169,7 @@ class Detalhe(models.Model):
 
 ###################################################################################################
 # Banco importa: para importação e armazenamento de CSVs
-class Importa(models.Model):
+'''class Importa(models.Model):
     imei = models.CharField('IMEI', max_length=22, unique=True)
     dia = models.DateField('Dia', max_length=10)
     hora = models.TimeField('Hora', max_length=8)
@@ -164,3 +188,4 @@ class Importa(models.Model):
 
     def __str__(self):
         return self.imei
+'''

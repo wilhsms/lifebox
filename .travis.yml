@@ -15,6 +15,7 @@ addons:
 
 branches:
   only:
-  - master  
+  - master
+  - sprint06-dev  
 script:
   - sonar-scanner

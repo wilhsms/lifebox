@@ -4,31 +4,54 @@
 {% block title %}LifeBox - Sobre{% endblock%}
 {% block content %}
 <div class="jumbotron">
-  <form action="#" method="post">
-    <div class="row">
-      <div class="col-sm-12">
-
-      </div>
-    </div>
+  <div>
+    <h2><b> Projeto LifeBox </b></h2>
+  </div>
     <hr> {% csrf_token %}
 
-    <fieldset>
-      <legend>O Projeto sua História</legend>
+      <legend>Sua História</legend>
       <span>
         <p class="text-justify small">
-          O LifeBox 2 é um projeto em andamento pelos alunos e professores do Ifes-Serra(Clientes), que tem a proposta de melhorar o processo e criar base de conhecimento para estudos relacionados a transporte de órgãos. 
-          </p>
-          <p class="text-justify small">
-          O projeto do cliente visa desenvolver uma caixa de transporte de órgãos que atenda as necessidades do Banco de Olhos do Hospital Evangélico e do CNCDO/ES (Central de Notificação, Captação e Distribuição de Órgãos), visando aumentar a qualidade e segurança no processo de transporte de órgãos. O mesmo já está na sua segunda versão e possui uma caixa prototipada no qual hardwares específicos foram adicionados. Nessa fase, há hardware para o monitoramento da temperatura, vibração e localização geográfica (GPS) da caixa durante o transporte de órgãos.
+          O LifeBox 2 é um projeto em desenvolvido pelos alunos e professores do IFES, Campus Serra,
+          com o intuito de melhorar o processo e criar base de conhecimento para estudos relacionados a
+          transporte de órgãos.
         </p>
-        </span>
+        <p class="text-justify small">
+          O projeto visa desenvolver uma caixa de transporte de órgãos que atenda as necessidades do Banco
+          de Olhos do Hospital Evangélico e do CNCDO/ES (Central de Notificação, Captação e Distribuição de
+          Órgãos), visando aumentar a qualidade e a segurança no processo de transporte de órgãos.
+        </p>
+        <p class="text-justify small">
+          O mesmo já está na sua segunda versão e possui uma caixa prototipada no qual hardwares específicos
+          foram adicionados. Nesta fase, será coletado dados para monitoramento de temperatura, vibração e
+          localização geográfica (GPS) durante o transporte de órgãos.
+        </p>
+      </span>
+
       <br>
+
       <div class="row">
         <div class="col-sm-6">
-          <h4>Titulo</h4>
-          <p class="text-justify small">
-            Atualmente o transporte de órgãos é feito em caixas térmicas com monitoramento de maneira precária. A unidade emissora do órgão não possui nenhuma informação do transporte, devendo confiar plenamente no trabalho do transportador. Na maioria das vezes a caixa térmica não retorna para a unidade de origem, gerando transtornos e custos indesejáveis. Para melhorar o processo de Distribuição de órgãos é preciso adotar meios para monitorar o transporte do órgão. A partir dessa necessidade de melhoria, pensou-se na criação de um sistema que ajudasse nesse ponto, o Sistema de transporte e monitoramento georreferenciado de córnea (LifeBox). O sistema terá monitoramento georreferenciado, um temporizador, indicação de temperatura interna e externa da caixa, detecção de abertura e queda da caixa, bem como a manutenção da temperatura interna ideal para que a córnea esteja apta para o transplante. O sistema também irá dispor de uma comunicação via bluetooth com uma versão para dispositivos móveis. Dessa forma, o transportador terá acesso a todos os parâmetros interno da caixa. Esse sistema gerará ao final do transporte relatórios que ajudarão nos procedimentos da CNCDO.
-          </p>
+          <legend>Das Necessidades</legend>
+          <span>
+            <p class="text-justify small">
+              Atualmente o transporte de órgãos é feito em caixas térmicas sem monitoramento específico.
+              A unidade de origem do órgão não possui nenhuma informação do transporte, devendo
+              confiar no trabalho do transportador. Na maioria das vezes a caixa não
+              retorna para a unidade de origem, gerando transtornos e custos indesejáveis.
+            </p>
+            <p class="text-justify small">
+              Para melhorar o processo de distribuição de órgãos se faz necessário adotar meios para
+              monitorar estes transportes. A partir desta necessidade de melhoria, pensou-se na criação de
+              um sistema que capaz de exibir e armazer estas informações.
+            </p>
+            <p class="text-justify small">
+              O sistema terá monitoramento de geo geolocalização, temporizador, sensores de
+              temperatura interna e externa, detecção de abertura e queda da caixa, com foco principal
+              na manutenção da temperatura interna ideal para a conservação do orgão para transplante.
+              O sistema emitirá relatórios detalhados das viagens, apoiando a causa na melhoria contínua.
+            </p>
+          </span>
         </div>
         <div class="col-sm-6">
           <div class="embed-responsive embed-responsive-16by9">
@@ -44,29 +67,32 @@
           </div>
         </div>
         <div class="col-sm-6">
-          <h4>Titulo</h4>
-          <p class="text-justify small">
-            Matéria do jornal à Gazeta.
-          </p>
-        </div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-sm-6">
-          <h4>Titulo</h4>
-          <p class="text-justify small">
-            
-          </p>
-        </div>
-        <div class="col-sm-6">
           <div class="embed-responsive embed-responsive-16by9">
             <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/VgfIoRjKBoo" frameborder="0" allowfullscreen></iframe>
           </div>
         </div>
       </div>
+      <hr/>
+
+      <div class="col-sm-6">
+        <legend>Outros Documentos</legend>
+      <table cellpadding="0" cellspacing="0" align="center" width="100%" height="100%">
+        <tr>
+          <td><iframe src="{% static 'docs/artigo_lifebox_versao final.pdf' %}" width="1000px" height="600px" style="border: none;"></iframe></td>
+        </tr>
+      </table>
+
+      <table cellpadding="0" cellspacing="0" align="center" width="100%" height="100%">
+        <tr>
+          <td><iframe src="{% static 'docs/Lifebox 1 Jornada de Extensão do IFES-2017.pdf' %}" width="1000px" height="600px" style="border: none;"></iframe></td>
+        </tr>
+      </table>
+
       <hr>
-    </fieldset>
-  </form>
+    </div>
+
+
+
 </div>
 
 {% endblock %}

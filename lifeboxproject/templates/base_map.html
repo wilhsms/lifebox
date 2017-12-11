@@ -15,6 +15,8 @@
   <link href="{% static 'css/app.css' %}" rel="stylesheet"> {% block custom_css%} {% endblock %}
 
   <!-- Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/locale/pt-br.js"></script>
   {% bootstrap_javascript %} {% block custom_js%} {% endblock %}
 
   <!-- Fonts -->
@@ -97,7 +99,7 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdownLoginLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-user-o"></i> {{ request.user.first_name }}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownLoginLink">
-              <a class="dropdown-item " href="../../admin">
+              <a class="dropdown-item " href="{% url 'admin:index' %}">
                 <i class="fa fa-cog"></i> Módulo Admin </a>
               <a class="dropdown-item " href="{% url 'password_change' %}">
                 <i class="fa fa-key"></i> Alterar Senha </a>
