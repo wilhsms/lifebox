@@ -21,6 +21,8 @@ function initmap() {
 			markers.map(function (item) { item.remove() });
 
 			var caixas = viagens.map(function (item) {
+				var caixa = item.caixa;
+				caixa.descricao =  caixa.idCaixa + ' - Viagem#' + item.id;
 				return item.caixa;
 			});
 
@@ -89,7 +91,8 @@ function criarMarcadores(_viagens) {
 								'temperatura1': item.numTemperatura1Deta,
 								'temperatura2': item.numTemperatura2Deta,
 								'virou': item.indVirouDeta,
-								'tombou': item.indTombouDeta
+								'tombou': item.indTombouDeta,
+								'data': item.datDataHoraDeta,
 							};
 						})
 					}
@@ -142,6 +145,18 @@ function onMarkerClick(e) {
 	$('#modalLabel').html("<i class='fa fa-plane'></i> Viagem #" + _viagem.viagemId);
 	$('#localPartida').val(_viagem.hospitalPartida);
 	$('#localChegada').val(_viagem.hospitalChegada);
+	
+	var detalhesHtml = '';
+	$.each(_viagem.temperaturas, function (idx, detalhe) {
+	  detalhesHtml = detalhesHtml + 
+	    '<tr>'+
+	        '<td>'+moment(detalhe.data).format('DD/MM/YYYY HH:MM:ss')+'</td>'+
+	        '<td class="center">'+(detalhe.virou ? 'Sim' : 'Não')+'</td>'+
+	        '<td class="center">'+(detalhe.tombou ? 'Sim' : 'Não')+'</td>'+
+	    '</tr>'
+	});
+	
+	$('.content-cocorrencias').html(detalhesHtml);
 
 	//Abre modal com gráfico da viagem:
 	$('#modalViagem').modal('show');
@@ -165,9 +180,9 @@ function atualizarListaCaixas(_caixas) {
 
 	// Adiciona itens no para seleção:
 	$.each(_caixas, function (idx, caixa) {
-		$('#custom-search-input .list-group').append("<a href='#"// + caixa.id
+		$('#custom-search-input .list-group').append("<a href='#"
 			+ "' class='list-group-item'><span style='color : " + caixa.corCaixa
-			+ "'><i class='ion-cube'></i></span> " + caixa.idCaixa + "</a>");
+			+ "'><i class='ion-cube'></i></span> " + caixa.descricao + "</a>");
 	});
 
 	buscarItens();

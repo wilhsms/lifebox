@@ -20,7 +20,7 @@ function initmap(id) {
 			map.invalidateSize();
 			
 			var itens = [];
-			itens.push(item)
+			itens.push(item);
 			
 			//remove todos marcadores existentes no mapa:
 			markers.map(function (item) { item.remove() });
