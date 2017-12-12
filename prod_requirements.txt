@@ -5,8 +5,4 @@ djangorestframework
 mysqlclient
 django-import-export
 django-easy-audit
-django-extensions
-pyparsing==1.5.7
-pydot
-graphviz
 django-datetime-widget
