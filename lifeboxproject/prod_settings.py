@@ -12,6 +12,8 @@ DATABASES = {
     }
 }
 
+#Descomentar assim que a autenticação for adicionada no equipamento
+'''
 # REST_FRAMEWORK CONFIG
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -22,3 +24,4 @@ REST_FRAMEWORK = {
     ),
     'COERCE_DECIMAL_TO_STRING': False
 }
+'''
