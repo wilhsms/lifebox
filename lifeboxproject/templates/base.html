@@ -1,96 +1,127 @@
-{% load staticfiles %}
-{% load bootstrap4 %}
+{% load staticfiles %} {% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %}</title>
-    
-    <!-- Css -->
-    {% bootstrap_css %}
-    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
-    <link href="{% static 'css/app.css' %}" rel="stylesheet">
-    {% block custom_css%} {% endblock %}
 
-    <!-- Scripts-->
-    {% bootstrap_javascript %}
-    {% block custom_js%} {% endblock %}
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
-  </head>
+<head>
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
 
-  <body>
-    <header class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-      
-      <a class="navbar-brand" href="{% url "dashboard" %}"  style="font-size: 25px; font-family: 'Germania One', cursive;">
-        <i class="logo ion-cube"></i> LifeBox
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+  <!-- Css -->
+  {% bootstrap_css %}
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+  <link href="{% static 'css/app.css' %}" rel="stylesheet"> {% block custom_css%} {% endblock %}
+
+  <!-- Scripts-->
+  {% bootstrap_javascript %} {% block custom_js%} {% endblock %}
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
+</head>
+
+<body>
+  <header class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+
+    <a class="navbar-brand" href="{% url 'exibir_mapa' %}" style="font-size: 25px; font-family: 'Germania One', cursive;">
+      <i class="logo ion-cube"></i> LifeBox
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="col-sm-10">
         {% if request.user.is_authenticated %}
         <ul class="navbar-nav">
           <li class="nav-item">
-             <a class="nav-link" href="{% url "exibir_mapa" %}"><span class="fa fa-map-o"></span> Monitoramento <span class="sr-only">monitoramento</span></a>
+            <a class="nav-link" href="{% url 'exibir_mapa' %}">
+              <span class="fa fa-map-o"></span> Monitoramento
+              <span class="sr-only">monitoramento</span>
+            </a>
           </li>
-          <!--
+
           <li class="nav-item">
-            <a class="nav-link" href="{% url "exibir_relatorios" %}"> <span class="fa fa-line-chart"></span> Relatorios </a>
+            <a class="nav-link" href="{% url 'exibir_relatorios' %}">
+              <span class="fa fa-line-chart"></span> Relatórios</a>
           </li>
-          -->
+
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCadastrosLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCadastrosLink" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               <span class="fa fa-files-o"></span> Cadastros
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownCadastrosLink">
-              <a class="dropdown-item " href="{% url "caixa_pesquisar" %}">
+
+              <a class="dropdown-item " href="{% url 'caixa_pesquisar' %}">
                 <span class="fa fa-archive"></span> Caixas </a>
 
-              <a class="dropdown-item " href="{% url "equipamento_pesquisar" %}">
+              <a class="dropdown-item " href="{% url 'equipamento_pesquisar' %}">
                 <span class="fa fa-microchip"></span> Equipamentos </a>
 
-              <a class="dropdown-item " href="{% url "hospital_pesquisar" %}">
+              <a class="dropdown-item " href="{% url 'hospital_pesquisar' %}">
                 <i class="fa fa-hospital-o"></i> Hospitais </a>
 
-              <a class="dropdown-item " href="{% url "viagem_pesquisar" %}">
+              <a class="dropdown-item " href="{% url 'viagem_pesquisar' %}">
                 <i class="fa fa-plane"></i> Viagens </a>
+
+              <a class="dropdown-item " href="{% url 'importa' %}">
+                <i class="fa fa-car"></i> Importar dados </a>
+
             </div>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownSobreLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSobreLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="fa fa-info-circle"></span> Sobre </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownSobreLink">
-              <a class="dropdown-item" href="{% url "sobre" %}"><span class="ion-cube"></span> O LifeBox </a>
-              <a class="dropdown-item" href="{% url "equipe" %}"><span class="fa fa-users"></span> A Equipe </a>
+              <a class="dropdown-item" href="{% url 'sobre' %}">
+                <span class="ion-cube"></span> O LifeBox </a>
+              <a class="dropdown-item" href="{% url 'equipe' %}">
+                <span class="fa fa-users"></span> A Equipe </a>
             </div>
           </li>
         </ul>
         {% endif %}
-        <ul class="nav navbar-nav navbar-right ml-auto">
-        {% if request.user.is_authenticated %}
-          <li class="nav-item dropdown ml-auto">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLoginLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="fa fa-user-o"></span> {{ request.user.first_name }}
-            </a>
+      </div>
+
+      <div class="col-sm-3">
+        <ul class="navbar-nav">
+          <!-- antes "nav navbar-nav navbar-right ml-auto" -->
+          {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <!-- antes "nav-item dropdown ml-auto" -->
+            <a class="nav-link dropdown-toggle" id="navbarDropdownLoginLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user-o"></i> {{ request.user.first_name }}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownLoginLink">
-              <a class="dropdown-item " href='../../admin'><i class="fa fa-cog"></i> Módulo Admin </a>
-              <a class="dropdown-item " href='{% url "logout" %}'><i class="fa fa-sign-out"></i> Sair </a>
+              <a class="dropdown-item " href="{% url 'admin:index' %}">
+                <i class="fa fa-cog"></i> Módulo Admin </a>
+              <a class="dropdown-item " href="{% url 'password_change' %}">
+                <i class="fa fa-key"></i> Alterar Senha </a>
+              <a class="dropdown-item " href="{% url 'logout' %}">
+                <i class="fa fa-sign-out"></i> Sair </a>
             </div>
           </li>
-        {% else %}
-          <li class="ml-auto"><a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> Entrar</a></li>
-        {% endif %}
+          {% else %}
+          <li class="ml-auto">
+            <a href="{% url 'login' %}">
+              <i class="glyphicon glyphicon-log-in"></i> Entrar</a>
+          </li>
+          {% endif %}
         </ul>
       </div>
-    </header>
-    <br>
-    <div class="container">
-      {% block content %} {% endblock %}
+
     </div>
-  </body>
+  </header>
+  <br>
+  <br>
+  <br>
+  <div class="container">
+    {% block content %} {% endblock %}
+  </div>
+</body>
+
 </html>

@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.forms.widgets import TextInput
+from django.forms.widgets import TextInput, Textarea, DateTimeInput
+from datetimewidget.widgets import DateTimeWidget
 from .models import Equipamento, Caixa, Hospital, Viagem
-
 
 ###################################################################################################
 # Formulário Equipamento:
 class EquipamentoForm(forms.ModelForm):
     class Meta:
         model = Equipamento
-        fields = ('nome', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard')
+        fields = ('idEquipamento', 'imeiEquipamento', 'telefone', 'operadora', 'imeiSimCard')
         widgets = {
             'id': TextInput(attrs={'readonly': 'True'}),
+            'idEquipamento': TextInput(attrs={'class':'eq_mask', 'readonly': 'True', 'placeholder': ''}),
             'imeiEquipamento': TextInput(attrs={'class': 'imeiTracker'}),
             'telefone': TextInput(attrs={'class': 'phone'}),
             'imeiSimCard': TextInput(attrs={'class': 'imeiSimCard'}),
             }
-
 
 ###################################################################################################
 # Formulário Caixa:
@@ -26,8 +26,10 @@ class CaixaForm(forms.ModelForm):
        fields = ('idCaixa', 'autorizacao', 'corCaixa', 'informacaoAdicional')
        widgets = {
                 'id': TextInput(attrs={'readonly': 'True'}),
-                   'corCaixa': TextInput(attrs={'type': 'color'}),
-                   }
+                'idCaixa': TextInput(attrs={'class':'cx_mask', 'readonly': 'True', 'placeholder': ''}),
+                'corCaixa': TextInput(attrs={'type': 'color'}),
+                'informacaoAdicional': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,200,'spcontando');contarCaracteres(this.value,200,'sprestante')"}),
+                }
 
 ###################################################################################################
 # Formulário Hospital:
@@ -49,6 +51,16 @@ class HospitalForm(forms.ModelForm):
 ###################################################################################################
 # Formulário Viagem:
 class ViagemForm(forms.ModelForm):
-   class Meta:
+    class Meta:
        model = Viagem
-       fields = ('localPartida', 'localChegada', 'caixa', 'equipamento')
+       fields = ('status', 'localPartida', 'localChegada', 'caixa', 'equipamento', 'nomeTransportador', 'contato', 'obs', 'dataInicio', 'dataFim')
+       widgets = {
+           'contato': TextInput(attrs={'class': 'phone'}),
+           'obs': Textarea(attrs={'rows':'5', 'onkeyup':"mostrarResultado(this.value,500,'spcontando');contarCaracteres(this.value,500,'sprestante')"}),
+           'dataInicio': DateTimeWidget(usel10n=True, attrs = {'data-readonly': 'false'}),
+           'dataFim': DateTimeWidget(usel10n=True, attrs = {'data-readonly': 'false'})
+           }
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField(label = '' , widget = forms.FileInput(attrs={'accept':"*.*", 'class':'custom-file-input'}))

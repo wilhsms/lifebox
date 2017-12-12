@@ -1,6 +1,12 @@
-Django
+Django==1.11.7
 django-bootstrap4
-gunicorn
-psycopg2
 whitenoise
 djangorestframework
+#pylint
+django-import-export
+django-easy-audit
+#django-extensions
+#pyparsing
+#pydot
+#graphviz
+django-datetime-widget

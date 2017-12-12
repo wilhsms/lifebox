@@ -1,22 +1,16 @@
-{% extends "base.html" %}
-{% load staticfiles %} {% load account_tags %} <!--O que isso faz?-->
-{% block title %}LifeBox - Viagens Realizadas{% endblock %}
-{% block custom_js %}
-<!--Este bloco é destinado a biblioteca datatables-->
-<link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}" >
-<script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
-<script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static '/js/datatables/config.js' %}"></script>
-{% endblock%}
-
+{% extends "cadastro_base.html" %}
+{% block title %}LifeBox - Viagens{% endblock %}
 {% block content %}
+
 <div class="jumbotron">
   <h2><i class="glyphicon glyphicon-plane"></i> Viagens</h2>
   <div class="row">
     <div class="col-sm-12">
-      <div class="btn-group">
-        <a href="{% url 'viagem_criar' %}" class="btn btn-success my-2 my-sm-0"><span class="fa fa-plus"></span> Novo </a>
-      </div>
+        <div class="btn-group">
+            <a href="{% url 'viagem_criar' %}" class="btn btn-success my-2 my-sm-0"><span class="fa fa-plus"></span> Novo </a>
+            <a href="{% url 'viagem_exportar' %}" class="btn btn-success my-2 my-sm-0"><span class="fa fa-download"></span> Exportar </a>
+        </div>
+
     </div>
   </div>
   <hr>
@@ -44,12 +38,31 @@
         <td>{{viagem.localChegada}}</td>
         <td>{{viagem.caixa}}</td>
         <td>{{viagem.equipamento}}</td>
-        <td>{{viagem.status.dscStatus}}</td>
+        <td>
+          {% if viagem.status == '1'  %}
+          Em Elaboração
+          {% elif  viagem.status == '2' %}
+          Aguardando Viagem
+          {% elif  viagem.status == '3' %}
+          Viagem Iniciada
+          {% elif  viagem.status == '4' %}
+          Viagem Finalizada
+          {% else%}
+          -
+          {% endif %}
+          </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#busca').DataTable().destroy();
+    
+    options["ordering"] = false;
+    
+    $('#busca').DataTable(options);
+  });
+</script>
 {% endblock %}
-

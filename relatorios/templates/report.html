@@ -1,28 +1,150 @@
 {% extends "base.html" %}
 <!---->
-{% load account_tags %}
+{% load account_tags %} {% load staticfiles %}
 <!---->
 {% load bootstrap4 %}
 <!---->
 {% block title %}LifeBox - Mapas {% endblock %}
 <!---->
-{% block content %}
-<div class="jumbotron">
-  <form action="#" method="post">
-    <div class="row">
-      <div class="col-sm-12">
 
+{% block custom_js %}
+<!--Este bloco é destinado a biblioteca datatables-->
+<link rel="stylesheet" href="{% static '/js/datatables/jquery.dataTables.min.css' %}">
+<script src="{% static '/js/datatables/jquery-1.12.4.js' %}"></script>
+<script src="{% static '/js/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/locale/pt-br.js"></script>
+<script src="{% static '/js/relatorios.js' %}"></script>
+<script>
+  var bootstrap = '{% bootstrap_css %}';
+  var relatorio_estilos = '<link href="{% static "css/relatorios.css" %}" rel="stylesheet"/>'+
+  '<link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">';
+</script>
+
+<link href="{% static 'css/relatorios.css' %}" rel="stylesheet"> {% endblock%} {% block content %}
+<div class="jumbotron">
+  <fieldset>
+    <legend>Tela de Relatorios</legend>
+    <!--Inicio forme responsável pelos option select-->
+    <form method="post" class="form-group" action="{% url 'exibir_relatorios' %}">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="caixa" class="form-text">Caixa:</label>
+          <select class="custom-select col-md-12" name="caixa">
+              <option class="form-control"</option>
+              {%for caixa in caixas%}
+              <option class="form-control" value="{{caixa.id}}">{{caixa.idCaixa}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <div class="col-sm-6">
+          <label for="equipamento" class="form-text">Equipamento:</label>
+          <select class="custom-select col-md-12" name="equipamento">
+              <option class="form-control"></option>
+              {%for equipamento in equipamentos%}
+              <option class="form-control" value="{{equipamento.id}}">{{equipamento.idEquipamento}}</option>
+              {% endfor %}
+            </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="hospital_saida" class="form-text">Saída:</label>
+          <select class="custom-select col-md-12" name="hospital_saida">
+              <option class="form-control"></option>
+              {%for hospital_saida in hospitais%}
+              <option class="form-control" value="{{hospital_saida.id}}">{{hospital_saida.nome}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <div class="col-sm-6">
+          <label for="hospital_chegada" class="form-text">Chegada:</label>
+          <select class="custom-select col-md-12" name="hospital_chegada">
+              <option class="form-control"></option>
+              {%for hospital_chegada in hospitais%}
+              <option class="form-control" value="{{hospital_chegada.id}}">{{hospital_chegada.nome}}</option>
+              {% endfor %}
+            </select>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-2 offset-md-10">
+          <input type="submit" id="gerar_relatorio" class="btn btn-primary" value="Gerar relatório">
+        </div>
+      </div>
+    </form>
+    <!--Fim forme responsável pelos option select-->
+    <!--Inicio tabela de relatóp-->
+    <table id="busca" class="display nowrap" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Local de Partida</th>
+          <th>Local de Chegada</th>
+          <th>Caixa</th>
+          <th>Equipamento</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for viagem in viagens %}
+        <tr>
+          <td>
+            <a href="{% url 'viagem_pesquisar' %}{{viagem.id}}">
+                <span class="glyphicon glyphicon-edit"> </span>{{viagem.id}}
+              </a>
+          </td>
+          <td>{{viagem.localPartida}}</td>
+          <td>{{viagem.localChegada}}</td>
+          <td>{{viagem.caixa}}</td>
+          <td>{{viagem.equipamento}}</td>
+          <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="openModal({{viagem.id}}); return false;">Detalhar</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!--Inicio modal-->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <!--Inicio cabeçalho modal inicio-->
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Detalhes da viagem</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--Fim cabeçalho modal inicio-->
+          <!--Inicio corpo modal inicio-->
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-7">
+                <img class="imagem_relatorio_modal" src="{% static 'images/logo_lifebox.png' %}">
+              </div>
+              <div class="col-md-5 texto_modal texto_cabeçalho">
+                <h2><b>LifeBox</b></h2>
+                <h5><i>Relatório Detalhado da Viagem</i></h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div id="modal_relatorio">
+                  <!--Conteudo do modal setado via javascript-->
+                </div>
+              </div>
+            </div>
+          </div>          
+          <!--Fim corpo modal inicio-->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btnImprimir">Imprimir</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+          </div>
+          <!--Fim rodapé modal inicio-->
+        </div>
       </div>
     </div>
-    <hr> {% csrf_token %}
-
-    <fieldset>
-      <legend>Tela de Relatorios</legend>
-
-
-
-    </fieldset>
-  </form>
+  </fieldset>
 </div>
-
 {% endblock %}

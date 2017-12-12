@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block title %}Crie uma conta{% endblock %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>Cadastre-se</h1>
+        <p>Crie uma conta</p>
+    </div>
+
+    <form action="." method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form user_form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                Criar conta
+            </button>
+        {% endbuttons %}
+    </form>
+{% endblock %}
+
+<!-- Adicionado ao nome do arquivo a palavra lixo__ -->

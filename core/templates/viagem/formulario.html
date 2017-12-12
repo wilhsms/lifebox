@@ -1,44 +1,147 @@
-{% extends "base.html" %}
-{% load staticfiles %}
-{% load bootstrap4 %}
-{% block title %}LifeBox - Nova Viagem{% endblock%}
-{% block content %}
-<div class="jumbotron">
-  <h2><i class="glyphicon glyphicon-plane"></i> Adicionar Nova Viagem</h2>
+{% extends "base.html" %} {% load staticfiles %} {% load bootstrap4 %} {% block title %}LifeBox - Nova Viagem{% endblock%}
+{% block custom_css %}
+<style type="text/css">
+  #customFile .custom-file-control:lang(en)::after {
+    content: "Selecione um arquivo csv...";
+  }
 
-  <form method="post">
+  #customFile .custom-file-control:lang(en)::before {
+    content: "Buscar";
+  }
+
+  /*when a value is selected, this class removes the content */
+
+  .custom-file-control.selected:lang(en)::after {
+    content: "" !important;
+  }
+
+  .custom-file {
+    overflow: hidden;
+  }
+
+  .custom-file-control {
+    white-space: nowrap;
+  }
+  
+</style>
+{% endblock %} {% block custom_js %}
+<script src="{% static 'js/mask/mascaras.js' %}"></script>
+<script src="{% static 'js/mask/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'js/context/contador.js' %}"></script> 
+<script src="{% static 'js/viagem/disabledHospitalDestino.js' %}"></script> 
+{{ form.media }}
+{% endblock%} {% block content %}
+<div class="jumbotron">
+  <h2>
+    <i class="glyphicon glyphicon-plane"></i> Adicionar Nova Viagem</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class="row">
       <div class="col-sm-12">
         <div class="btn-group">
-          <button type="submit" class="btn btn-success my-2 my-sm-0"><span class="fa fa-check"></span> Salvar </button>
-          <a href="{% url 'viagem_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar </a>
+          <button type="submit" class="btn btn-success my-2 my-sm-0">
+            <span class="fa fa-check"></span> Salvar </button>
+          {% if uploadform != None and form.status.value == '4'%}
+          <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal" data-target="#modalUpload">
+             <span class="fa fa-cloud-upload"></span> Carregar Dados</button>
+          {%endif%}
+          {% if form.instance.pk != None and form.status.value == '1'%}
+          <a href="{% url 'status_editar' pk=form.instance.pk cod=3 %}" class="btn btn-info my-2 my-sm-0">
+            <span class="fa fa-play"></span> Iniciar Viagem </a>
+          {%endif%}
+          
+          {% if form.instance.pk != None and form.status.value == '3'%}
+          <a href="{% url 'status_editar' pk=form.instance.pk cod=4 %}" class="btn btn-info my-2 my-sm-0">
+            <span class="fa fa-stop"></span> Finalizar Viagem </a>
+          {%endif%}
+          <a href="{% url 'viagem_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0">
+            <span class="fa fa-undo"></span> Voltar </a>
         </div>
       </div>
     </div>
-    <hr> 
-    {% csrf_token %} 
+    <hr>
     <div class="row">
-      <div class="col-sm-6">
-        {% bootstrap_field form.localPartida%}
-      </div>
-      <div class="col-sm-6">
-        {% bootstrap_field form.localChegada%}
-      </div>
+      <div class="col-sm-4">{% bootstrap_field form.localPartida%}</div>
+      <div class="col-sm-4">{% bootstrap_field form.localChegada%}</div>
+      <div class="col-sm-2">{% bootstrap_field form.caixa%}</div>
+      <div class="col-sm-2">{% bootstrap_field form.equipamento%}</div>
     </div>
+
     <div class="row">
-      <div class="col-sm-6">
-        {% bootstrap_field form.caixa%}
-      </div>
-      <div class="col-sm-6">
-        {% bootstrap_field form.equipamento%}
+      <div class="col-sm-4">{% bootstrap_field form.nomeTransportador%}</div>
+      <div class="col-sm-2">{% bootstrap_field form.contato%}</div>
+      <div class="col-sm-3">{% bootstrap_field form.dataInicio%}</div>
+      <div class="col-sm-3">{% bootstrap_field form.dataFim%}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">{% bootstrap_field form.obs %}
+        <font size="2">
+          <p class="text-right">
+            <span id="spcontando"></span>
+            <span id="sprestante">.</span>
+          </p>
+        </font>
       </div>
     </div>
-    <div class="btn-group">
-      <button type="submit" class="btn btn-success my-2 my-sm-0"><span class="fa fa-check"></span> Salvar </button>
-      <a href="{% url 'viagem_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar </a>
-    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="btn-group">
+          <button type="submit" class="btn btn-success my-2 my-sm-0">
+            <span class="fa fa-check"></span> Salvar </button>
+          {% if uploadform != None and form.status.value == '4'%}
+          <button type="button" class="btn btn-info my-2 my-sm-0" data-toggle="modal" data-target="#modalUpload">
+             <span class="fa fa-cloud-upload"></span> Carregar Dados</button>
+          {%endif%}
+          {% if form.instance.pk != None and form.status.value == '1'%}
+          <a href="{% url 'status_editar' pk=form.instance.pk cod=3 %}" class="btn btn-info my-2 my-sm-0">
+            <span class="fa fa-play"></span> Iniciar Viagem </a>
+          {%endif%}
+          
+          {% if form.instance.pk != None and form.status.value == '3'%}
+          <a href="{% url 'status_editar' pk=form.instance.pk cod=4 %}" class="btn btn-info my-2 my-sm-0">
+            <span class="fa fa-stop"></span> Finalizar Viagem </a>
+          {%endif%}
+          <a href="{% url 'viagem_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0">
+            <span class="fa fa-undo"></span> Voltar </a>
+        </div>
+
+      </div>
+
+      {% if uploadform != None%}
+      <div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Carregar Arquivo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label class="custom-file" id="customFile">
+                    {{ uploadform.file }}
+                    <span class="custom-file-control form-control-file"></span>
+                  </label>
+                </div>
+              </div>
+              {% bootstrap_button "Enviar" button_type="submit" button_class="btn-primary" %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
   </form>
-</div>
 
-{% endblock %}
-
+  <script type="text/javascript">
+    $('.custom-file-input').on('change', function () {
+      $(this).next('.form-control-file').addClass("selected").html($(this).val());
+    })
+  </script>
+  </div>
+  {% endblock %}

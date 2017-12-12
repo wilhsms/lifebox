@@ -6,6 +6,14 @@
 {% block custom_js %}
   <script src="{% static 'js/mask/mascaras.js' %}"></script>
   <script src="{% static 'js/mask/jquery.maskedinput.min.js' %}"></script>
+  <script src="{% static 'lib/leaflet/leaflet.js' %}"></script>
+  <script src="{% static 'lib/leaflet.awesome-markers/leaflet.awesome-markers.min.js' %}"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+{% endblock%}
+{% block custom_css %}
+  <link rel="stylesheet" href="{% static 'lib/leaflet/leaflet.css' %}">
+  <link rel="stylesheet" href="{% static 'lib/leaflet.awesome-markers/leaflet.awesome-markers.css' %}">
+  <link rel="stylesheet" href="{% static 'css/maps/maps.css' %}">
 {% endblock%}
 {% block content %}
 <div class="jumbotron">
@@ -16,36 +24,77 @@
       <div class="col-sm-12">
         <div class="btn-group">
           <button type="submit" class="btn btn-success my-2 my-sm-0"><span class="fa fa-check"></span> Salvar </button>
+          {% if form.instance.id %}
+          <a href="javascript: openModal();" class="btn btn-success my-2 my-sm-0">
+            <span class="fa fa-check"></span> Localizar Equipamento</a>
+          {% endif %}
           <a href="{% url 'equipamento_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar </a>
         </div>
       </div>
     </div>
+
     <hr>
+
     {% csrf_token %}
     <div class="row">
-      <div class="col-sm-3">
-        {% bootstrap_field form.nome%}
-      </div>
-      <div class="col-sm-6">
-        {% bootstrap_field form.imeiEquipamento%}
-      </div>
+      <div class="col-sm-2">{% bootstrap_field form.idEquipamento%}</div>
+      <div class="col-sm-3">{% bootstrap_field form.imeiEquipamento%}</div>
     </div>
+
     <div class="row">
-      <div class="col-sm-3">
-        {% bootstrap_field form.operadora%}
-      </div>
-      <div class="col-sm-4">
-        {% bootstrap_field form.telefone%}
-      </div>
-      <div class="col-sm-4">
-        {% bootstrap_field form.imeiSimCard%}
+      <div class="col-sm-2">{% bootstrap_field form.operadora%}</div>
+      <div class="col-sm-2">{% bootstrap_field form.telefone%}</div>
+      <div class="col-sm-4">{% bootstrap_field form.imeiSimCard%}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="btn-group">
+          <button type="submit" class="btn btn-success my-2 my-sm-0"><span class="fa fa-check"></span> Salvar </button>
+          {% if form.instance.id %}
+          <a href="javascript: openModal();" class="btn btn-success my-2 my-sm-0">
+            <span class="fa fa-check"></span> Localizar Equipamento</a>
+          {% endif %}
+          <a href="{% url 'equipamento_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar </a>
+        </div>
       </div>
     </div>
-    <div class="btn-group">
-      <button type="submit" class="btn btn-success my-2 my-sm-0"><span class="fa fa-check"></span> Salvar </button>
-      <a href="{% url 'equipamento_pesquisar' %}" class="btn btn-secondary my-2 my-sm-0"><span class="fa fa-undo"></span> Voltar </a>
-    </div>
+
   </form>
+
+{% if form.instance.id %}
+  <div class="modal fade" id="modalMapaEquipamento" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Localizar Equipamento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="map" style="height:500px !important; position:relative"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'js/equipamento/localizarNoMapa.js' %}"></script>
+  <script type="text/javascript">
+    initmap({{form.instance.id}});
+
+    function openModal(){
+      $('#modalMapaEquipamento').modal('show');
+    }
+  </script>
+
+{% endif %}
 </div>
+
+
 
 {% endblock %}

@@ -1,8 +1,10 @@
-$(document).ready(function() { $('#busca').DataTable({
+var options = {
   "scrollY": 210, //ativa rolagem vertical - valor define o altura da tabela em px
   "scrollX": true, // ativa barra de rolagem horizontal, quando necessário
   "scrollCollapse": true, // não sei, ainda
   "paging": true, // ativa pagnação da tabela
+  "ordering": true,
+  "info":     true,
 
   "aLengthMenu": [[05, 10, 25, 50, 75, 100, -1], [05, 10, 25, 50, 75, 100, "All"]], // opções para quantidade de linhas exibidas
   "iDisplayLength": 10, // padrão para inicio da tabela esta função não funciona com stateSave =true
@@ -34,4 +36,8 @@ $(document).ready(function() { $('#busca').DataTable({
         "sSortDescending": ": Ordenar colunas de forma descendente"
               }
             }
- } ); } );
+ }
+
+$(document).ready(function() { 
+  $('#busca').DataTable(options); 
+});

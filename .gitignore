@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+**/*.pyc
+*.pyc
 
 # C extensions
 *.so
@@ -15,7 +17,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+#lib/
 lib64/
 parts/
 sdist/
@@ -86,6 +88,9 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
+env/
+myenv/
+myvenv/
 
 # Spyder project settings
 .spyderproject
@@ -100,6 +105,18 @@ ENV/
 # mypy
 .mypy_cache/
 
-
 # SqLite DataBase#
-db.sqlite3
+*.sqlite3
+
+#VSCode
+.vscode/
+
+#Files Folders
+media/
+testeexp/
+upload/
+uploads/
+_uploloads/
+
+# Migrations
+migrations/

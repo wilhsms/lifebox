@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load account_tags %}
+{% block title %}LifeBox{% endblock %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>Olá {{ request.user.first_name }}, Seja Bem Vindo!</h1>
+
+        <p>Esta é a tela de inicio</p>
+        <em>localizada em account/templates/account/<b>dashboard.html</b></em>
+        <br>
+        <em></em>
+
+        <br/><br/><hr/>
+
+        Até o momento <b> {% total_people%} </b> pessoas tentaram acessar este painel de controle.
+    </div>
+
+
+
+
+{% endblock %}
+
+<!-- Adicionado ao nome do arquivo a palavra lixo__ -->

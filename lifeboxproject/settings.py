@@ -44,20 +44,28 @@ INSTALLED_APPS = [
     'monitoramento',
     'relatorios',
     'rest_framework',
-    'api'
+    'api',
+    'import_export',
+    'easyaudit',
+    #'django_extensions',
+    'datetimewidget'
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
 ]
 
 ROOT_URLCONF = 'lifeboxproject.urls'
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+IMPORT_EXPORT_SKIP_ADMIN_LOG = False
+IMPORT_EXPORT_TMP_STORAGE_CLASS = "import_export.tmp_storages.MediaStorage"
 
 TEMPLATES = [
     {
@@ -125,12 +133,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     os.path.join(MASTER_BASE_DIR, 'static'),
 )
 
-LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
+LOGIN_REDIRECT_URL = reverse_lazy('exibir_mapa')
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 
@@ -161,7 +172,13 @@ BOOTSTRAP4 = {
 
 # REST_FRAMEWORK CONFIG
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'COERCE_DECIMAL_TO_STRING': False,
 }
+
+# MANIPULADORES DE UPLOADS DE ARQUIVOS
+FILE_UPLOAD_HANDLERS = [
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler"
+]

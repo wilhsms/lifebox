@@ -2,6 +2,7 @@
 from django.conf.urls import url
 from relatorios import views
 
+
 urlpatterns = [
-    url(r'^relatorios/$', views.relatorios, name='exibir_relatorios'),
+    url(r'', views.relatorios, name='exibir_relatorios'),
 ]
