@@ -41,7 +41,7 @@ class DetalheViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def get_insere(request):
     '''Api temporária para recebimento de dados do arduino no formato atualmente utilizado pela equipe de engenharia.'''
-    
+
     if request.query_params.get('content'):
         content = request.query_params['content']
         if content:
@@ -53,7 +53,13 @@ def get_insere(request):
             meio = (array[0][5:])[:5]
 
             imei = ".".join((inicio, meio, fim))
-            
+
+            #formatar data:
+            try:
+                data = datetime.strptime(array[9], "%Y-%m-%d %H:%M:%S")
+            except ValueError:
+                data = datetime.strptime(array[9], "%Y-%m-%d")
+
             detalhe = Detalhe.criar(
                 imei,# Imei do Equipamento
                 Decimal(array[1]),# Temperatura interna
@@ -64,23 +70,23 @@ def get_insere(request):
                 Decimal(array[6]),# longitude
                 Decimal(array[7]),# elevacao
                 Decimal(array[8]),# velocidade
-                datetime.strptime(array[9], "%Y-%m-%d %H:%M:%S"),# data_hora
+                data,# data_hora
                 )
-            
+
             #busca o equipamento associado:
-            equipamento = Equipamento.objects.filter(imeiEquipamento = array[0]).first()
-            
+            equipamento = Equipamento.objects.filter(imeiEquipamento = imei).first()
+
             #busca uma viagem em andamento com o equipamento encontrado
             viagem = Viagem.objects.filter(status = 3, equipamento = equipamento).first()
-            
+
             if equipamento:
                 detalhe.equipamento = equipamento
-            
+
             if viagem:
                 detalhe.viagem = viagem
-            
+
             detalhe.save(force_insert=True)
-            
+
             return Response("OK", status=status.HTTP_200_OK);
-        
+
     return Response(status=status.HTTP_404_NOT_FOUND);
